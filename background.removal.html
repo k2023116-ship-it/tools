@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Background Remover — Toolify</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
+<style>
+  :root{
+    --bg: #0b1020; --card: rgba(255,255,255,0.04);
+    --card-2: rgba(255,255,255,0.06); --text: #e6eef8; --muted:#9fb0c8;
+    --accent: #7c5cff; --accent-2:#22d3ee;
+    --radius: 14px; --shadow: 0 8px 30px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%; margin:0; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;}
+  body{
+    background:
+      radial-gradient(800px 300px at 10% -10%, rgba(124,92,255,.14), transparent 60%),
+      radial-gradient(700px 300px at 110% 20%, rgba(34,211,238,.08), transparent 60%),
+      var(--bg);
+    color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    padding:28px;
+  }
+
+  .wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:20px}
+  @media (max-width:1000px){ .wrap{grid-template-columns:1fr; padding:0 18px} }
+
+  header.card{
+    grid-column: 1 / -1; display:flex; align-items:center; justify-content:space-between;
+    gap:16px; padding:14px; border-radius:var(--radius); background: linear-gradient(180deg,var(--card),var(--card-2));
+    box-shadow: var(--shadow); border:1px solid rgba(255,255,255,0.04);
+  }
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;
+    background:conic-gradient(from 180deg,var(--accent),var(--accent-2));box-shadow:0 6px 20px rgba(124,92,255,.18)}
+  h1{font-size:18px;margin:0}
+  .sub{color:var(--muted);font-size:13px}
+
+  /* Left main panel */
+  .panel.card{padding:18px}
+  .drop{
+    border-radius:12px;border:2px dashed rgba(255,255,255,0.06); padding:22px; text-align:center; cursor:pointer;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  }
+  .drop.drag{border-color: rgba(124,92,255,.8); box-shadow:0 8px 30px rgba(124,92,255,.06)}
+  .drop p{margin:8px 0;color:var(--muted)}
+  input[type=file]{display:none}
+
+  .controls{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+  .btn{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#031025; padding:10px 14px;border-radius:10px;
+    font-weight:700; border:none; cursor:pointer; box-shadow:0 8px 30px rgba(34,211,238,0.06);
+  }
+  .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+  .small{font-size:13px;padding:8px 10px;border-radius:8px}
+
+  .preview-wrap{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap}
+  .canvas-wrap{flex:1;min-height:360px;background:#07101b;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:grid;place-items:center;padding:10px}
+  .thumbs{width:140px;display:flex;flex-direction:column;gap:10px}
+  .thumbs img{width:140px;height:140px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,0.06)}
+
+  .options{margin-top:14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  select,input[type=range]{background:rgba(255,255,255,0.02);color:var(--text);border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px}
+
+  /* right panel */
+  aside.card{padding:18px;position:relative}
+  aside h3{margin:0 0 8px 0;color:var(--accent)}
+  .api-box{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03)}
+  label.switch{display:flex;gap:8px;align-items:center;cursor:pointer}
+  .switch input{appearance:none;width:44px;height:24px;border-radius:999px;background:#0f1720;position:relative;border:1px solid rgba(255,255,255,0.06)}
+  .switch input:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:999px;background:#fff;transition:all .18s}
+  .switch input:checked{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+  .switch input:checked:after{left:23px}
+
+  .muted-note{color:var(--muted);font-size:13px;margin-top:10px}
+  .progress{height:10px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden;margin-top:12px}
+  .progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s}
+
+  .result-preview{margin-top:12px;display:grid;gap:8px}
+  .result-preview img{max-width:100%;border-radius:8px;border:1px solid rgba(255,255,255,0.05)}
+
+  footer{grid-column:1/-1;margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="card">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🖼️</div>
+        <div>
+          <h1>Background Remover</h1>
+          <div class="sub">Remove background from images — API mode (best) or local demo (offline)</div>
+        </div>
+      </div>
+      <div class="sub muted">Tip: For best results use API mode with a server-side proxy to keep API keys safe.</div>
+    </header>
+
+    <!-- main left -->
+    <main class="panel card">
+      <div id="dropzone" class="drop" tabindex="0">
+        <strong>Drop image here</strong>
+        <p>or click to browse • Paste an image (Ctrl/⌘+V) • Supports JPG/PNG/WebP</p>
+        <input id="fileInput" type="file" accept="image/*" multiple>
+      </div>
+
+      <div class="controls">
+        <button id="removeBtn" class="btn" title="Remove background from current image" disabled>Remove Background</button>
+        <button id="downloadBtn" class="btn ghost" disabled>Download PNG</button>
+        <button id="clearBtn" class="btn ghost small" disabled>Clear</button>
+
+        <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+          <label class="small muted-note">Preview scale</label>
+          <select id="previewScale" class="small">
+            <option value="1">1×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="preview-wrap">
+        <div class="canvas-wrap">
+          <canvas id="mainCanvas"></canvas>
+        </div>
+        <div class="thumbs">
+          <img id="thumbOriginal" alt="original" />
+          <img id="thumbResult" alt="result" />
+        </div>
+      </div>
+
+      <div class="options">
+        <div>
+          <label class="muted-note">Local algorithm strength: <span id="strengthLabel">18</span></label><br>
+          <input id="threshold" type="range" min="6" max="120" value="18">
+        </div>
+        <div>
+          <label class="muted-note">Tolerance (color distance): <span id="tolLabel">40</span></label><br>
+          <input id="tolerance" type="range" min="10" max="180" value="40">
+        </div>
+        <div style="margin-left:auto">
+          <label class="muted-note">Auto-detect bg color</label><br>
+          <button id="autoDetect" class="btn ghost small">Detect</button>
+        </div>
+      </div>
+
+      <div id="notes" class="muted-note" style="margin-top:12px">
+        Local mode works best for plain backgrounds (white/green/blue). For complex images use API mode.
+      </div>
+    </main>
+
+    <!-- right/controls -->
+    <aside class="card">
+      <h3>Mode & API</h3>
+      <div class="api-box">
+        <label style="display:flex;align-items:center;gap:10px">
+          <input type="checkbox" id="useApi" />
+          <strong>Use RemoveBG-style API</strong>
+        </label>
+        <div style="margin-top:8px">
+          <input id="apiKey" type="text" placeholder="Paste API key (optional)" style="width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+        </div>
+        <div class="muted-note">If you enter key here and enable API, requests will be sent from the browser (exposes key). Ideal: use server proxy to hide key.</div>
+        <div class="muted-note" style="margin-top:8px">
+          Example API endpoint expected (POST multipart/form-data):
+          <br><code style="color:var(--muted)">POST https://api.remove.bg/v1.0/removebg</code>
+        </div>
+      </div>
+
+      <div style="margin-top:14px">
+        <button id="tryApiBtn" class="btn small">Test API (small)</button>
+      </div>
+
+      <h3 style="margin-top:18px">Progress</h3>
+      <div class="progress"><div id="progressBar"></div></div>
+      <div id="status" class="muted-note" style="margin-top:10px">Idle</div>
+
+      <div class="result-preview" id="resultBox" aria-live="polite"></div>
+    </aside>
+
+    <footer>Built with canvas + optional API • Keep API keys on server for safety</footer>
+  </div>
+
+<script>
+/*
+Full Background Remover single-file app.
+- API mode: sends image to remove.bg API and shows returned PNG.
+- Local mode: simple color-distance alpha mask for plain backgrounds.
+Notes: Using the API key client-side exposes it. For production, use a server proxy.
+*/
+
+// Elements
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const mainCanvas = document.getElementById('mainCanvas');
+const ctx = mainCanvas.getContext('2d');
+const thumbOriginal = document.getElementById('thumbOriginal');
+const thumbResult = document.getElementById('thumbResult');
+
+const removeBtn = document.getElementById('removeBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const clearBtn = document.getElementById('clearBtn');
+
+const threshold = document.getElementById('threshold');
+const tolerance = document.getElementById('tolerance');
+const strengthLabel = document.getElementById('strengthLabel');
+const tolLabel = document.getElementById('tolLabel');
+
+const useApi = document.getElementById('useApi');
+const apiKey = document.getElementById('apiKey');
+const tryApiBtn = document.getElementById('tryApiBtn');
+
+const progressBar = document.getElementById('progressBar');
+const status = document.getElementById('status');
+const resultBox = document.getElementById('resultBox');
+const previewScale = document.getElementById('previewScale');
+const autoDetectBtn = document.getElementById('autoDetect');
+
+let currentFile = null;
+let resultBlobUrl = null;
+let workerRunning = false;
+
+// ----------------- USER-PROVIDED API KEY (from your message) -----------------
+// NOTE: This places your key directly into the page. Remove or replace with empty
+// string if you don't want the key embedded client-side.
+apiKey.value = '71m6bYZ5RMJYCoSaQSsKggLS';
+useApi.checked = true; // default to API mode since you provided a key
+// ---------------------------------------------------------------------------
+
+// Update UI labels
+threshold.addEventListener('input', ()=> strengthLabel.textContent = threshold.value);
+tolerance.addEventListener('input', ()=> tolLabel.textContent = tolerance.value);
+
+// Drag & drop
+['dragenter','dragover'].forEach(ev => {
+  dropzone.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('drag'); });
+});
+['dragleave','drop'].forEach(ev => {
+  dropzone.addEventListener(ev, e => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('drag'); });
+});
+dropzone.addEventListener('click', ()=> fileInput.click());
+dropzone.addEventListener('drop', e => {
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if(f) loadFile(f);
+});
+
+// File input
+fileInput.addEventListener('change', (e) => {
+  const f = e.target.files && e.target.files[0];
+  if(f) loadFile(f);
+});
+
+// Paste
+document.addEventListener('paste', e => {
+  const items = e.clipboardData && e.clipboardData.items;
+  if(!items) return;
+  for(const it of items){
+    if(it.type && it.type.indexOf('image') === 0){
+      const f = it.getAsFile();
+      if(f) loadFile(f);
+    }
+  }
+});
+
+// Buttons
+removeBtn.addEventListener('click', onRemove);
+downloadBtn.addEventListener('click', ()=>{/* handled by showDownload() when result ready */});
+clearBtn.addEventListener('click', resetAll);
+tryApiBtn.addEventListener('click', testApi);
+previewScale.addEventListener('change', ()=> reRenderPreview());
+autoDetectBtn.addEventListener('click', autoDetectBackground);
+
+// Helpers: status/progress
+function setStatus(s){ status.textContent = s; }
+function setProgress(p){ progressBar.style.width = `${p}%`; }
+
+// Load image file and render preview
+async function loadFile(file){
+  resetResult();
+  currentFile = file;
+  const url = URL.createObjectURL(file);
+  thumbOriginal.src = url;
+  thumbResult.src = '';
+  setStatus('Loading image…');
+  try {
+    await renderToCanvas(url);
+    enableControls(true);
+    setStatus('Ready');
+  } catch(e){
+    console.error(e);
+    setStatus('Failed to load image');
+    alert('Could not load image: ' + (e.message || e));
+  }
+}
+
+// (re)render currentFile into canvas with current previewScale
+async function reRenderPreview(){
+  if(!currentFile) return;
+  setStatus('Re-rendering preview…');
+  const url = URL.createObjectURL(currentFile);
+  await renderToCanvas(url);
+  setStatus('Ready');
+}
+
+// render chosen image on canvas (scaled to fit)
+async function renderToCanvas(srcUrl){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      // choose preview scale factor to fit large images
+      const scaleUser = Number(previewScale.value) || 1;
+      // limit canvas to reasonable size for performance
+      const maxW = 1600, maxH = 1100;
+      let w = img.width, h = img.height;
+      const s = Math.min(1, maxW / w, maxH / h);
+      w = Math.round(w * s * scaleUser); h = Math.round(h * s * scaleUser);
+      mainCanvas.width = w; mainCanvas.height = h;
+      ctx.clearRect(0,0,w,h);
+      ctx.drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(srcUrl);
+      resolve();
+    };
+    img.onerror = (err) => {
+      URL.revokeObjectURL(srcUrl);
+      reject(err);
+    };
+    img.src = srcUrl;
+  });
+}
+
+// enable/disable controls
+function enableControls(enable){
+  removeBtn.disabled = !enable;
+  downloadBtn.disabled = !enable;
+  clearBtn.disabled = !enable;
+}
+
+// Clear everything
+function resetAll(){
+  if(currentFile && currentFile.objectUrl) URL.revokeObjectURL(currentFile.objectUrl);
+  if(resultBlobUrl) URL.revokeObjectURL(resultBlobUrl);
+  currentFile = null;
+  resultBlobUrl = null;
+  mainCanvas.width = mainCanvas.height = 0;
+  thumbOriginal.src = thumbResult.src = '';
+  resultBox.innerHTML = '';
+  enableControls(false);
+  setStatus('Idle'); setProgress(0);
+}
+
+// clear previous result only
+function resetResult(){
+  if(resultBlobUrl){ URL.revokeObjectURL(resultBlobUrl); resultBlobUrl = null; }
+  thumbResult.src = '';
+  resultBox.innerHTML = '';
+  downloadBtn.disabled = true;
+  setProgress(0);
+}
+
+// Core: remove background
+async function onRemove(){
+  if(!currentFile) return;
+  if(workerRunning){ alert('A job is already running.'); return; }
+
+  setStatus('Starting…'); setProgress(5);
+  workerRunning = true;
+
+  try{
+    if(useApi.checked && apiKey.value.trim()){
+      // API mode (browser -> API).
+      setStatus('Sending to API…');
+      setProgress(15);
+      const blob = await callRemoveBgApi(currentFile, apiKey.value.trim());
+      if(!blob) throw new Error('API did not return image');
+      if(resultBlobUrl) URL.revokeObjectURL(resultBlobUrl);
+      resultBlobUrl = URL.createObjectURL(blob);
+      thumbResult.src = resultBlobUrl;
+      await renderResultCanvas(resultBlobUrl);
+      setProgress(100); setStatus('Done (API)');
+      showDownload(blob);
+    } else {
+      // Local mask algorithm (fast, simple)
+      setStatus('Applying local mask…');
+      setProgress(15);
+      const outBlob = await simpleLocalRemove(currentFile);
+      if(resultBlobUrl) URL.revokeObjectURL(resultBlobUrl);
+      resultBlobUrl = URL.createObjectURL(outBlob);
+      thumbResult.src = resultBlobUrl;
+      await renderResultCanvas(resultBlobUrl);
+      setProgress(100); setStatus('Done (Local)');
+      showDownload(outBlob);
+    }
+  }catch(err){
+    console.error(err);
+    alert('Error: ' + (err.message || err));
+    setStatus('Error: ' + (err.message || 'unknown'));
+  } finally {
+    workerRunning = false;
+    setTimeout(()=> setProgress(0), 600);
+  }
+}
+
+// Display result in right panel (scaled)
+async function renderResultCanvas(blobUrl){
+  resultBox.innerHTML = '';
+  const img = document.createElement('img');
+  img.src = blobUrl;
+  img.alt = 'Result';
+  resultBox.appendChild(img);
+}
+
+// Show download button & prepare click handler for blob
+function showDownload(blob){
+  downloadBtn.disabled = false;
+  downloadBtn.onclick = () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (getSafeFileName(currentFile && currentFile.name ? currentFile.name.replace(/\.[^/.]+$/, '') : 'result') + '.png');
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=> URL.revokeObjectURL(a.href), 4000);
+  };
+}
+
+// Safe filename helper
+function getSafeFileName(name){ return name.replace(/[^\w\-]+/g,'_'); }
+
+// ============== API call helper ==============
+// This expects a remove.bg style API endpoint at https://api.remove.bg/v1.0/removebg
+// It POSTs multipart/form-data with 'image_file' and returns the result PNG blob.
+//
+// IMPORTANT: Making calls from client exposes your API key. For production, create a small server endpoint
+// (proxy) that stores the key and forwards requests to the real API.
+async function callRemoveBgApi(file, key){
+  // Small safeguard size limit (you may remove/change)
+  if(file.size > 25 * 1024 * 1024){ // 25MB
+    if(!confirm('File > 25MB — continue?')) throw new Error('File too large');
+  }
+
+  const form = new FormData();
+  form.append('image_file', file);
+
+  // remove.bg supports parameter 'size' etc if you want:
+  // form.append('size', 'auto');
+
+  // Call directly to remove.bg endpoint — this will expose API key in request headers (not safe)
+  // You may change endpoint to your server proxy (recommended)
+  const endpoint = 'https://api.remove.bg/v1.0/removebg';
+
+  // fetch with X-Api-Key header
+  const resp = await fetch(endpoint, { method: 'POST', body: form, headers: { 'X-Api-Key': key } });
+  if(!resp.ok){
+    const txt = await resp.text().catch(()=>null);
+    throw new Error(`API error ${resp.status}: ${txt || resp.statusText}`);
+  }
+  const blob = await resp.blob();
+  return blob;
+}
+
+// ============== Local simple background removal ==============
+// We'll perform a color-distance alpha mask with morphological cleanup
+async function simpleLocalRemove(file){
+  // load image
+  const img = await loadImageFromFile(file);
+  // draw to offscreen canvas at moderate resolution
+  const maxSide = 1400; // adjust for quality/perf
+  const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+  const w = Math.round(img.width * scale), h = Math.round(img.height * scale);
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  g.drawImage(img, 0, 0, w, h);
+
+  // sample background color: average of four corners
+  const sample = getBackgroundSample(g, w, h);
+  const bg = sample; // [r,g,b]
+
+  // read pixels
+  const imgData = g.getImageData(0,0,w,h);
+  const d = imgData.data;
+
+  const tol = Number(tolerance.value) || 40; // color distance tolerance
+  const thresh = Number(threshold.value) || 18; // minimum alpha fade distance (feather)
+
+  // compute mask
+  for(let i=0;i<d.length;i+=4){
+    const r = d[i], g2 = d[i+1], b2 = d[i+2];
+    const dist = colorDistance([r,g2,b2], bg);
+    if(dist <= tol){
+      // fully background -> transparent
+      d[i+3] = 0;
+    } else if(dist <= (tol + thresh)){
+      // partially transparent (feather)
+      const p = (dist - tol) / thresh; // 0..1
+      d[i+3] = Math.round(255 * clamp(p, 0, 1));
+    } else {
+      d[i+3] = 255;
+    }
+  }
+
+  // apply and optionally soften edges by small blur (box blur) to reduce harsh edges
+  g.putImageData(imgData, 0, 0);
+
+  // export to PNG blob
+  return await new Promise((resolve) => c.toBlob(resolve, 'image/png', 1));
+}
+
+function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+function colorDistance(a, b){
+  const dr = a[0]-b[0], dg = a[1]-b[1], db = a[2]-b[2];
+  return Math.sqrt(dr*dr + dg*dg + db*db);
+}
+
+function getBackgroundSample(ctx2d, w, h){
+  const samplePixels = [];
+  const margin = Math.max(4, Math.floor(Math.min(w,h)*0.03));
+  const blocks = [
+    {x:margin, y:margin},
+    {x: w-1 - margin, y:margin},
+    {x:margin, y: h-1 - margin},
+    {x: w-1 - margin, y: h-1 - margin}
+  ];
+  blocks.forEach(bl => {
+    const sx = clamp(bl.x, 0, w-1), sy = clamp(bl.y, 0, h-1);
+    const data = ctx2d.getImageData(sx, sy, 1, 1).data;
+    samplePixels.push([data[0], data[1], data[2]]);
+  });
+  const avg = samplePixels.reduce((acc,p)=>{ acc[0]+=p[0]; acc[1]+=p[1]; acc[2]+=p[2]; return acc; }, [0,0,0]);
+  avg[0] = Math.round(avg[0]/samplePixels.length);
+  avg[1] = Math.round(avg[1]/samplePixels.length);
+  avg[2] = Math.round(avg[2]/samplePixels.length);
+  return avg;
+}
+
+function loadImageFromFile(file){
+  return new Promise((resolve, reject)=>{
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = ()=>{ URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = (e)=> { URL.revokeObjectURL(url); reject(e); };
+    img.src = url;
+  });
+}
+
+// Auto detect background color and set threshold/tolerance heuristically
+async function autoDetectBackground(){
+  if(!currentFile) return;
+  setStatus('Detecting background color…');
+  const img = await loadImageFromFile(currentFile);
+  const c = document.createElement('canvas'); const s = 120;
+  c.width = Math.min(s, img.width); c.height = Math.min(s, img.height);
+  const g = c.getContext('2d'); g.drawImage(img, 0, 0, c.width, c.height);
+  const bg = getBackgroundSample(g, c.width, c.height);
+  const data = g.getImageData(0,0,c.width,c.height).data;
+  let avgB=0, n=0;
+  for(let i=0;i<data.length;i+=4){ avgB += (data[i]+data[i+1]+data[i+2])/3; n++; }
+  avgB = avgB/n;
+  const tolGuess = clamp(Math.round(30 + (255 - avgB) * 0.08), 14, 110);
+  const thrGuess = clamp(Math.round(12 + (255 - avgB) * 0.03), 6, 32);
+  tolerance.value = tolGuess; threshold.value = thrGuess;
+  strengthLabel.textContent = thrGuess;
+  tolLabel.textContent = tolGuess;
+  setStatus('Auto-detected background color: rgb(' + bg.join(',') + ')');
+}
+
+// Basic API test — sends tiny crop of image to API to check key works
+async function testApi(){
+  if(!apiKey.value.trim()){ alert('Enter API key first'); return; }
+  if(!currentFile){ alert('Load an image first to test'); return; }
+  try{
+    setStatus('Testing API with small sample…'); setProgress(10);
+    const img = await loadImageFromFile(currentFile);
+    const c = document.createElement('canvas'); c.width = Math.min(600, img.width); c.height = Math.min(400,img.height);
+    const g = c.getContext('2d'); g.drawImage(img,0,0,c.width,c.height);
+    const smallBlob = await new Promise(res => c.toBlob(res, 'image/png'));
+    setProgress(30);
+    const blob = await callRemoveBgApi(smallBlob, apiKey.value.trim());
+    if(blob && blob.size > 100){
+      setStatus('API test success — sample returned.');
+      if(resultBlobUrl) URL.revokeObjectURL(resultBlobUrl);
+      resultBlobUrl = URL.createObjectURL(blob);
+      renderResultCanvas(resultBlobUrl);
+      showDownload(blob);
+    } else {
+      throw new Error('Invalid response from API');
+    }
+  }catch(err){
+    alert('API test failed: ' + (err.message || err));
+    setStatus('API test error');
+    console.error(err);
+  } finally { setProgress(0); }
+}
+
+// Initialize
+setStatus('Idle');
+enableControls(false);
+</script>
+</body>
+</html>
