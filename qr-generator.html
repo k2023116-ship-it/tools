@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>QR Code Generator — Toolify</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#111827; --panel-2:#0f172a; --text:#e6edf3; --muted:#9fb1c5;
+    --primary:#3b82f6; --primary-2:#2563eb; --border:#1f2937; --accent:#22d3ee;
+    --card:#0b1220; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    color:var(--text); background:
+      radial-gradient(900px 400px at 10% -10%, rgba(59,130,246,.15), transparent 40%),
+      radial-gradient(700px 300px at 110% 10%, rgba(34,211,238,.08), transparent 40%),
+      var(--bg);
+    min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:28px;
+  }
+  .layout{width:100%; max-width:1200px; display:grid; grid-template-columns:1.25fr .9fr; gap:22px}
+  @media (max-width: 1024px){ .layout{grid-template-columns:1fr} }
+
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border:1px solid var(--border); border-radius:var(--radius); padding:18px}
+  h2{margin:0 0 12px 0; font-size:18px}
+  .step{display:flex; align-items:center; gap:10px; margin-bottom:10px}
+  .badge{width:30px;height:30px;border-radius:9px;background:var(--primary);display:grid;place-items:center;font-weight:800}
+  .muted{color:var(--muted); font-size:13px}
+
+  .input, select, .btn, .picker{
+    background:#0e1523; color:var(--text); border:1px solid var(--border); border-radius:12px;
+    padding:10px 12px; font-size:14px;
+  }
+  .input{width:100%}
+  .row{display:flex; gap:12px; flex-wrap:wrap}
+  .tabs{display:flex; gap:6px; border-bottom:1px solid var(--border); margin-top:14px}
+  .tab{padding:10px 12px; border:1px solid var(--border); border-bottom:none; border-radius:12px 12px 0 0; background:var(--panel-2); cursor:pointer; font-weight:600; color:var(--muted)}
+  .tab.active{background:#12213a; color:#fff; border-color:#1f2e46}
+
+  .panel{background:var(--panel-2); border:1px solid var(--border); border-top:none; border-radius:0 0 12px 12px; padding:14px; margin-bottom:14px}
+
+  .opt{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px}
+  .stack{display:flex; flex-direction:column; gap:8px}
+
+  .btn{cursor:pointer; font-weight:700}
+  .btn.primary{background:var(--primary); border-color:transparent}
+  .btn.primary:hover{background:var(--primary-2)}
+  .btn.ghost{background:transparent}
+
+  .right{display:flex; flex-direction:column; gap:14px; align-items:center; text-align:center}
+  .preview{background:var(--panel); border:1px solid var(--border); border-radius:20px; padding:18px; width:100%; display:grid; place-items:center}
+  #qrWrap{width:320px; height:320px; display:grid; place-items:center}
+  .frame-none #qrWrap canvas, .frame-none #qrWrap svg{border:none; border-radius:16px; box-shadow:none}
+  .frame-rounded #qrWrap canvas, .frame-rounded #qrWrap svg{border:2px solid #1f2e46; border-radius:22px; box-shadow:0 12px 30px rgba(2,6,23,.5)}
+  .frame-circle #qrWrap canvas, .frame-circle #qrWrap svg{border:3px solid var(--primary); border-radius:999px; padding:8px}
+
+  .dropdown{position:relative}
+  .menu{position:absolute; right:0; top:110%; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:6px; display:none; z-index:10}
+  .menu button{display:block; width:160px; text-align:left; padding:10px 12px; background:transparent; border:0; color:var(--text); border-radius:8px}
+  .menu button:hover{background:#0f223e}
+
+  .labelWrap{margin-top:8px; text-align:center}
+  #label{display:inline-block; padding:6px 10px; border-radius:8px; background:transparent; color:var(--text)}
+  .tiny{font-size:12px; color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="layout">
+    <!-- LEFT -->
+    <div class="card">
+      <div class="step"><div class="badge">1</div><div><h2>Complete the content</h2><div class="muted">Enter text / URL for your QR</div></div></div>
+      <input id="qrText" class="input" placeholder="E.g. https://www.myweb.com/" value="https://www.myweb.com/" />
+
+      <div style="height:12px"></div>
+      <div class="step"><div class="badge">2</div><div><h2>Design your QR</h2><div class="muted">Style, colors, logo, level & more</div></div></div>
+
+      <!-- TABS -->
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="frame">Frame</button>
+        <button class="tab" data-tab="shape">Shape</button>
+        <button class="tab" data-tab="logo">Logo</button>
+        <button class="tab" data-tab="level">Level</button>
+        <button class="tab" data-tab="colors">Colors</button>
+        <button class="tab" data-tab="eyes">Eyes</button>
+        <button class="tab" data-tab="size">Size & Margin</button>
+        <button class="tab" data-tab="label">Label</button>
+      </div>
+
+      <!-- PANELS -->
+      <div class="panel" id="frame" style="display:block">
+        <div class="opt">
+          <div class="stack">
+            <label>Frame Style</label>
+            <select id="frameStyle">
+              <option value="none">None</option>
+              <option value="rounded">Rounded</option>
+              <option value="circle">Circle Ring</option>
+            </select>
+          </div>
+          <div class="stack">
+            <label>Shadow</label>
+            <select id="frameShadow">
+              <option value="on">On</option>
+              <option value="off">Off</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="shape">
+        <div class="opt">
+          <div class="stack">
+            <label>Dots Type</label>
+            <select id="dotsType">
+              <option value="square">Squares</option>
+              <option value="dots">Dots</option>
+              <option value="rounded">Rounded</option>
+              <option value="classy">Classy</option>
+              <option value="classy-rounded">Classy Rounded</option>
+              <option value="extra-rounded">Extra Rounded</option>
+            </select>
+          </div>
+          <div class="stack">
+            <label>Background Corner Radius</label>
+            <input id="bgRadius" type="range" min="0" max="30" value="16"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="logo">
+        <div class="opt">
+          <div class="stack">
+            <label>Upload Logo</label>
+            <input id="logoInput" class="picker" type="file" accept="image/*"/>
+          </div>
+          <div class="stack">
+            <label>Logo Size</label>
+            <input id="logoSize" type="range" min="10" max="60" value="35"/>
+          </div>
+          <div class="stack">
+            <label>Logo Margin</label>
+            <input id="logoMargin" type="range" min="0" max="10" value="2"/>
+          </div>
+          <div class="stack">
+            <label>Logo Background</label>
+            <select id="logoBgStyle">
+              <option value="none">Transparent</option>
+              <option value="circle">Circle</option>
+              <option value="square">Square</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="level">
+        <div class="opt">
+          <div class="stack">
+            <label>Error Correction</label>
+            <select id="errLevel">
+              <option value="L">Low (7%)</option>
+              <option value="M" selected>Medium (15%)</option>
+              <option value="Q">Quartile (25%)</option>
+              <option value="H">High (30%)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="colors">
+        <div class="opt">
+          <div class="stack">
+            <label>Foreground</label>
+            <div class="row">
+              <input id="fg1" type="color" value="#ffffff" />
+              <input id="fg2" type="color" value="#3b82f6" />
+              <select id="fgMode">
+                <option value="solid" selected>Solid (use right color)</option>
+                <option value="gradient">Linear Gradient</option>
+              </select>
+            </div>
+          </div>
+          <div class="stack">
+            <label>Background</label>
+            <div class="row">
+              <input id="bg1" type="color" value="#0b1220" />
+              <input id="bg2" type="color" value="#0b1220" />
+              <select id="bgMode">
+                <option value="solid" selected>Solid</option>
+                <option value="gradient">Linear Gradient</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="eyes">
+        <div class="opt">
+          <div class="stack">
+            <label>Outer Eye</label>
+            <select id="eyeOuter">
+              <option value="square">Square</option>
+              <option value="dot">Dot</option>
+              <option value="extra-rounded">Extra Rounded</option>
+            </select>
+          </div>
+          <div class="stack">
+            <label>Inner Eye</label>
+            <select id="eyeInner">
+              <option value="square">Square</option>
+              <option value="dot">Dot</option>
+              <option value="extra-rounded">Extra Rounded</option>
+            </select>
+          </div>
+          <div class="stack">
+            <label>Eye Color</label>
+            <input id="eyeColor" type="color" value="#22d3ee"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="size">
+        <div class="opt">
+          <div class="stack">
+            <label>Size (px)</label>
+            <input id="qrSize" type="range" min="160" max="560" value="320"/>
+          </div>
+          <div class="stack">
+            <label>Quiet Zone (margin)</label>
+            <input id="qrMargin" type="range" min="0" max="30" value="10"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="label">
+        <div class="opt">
+          <div class="stack">
+            <label>Label Text (below QR)</label>
+            <input id="labelText" class="input" placeholder="Optional text under QR"/>
+          </div>
+          <div class="stack">
+            <label>Style</label>
+            <div class="row">
+              <select id="labelWeight">
+                <option value="500">Medium</option>
+                <option value="600" selected>Semibold</option>
+                <option value="700">Bold</option>
+              </select>
+              <input id="labelSize" type="range" min="10" max="28" value="14"/>
+              <select id="labelAlign">
+                <option value="center" selected>Center</option>
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+              </select>
+              <input id="labelColor" type="color" value="#e6edf3"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="card right" id="rightCard" class="frame-none">
+      <div class="step"><div class="badge">3</div><div><h2>Download your QR</h2><div class="muted">Preview & export</div></div></div>
+
+      <div class="preview">
+        <div id="qrWrap" class="frame-none">
+          <div id="qr"></div>
+        </div>
+        <div class="labelWrap"><span id="label"></span></div>
+      </div>
+
+      <div class="dropdown">
+        <button id="downloadBtn" class="btn primary">Download QR ▾</button>
+        <div class="menu" id="menu">
+          <button data-ext="png">PNG</button>
+          <button data-ext="jpeg">JPG</button>
+          <button data-ext="webp">WebP</button>
+          <button data-ext="svg">SVG</button>
+        </div>
+      </div>
+      <div class="tiny">Tip: Everything runs locally in your browser. No uploads, no APIs.</div>
+    </div>
+  </div>
+
+  <!-- QR library (no API) -->
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <script>
+    // ---------- Elements ----------
+    const qrText = document.getElementById('qrText');
+    const qrEl   = document.getElementById('qr');
+    const qrWrap = document.getElementById('qrWrap');
+    const labelEl= document.getElementById('label');
+
+    // frame
+    const frameStyle  = document.getElementById('frameStyle');
+    const frameShadow = document.getElementById('frameShadow');
+
+    // shape
+    const dotsType = document.getElementById('dotsType');
+    const bgRadius = document.getElementById('bgRadius');
+
+    // logo
+    const logoInput = document.getElementById('logoInput');
+    const logoSize  = document.getElementById('logoSize');
+    const logoMargin= document.getElementById('logoMargin');
+    const logoBgStyle = document.getElementById('logoBgStyle');
+
+    // level
+    const errLevel = document.getElementById('errLevel');
+
+    // colors
+    const fg1 = document.getElementById('fg1');
+    const fg2 = document.getElementById('fg2');
+    const fgMode = document.getElementById('fgMode');
+    const bg1 = document.getElementById('bg1');
+    const bg2 = document.getElementById('bg2');
+    const bgMode = document.getElementById('bgMode');
+
+    // eyes
+    const eyeOuter = document.getElementById('eyeOuter');
+    const eyeInner = document.getElementById('eyeInner');
+    const eyeColor = document.getElementById('eyeColor');
+
+    // size
+    const qrSize = document.getElementById('qrSize');
+    const qrMargin = document.getElementById('qrMargin');
+
+    // label
+    const labelText = document.getElementById('labelText');
+    const labelWeight = document.getElementById('labelWeight');
+    const labelSize = document.getElementById('labelSize');
+    const labelAlign = document.getElementById('labelAlign');
+    const labelColor = document.getElementById('labelColor');
+
+    // download
+    const menu = document.getElementById('menu');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    // ---------- QR Instance ----------
+    let qrCode = new QRCodeStyling({
+      width: 320,
+      height: 320,
+      data: qrText.value,
+      qrOptions: { errorCorrectionLevel: errLevel.value },
+      dotsOptions: { type: dotsType.value, color: fg2.value },
+      backgroundOptions: { color: bg1.value },
+      cornersSquareOptions: { type: eyeOuter.value, color: eyeColor.value },
+      cornersDotOptions: { type: eyeInner.value, color: eyeColor.value },
+      imageOptions: { margin: parseInt(logoMargin.value,10), imageSize: parseInt(logoSize.value,10) / 100 },
+      margin: parseInt(qrMargin.value,10)
+    });
+    qrCode.append(qrEl);
+
+    // ---------- Helpers ----------
+    function gradient(type, c1, c2){
+      return {
+        type: "linear",
+        rotation: type === 'fg' ? 0 : 0,
+        colorStops: [{offset:0,color:c1},{offset:1,color:c2}]
+      }
+    }
+    function applyFrame(){
+      qrWrap.classList.remove('frame-none','frame-rounded','frame-circle');
+      qrWrap.classList.add('frame-' + frameStyle.value);
+      const canvas = qrWrap.querySelector('canvas, svg');
+      if(canvas){
+        canvas.style.boxShadow = (frameShadow.value==='on' ? '0 12px 28px rgba(2,6,23,.55)' : 'none');
+        canvas.style.borderRadius = bgRadius.value + 'px';
+      }
+    }
+    function updateQR(){
+      const opts = {
+        data: qrText.value || "",
+        width: parseInt(qrSize.value,10),
+        height: parseInt(qrSize.value,10),
+        qrOptions: { errorCorrectionLevel: errLevel.value },
+        dotsOptions: { type: dotsType.value },
+        backgroundOptions: {},
+        cornersSquareOptions: { type: eyeOuter.value, color: eyeColor.value },
+        cornersDotOptions: { type: eyeInner.value, color: eyeColor.value },
+        margin: parseInt(qrMargin.value,10),
+        imageOptions: { margin: parseInt(logoMargin.value,10), imageSize: parseInt(logoSize.value,10)/100 }
+      };
+
+      // foreground color/gradient
+      if(fgMode.value === 'gradient'){
+        opts.dotsOptions.gradient = gradient('fg', fg1.value, fg2.value);
+        opts.dotsOptions.color = undefined;
+      }else{
+        opts.dotsOptions.gradient = undefined;
+        opts.dotsOptions.color = fg2.value;
+      }
+
+      // background color/gradient
+      if(bgMode.value === 'gradient'){
+        opts.backgroundOptions.gradient = gradient('bg', bg1.value, bg2.value);
+        opts.backgroundOptions.color = undefined;
+      }else{
+        opts.backgroundOptions.gradient = undefined;
+        opts.backgroundOptions.color = bg1.value;
+      }
+
+      // logo background style (draw behind via CSS ring)
+      const el = qrWrap.querySelector('canvas, svg');
+      if(el){ el.style.background = 'transparent'; }
+      // (qr-code-styling doesn't draw a background shape for logo natively;
+      // we keep simple logo only; background ring is simulated by logo image itself if needed.)
+
+      qrCode.update(opts);
+      applyFrame();
+    }
+
+    // ---------- Events ----------
+    // Tabs
+    document.getElementById('tabs').addEventListener('click', e=>{
+      const t = e.target.closest('.tab'); if(!t) return;
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(x=>x.style.display='none');
+      t.classList.add('active');
+      document.getElementById(t.dataset.tab).style.display='block';
+    });
+
+    // Text
+    qrText.addEventListener('input', updateQR);
+
+    // Frame
+    frameStyle.addEventListener('change', updateQR);
+    frameShadow.addEventListener('change', updateQR);
+
+    // Shape
+    dotsType.addEventListener('change', updateQR);
+    bgRadius.addEventListener('input', updateQR);
+
+    // Logo
+    logoSize.addEventListener('input', updateQR);
+    logoMargin.addEventListener('input', updateQR);
+    logoBgStyle.addEventListener('change', updateQR);
+    logoInput.addEventListener('change', ()=>{
+      const file = logoInput.files[0];
+      if(!file) return qrCode.update({ image: undefined });
+      const r = new FileReader();
+      r.onload = e => { qrCode.update({ image: e.target.result }); };
+      r.readAsDataURL(file);
+    });
+
+    // Level
+    errLevel.addEventListener('change', updateQR);
+
+    // Colors
+    [fg1,fg2,fgMode,bg1,bg2,bgMode].forEach(el=> el.addEventListener('input', updateQR));
+
+    // Eyes
+    [eyeOuter, eyeInner, eyeColor].forEach(el=> el.addEventListener('input', updateQR));
+
+    // Size & Margin
+    [qrSize, qrMargin].forEach(el=> el.addEventListener('input', updateQR));
+
+    // Label controls
+    function updateLabel(){
+      labelEl.textContent = labelText.value.trim();
+      labelEl.style.fontWeight = labelWeight.value;
+      labelEl.style.fontSize = labelSize.value + 'px';
+      labelEl.style.color = labelColor.value;
+      labelEl.parentElement.style.textAlign = labelAlign.value;
+      labelEl.style.display = labelEl.textContent ? 'inline-block' : 'none';
+    }
+    [labelText,labelWeight,labelSize,labelAlign,labelColor].forEach(el=> el.addEventListener('input', updateLabel));
+
+    // Download menu
+    downloadBtn.addEventListener('click', ()=> menu.style.display = menu.style.display==='block' ? 'none' : 'block');
+    document.addEventListener('click', e=>{
+      if(!e.target.closest('.dropdown')) menu.style.display='none';
+    });
+    menu.addEventListener('click', e=>{
+      const b = e.target.closest('button'); if(!b) return;
+      qrCode.download({ name:'qr-code', extension: b.dataset.ext });
+      menu.style.display='none';
+    });
+
+    // init
+    updateLabel();
+    updateQR();
+  </script>
+</body>
+</html>

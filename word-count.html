@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word & Character Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0d1117; /* black background */
+      color: #e6edf3; /* light text */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #3b82f6; /* blue heading */
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    textarea {
+      width: 90%;
+      max-width: 700px;
+      height: 220px;
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #1f2937;
+      resize: none;
+      background: #161b22;
+      color: #e6edf3;
+      outline: none;
+    }
+    textarea:focus {
+      border: 1px solid #3b82f6;
+      box-shadow: 0 0 8px #3b82f6;
+    }
+    .stats {
+      margin: 20px 0;
+      font-size: 18px;
+      color: #60a5fa;
+      text-align: center;
+      line-height: 1.8em;
+    }
+    .file-upload {
+      margin-top: 15px;
+    }
+    input[type="file"] {
+      background: #1f2937;
+      color: #e6edf3;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #374151;
+      cursor: pointer;
+    }
+    .drop-zone {
+      border: 2px dashed #3b82f6;
+      padding: 25px;
+      margin-top: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 90%;
+      max-width: 700px;
+      text-align: center;
+      transition: background 0.3s, border-color 0.3s;
+      color: #9ca3af;
+    }
+    .drop-zone.dragover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: #60a5fa;
+      color: #fff;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #3b82f6;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #2563eb;
+      box-shadow: 0 0 8px #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <h1>Word & Character Counter</h1>
+
+  <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+
+  <div class="stats">
+    Words: <span id="wordCount">0</span> | 
+    Characters: <span id="charCount">0</span><br>
+    Spaces: <span id="spaceCount">0</span> | 
+    Empty Lines: <span id="lineCount">0</span>
+  </div>
+
+  <div class="file-upload">
+    <input type="file" id="fileInput" accept=".txt,.md,.csv,.html,.js,.css,.docx" />
+  </div>
+
+  <div class="drop-zone" id="dropZone">
+    Drag & Drop a text or docx file here
+  </div>
+
+  <button id="downloadBtn">Download Text</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+  <script>
+    const textInput = document.getElementById("textInput");
+    const wordCount = document.getElementById("wordCount");
+    const charCount = document.getElementById("charCount");
+    const spaceCount = document.getElementById("spaceCount");
+    const lineCount = document.getElementById("lineCount");
+    const fileInput = document.getElementById("fileInput");
+    const dropZone = document.getElementById("dropZone");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    function updateCounts() {
+      const text = textInput.value;
+      const trimmed = text.trim();
+
+      wordCount.textContent = trimmed ? trimmed.split(/\s+/).length : 0;
+      charCount.textContent = text.length;
+      spaceCount.textContent = (text.match(/ /g) || []).length;
+      lineCount.textContent = (text.match(/^\s*$/gm) || []).length; // empty lines only
+    }
+
+    textInput.addEventListener("input", updateCounts);
+
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) handleFile(file);
+    });
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("dragover");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+      const file = e.dataTransfer.files[0];
+      if (file) handleFile(file);
+    });
+
+    function handleFile(file) {
+      if (file.name.endsWith(".docx")) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          mammoth.extractRawText({ arrayBuffer: event.target.result })
+            .then((result) => {
+              textInput.value = result.value;
+              updateCounts();
+            })
+            .catch(() => alert("Error reading DOCX file!"));
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          textInput.value = event.target.result;
+          updateCounts();
+        };
+        reader.readAsText(file);
+      }
+    }
+
+    downloadBtn.addEventListener("click", () => {
+      const blob = new Blob([textInput.value], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "text-output.txt";
+      link.click();
+    });
+  </script>
+</body>
+</html>

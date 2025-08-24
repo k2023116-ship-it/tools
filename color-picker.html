@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Color Picker & Generator — Toolify (Offline)</title>
+<style>
+  :root{
+    --bg:#eaf3ff;         /* light blue background */
+    --card:#ffffff;       /* card white */
+    --muted:#555; 
+    --accent:#2b6ef6;     /* blue accent */
+    --panel:#f8fbff;      /* soft panel blue */
+    --text:#111; 
+    --radius:14px; 
+    --shadow:0 6px 20px rgba(0,0,0,.12);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    background:var(--bg);
+    color:var(--text);
+    padding:28px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    min-height:100vh;
+  }
+
+  .wrap{width:100%;max-width:1150px;display:grid;grid-template-columns:1fr 420px;gap:20px;}
+  @media(max-width:1040px){ .wrap{grid-template-columns:1fr} }
+
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:18px;
+    border:1px solid #d6e4ff;
+  }
+  header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .logo{
+    width:44px;height:44px;
+    border-radius:10px;
+    background:linear-gradient(90deg,var(--accent),#22d3ee);
+    display:grid;place-items:center;
+    color:#fff;font-weight:700
+  }
+  h1,h2{margin:0}
+  h1{font-size:18px}
+  .muted{color:var(--muted);font-size:13px}
+
+  /* uploader */
+  .uploader{
+    border-radius:12px;
+    border:2px dashed #a0bfff;
+    padding:12px;
+    background:var(--panel);
+    display:flex;gap:12px;align-items:center
+  }
+  .uploader.drag{background:#dcebff;border-color:var(--accent)}
+  .uploader input{display:none}
+  .uploader .btn{
+    background:var(--accent);
+    color:#fff;
+    padding:10px 12px;
+    border-radius:10px;
+    border:none;cursor:pointer
+  }
+
+  canvas#imgCanvas{
+    display:block;
+    max-width:100%;
+    border-radius:10px;
+    margin-top:12px;
+    border:1px solid #d6e4ff
+  }
+
+  .pickerRow{display:flex;gap:10px;align-items:center;margin-top:12px}
+  .swatch{
+    width:54px;height:54px;
+    border-radius:8px;
+    border:1px solid #d6e4ff;
+    box-shadow:inset 0 -4px 8px rgba(0,0,0,.1)
+  }
+
+  .info{
+    font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+    font-size:13px;margin-top:8px;color:#111;
+  }
+  .info .line{
+    display:flex;gap:8px;
+    align-items:center;justify-content:space-between;
+    padding:6px 0;
+    border-bottom:1px dashed #c7d8ff
+  }
+
+  /* palette */
+  .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .palette{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:10px;margin-top:10px}
+  .colorBlock{
+    border-radius:8px;
+    padding:8px;
+    background:#f9fbff;
+    border:1px solid #d6e4ff;
+    display:flex;flex-direction:column;gap:8px;align-items:stretch
+  }
+  .colorPreviewSmall{height:56px;border-radius:6px;border:1px solid #c7d8ff}
+  .colorMeta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#333}
+
+  .controlsRow{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .controlBtn{
+    padding:8px 10px;
+    border-radius:8px;
+    border:1px solid #c7d8ff;
+    background:var(--panel);
+    color:#111;
+    cursor:pointer
+  }
+  .controlBtn.primary{
+    background:linear-gradient(90deg,var(--accent),#22d3ee);
+    color:#fff;border-color:transparent
+  }
+
+  .gradientPreview{
+    height:120px;
+    border-radius:10px;
+    border:1px solid #c7d8ff;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:10px
+  }
+
+  .small{font-size:12px;color:var(--muted)}
+
+  footer{margin-top:16px;text-align:center;color:#666;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <!-- Left Panel -->
+  <div class="card">
+    <header>
+      <div class="logo">🎨</div>
+      <div>
+        <h1>Color Picker & Generator</h1>
+        <div class="muted">Pick colors from your image easily</div>
+      </div>
+    </header>
+
+    <div class="uploader" id="dropZone">
+      <label for="fileInput" class="btn">Upload Image</label>
+      <input type="file" id="fileInput" accept="image/*">
+      <span class="muted">or drag & drop here</span>
+    </div>
+
+    <canvas id="imgCanvas"></canvas>
+
+    <div class="pickerRow">
+      <div id="swatch" class="swatch"></div>
+      <div>
+        <div class="info">
+          <div class="line"><span>HEX</span><span id="hexCode">—</span></div>
+          <div class="line"><span>RGB</span><span id="rgbCode">—</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="card">
+    <div class="sectionTitle">
+      <h2>Palette</h2>
+      <button class="controlBtn primary" id="addToPalette">+ Add</button>
+    </div>
+    <div class="palette" id="palette"></div>
+
+    <div class="sectionTitle" style="margin-top:20px">
+      <h2>Gradient</h2>
+      <button class="controlBtn" id="makeGradient">Generate</button>
+    </div>
+    <div class="gradientPreview" id="gradientPreview">
+      <span class="small">Pick at least 2 colors</span>
+    </div>
+  </div>
+</div>
+
+<footer>Made with ❤️ by Toolify (Offline)</footer>
+
+<script>
+const fileInput = document.getElementById("fileInput");
+const dropZone = document.getElementById("dropZone");
+const canvas = document.getElementById("imgCanvas");
+const ctx = canvas.getContext("2d");
+const swatch = document.getElementById("swatch");
+const hexCode = document.getElementById("hexCode");
+const rgbCode = document.getElementById("rgbCode");
+const addToPalette = document.getElementById("addToPalette");
+const palette = document.getElementById("palette");
+const gradientPreview = document.getElementById("gradientPreview");
+
+let currentColor = null;
+let colors = [];
+
+fileInput.addEventListener("change", handleFile);
+dropZone.addEventListener("dragover", e => {
+  e.preventDefault();
+  dropZone.classList.add("drag");
+});
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag"));
+dropZone.addEventListener("drop", e => {
+  e.preventDefault();
+  dropZone.classList.remove("drag");
+  handleFile({ target: { files: e.dataTransfer.files } });
+});
+
+function handleFile(e){
+  const file = e.target.files[0];
+  if(!file) return;
+  const img = new Image();
+  img.onload = () => {
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img,0,0);
+  };
+  img.src = URL.createObjectURL(file);
+}
+
+canvas.addEventListener("click", e=>{
+  if(!canvas.width) return;
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  const data = ctx.getImageData(x,y,1,1).data;
+  const rgb = `rgb(${data[0]},${data[1]},${data[2]})`;
+  const hex = "#"+((1<<24)+(data[0]<<16)+(data[1]<<8)+data[2]).toString(16).slice(1).toUpperCase();
+  swatch.style.background = rgb;
+  hexCode.textContent = hex;
+  rgbCode.textContent = rgb;
+  currentColor = {hex,rgb};
+});
+
+addToPalette.addEventListener("click", ()=>{
+  if(!currentColor) return alert("Pick a color first!");
+  colors.push(currentColor);
+  renderPalette();
+});
+
+function renderPalette(){
+  palette.innerHTML="";
+  colors.forEach((c,i)=>{
+    const div=document.createElement("div");
+    div.className="colorBlock";
+    div.innerHTML=`
+      <div class="colorPreviewSmall" style="background:${c.hex}"></div>
+      <div class="colorMeta"><span>${c.hex}</span><button data-i="${i}" style="background:none;border:none;color:red;cursor:pointer">×</button></div>
+    `;
+    palette.appendChild(div);
+  });
+
+  palette.querySelectorAll("button").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      colors.splice(btn.dataset.i,1);
+      renderPalette();
+    });
+  });
+}
+
+document.getElementById("makeGradient").addEventListener("click",()=>{
+  if(colors.length<2){
+    gradientPreview.innerHTML="<span class='small'>Pick at least 2 colors</span>";
+    gradientPreview.style.background="none";
+    return;
+  }
+  const stops = colors.map(c=>c.hex).join(", ");
+  gradientPreview.style.background=`linear-gradient(90deg,${stops})`;
+  gradientPreview.innerHTML="";
+});
+</script>
+</body>
+</html>

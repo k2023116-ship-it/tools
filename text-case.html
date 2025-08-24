@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Text Case Converter — Toolify</title>
+  <meta name="description" content="Text Case Converter — convert text to UPPERCASE, lowercase, Title Case, camelCase and more. Works offline." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      --card:#0f1724;
+      --accent:#00c3ff;
+      --accent2:#7c5cff;
+      --text:#e6eef8;
+      --muted:#9fb0c8;
+      --radius:14px;
+      --shadow:0 12px 30px rgba(2,6,23,.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:
+      radial-gradient(900px 400px at 10% -10%, rgba(79,70,229,.12), transparent 40%),
+      radial-gradient(700px 300px at 110% 10%, rgba(34,211,238,.06), transparent 40%),
+      var(--bg);-webkit-font-smoothing:antialiased}
+    .wrap{max-width:980px;margin:36px auto;padding:20px}
+    .card{background:var(--panel);padding:22px;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.04)}
+    header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .logo{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:conic-gradient(from 180deg,var(--accent2),var(--accent));box-shadow:0 8px 30px rgba(124,92,246,.12)}
+    h1{font-size:20px;margin:0}
+    .muted{color:var(--muted);font-size:13px}
+    textarea{width:100%;min-height:220px;padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.04);background:#07101b;color:var(--text);resize:vertical;font-size:15px;line-height:1.5}
+    .controls{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+    select, button, .small-btn, input[type="file"]{
+      padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.06);
+      background:#07101b;color:var(--text);cursor:pointer
+    }
+    select option{background:#0b1020;color:var(--text);} /* dropdown ka text readable */
+    select{min-width:160px}
+    button.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));border-color:transparent;color:#021017;font-weight:700}
+    .small-btn{background:rgba(255,255,255,0.03);font-weight:600}
+    .small-btn:active{transform:translateY(1px)}
+    .result{margin-top:16px;padding:14px;border-radius:10px;background:#07101b;border:1px solid rgba(255,255,255,.03);min-height:90px;white-space:pre-wrap;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace}
+    .stats{display:flex;gap:12px;align-items:center;margin-top:10px;flex-wrap:wrap}
+    .stat{background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:8px;font-size:13px;color:var(--muted)}
+    .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+    @media(max-width:720px){.right{margin-left:0;flex-wrap:wrap}}
+    footer{margin-top:16px;text-align:center;color:var(--muted);font-size:13px}
+    .hint{font-size:12px;color:var(--muted);margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main" aria-labelledby="title">
+      <header>
+        <div class="logo" aria-hidden="true">Tx</div>
+        <div>
+          <h1 id="title">Text Case Converter</h1>
+          <div class="muted">Convert text to UPPER/lower/Title/camelCase and more — works entirely in your browser.</div>
+        </div>
+      </header>
+
+      <label for="input" class="muted">Enter text or upload file</label>
+      <textarea id="input" placeholder="Paste or type your text here... (Ctrl/Cmd + Enter to convert)"></textarea>
+
+      <!-- File upload -->
+      <input type="file" id="fileUpload" accept=".txt" title="Upload a .txt file" />
+
+      <div class="controls" role="region" aria-label="Controls">
+        <select id="caseSelect" aria-label="Select case">
+          <option value="upper">UPPERCASE</option>
+          <option value="lower">lowercase</option>
+          <option value="title">Title Case</option>
+          <option value="sentence">Sentence case</option>
+          <option value="toggle">tOGGLE cASE</option>
+          <option value="snake">snake_case</option>
+          <option value="kebab">kebab-case</option>
+          <option value="camel">camelCase</option>
+          <option value="pascal">PascalCase</option>
+        </select>
+
+        <div class="right">
+          <button id="convertBtn" class="primary">Convert</button>
+          <button id="copyBtn" class="small-btn" title="Copy result">Copy</button>
+          <button id="downloadBtn" class="small-btn" title="Download result">Download .txt</button>
+        </div>
+      </div>
+
+      <div id="result" class="result" aria-live="polite"></div>
+
+      <div class="stats">
+        <div class="stat">Characters: <strong id="charCount">0</strong></div>
+        <div class="stat">Words: <strong id="wordCount">0</strong></div>
+        <div class="stat">Sentences: <strong id="sentCount">0</strong></div>
+        <div class="stat">Paragraphs: <strong id="paraCount">0</strong></div>
+        <div style="margin-left:auto" class="hint">Tip: Use <kbd>Ctrl/Cmd + Enter</kbd> to convert</div>
+      </div>
+
+      <footer>All processing happens locally in your browser — no server, no upload.</footer>
+    </div>
+  </div>
+
+<script>
+  // Elements
+  const input = document.getElementById('input');
+  const caseSelect = document.getElementById('caseSelect');
+  const convertBtn = document.getElementById('convertBtn');
+  const resultEl = document.getElementById('result');
+  const copyBtn = document.getElementById('copyBtn');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const charCount = document.getElementById('charCount');
+  const wordCount = document.getElementById('wordCount');
+  const sentCount = document.getElementById('sentCount');
+  const paraCount = document.getElementById('paraCount');
+  const fileUpload = document.getElementById('fileUpload');
+
+  // Helpers
+  function updateCounts(text){
+    charCount.textContent = text.length;
+    wordCount.textContent = text.trim() ? text.trim().split(/\s+/).length : 0;
+    sentCount.textContent = (text.match(/[.!?]+/g) || []).length;
+    paraCount.textContent = text.trim() ? text.trim().split(/\n{2,}/).filter(Boolean).length || 1 : 0;
+  }
+
+  function toTitleCase(s){ return s.toLowerCase().replace(/\b([a-z])/g, (m)=> m.toUpperCase()); }
+  function toSentenceCase(s){ s = s.toLowerCase(); return s.replace(/(^\s*\w|[\.!\?]\s*\w)/g, c=> c.toUpperCase()); }
+  function toToggleCase(s){ let t='',i=0; for(const ch of s){ if(/[a-zA-Z]/.test(ch)){ t += (i%2===0)?ch.toUpperCase():ch.toLowerCase(); i++; } else {t+=ch;} } return t; }
+  function toSnake(s){ return s.trim().replace(/\s+/g,'_').replace(/[^\w_]/g,'').toLowerCase(); }
+  function toKebab(s){ return s.trim().replace(/\s+/g,'-').replace(/[^\w-]/g,'').toLowerCase(); }
+  function toCamel(s){ const parts=s.trim().split(/\s+/); return parts.map((w,i)=> i==0?w.toLowerCase():w[0].toUpperCase()+w.slice(1).toLowerCase()).join(''); }
+  function toPascal(s){ return s.trim().split(/\s+/).map(w=> w[0]?w[0].toUpperCase()+w.slice(1).toLowerCase():'').join(''); }
+
+  // Convert logic
+  function convertText(){
+    const txt = input.value || '';
+    let out = '';
+    switch(caseSelect.value){
+      case 'upper': out = txt.toUpperCase(); break;
+      case 'lower': out = txt.toLowerCase(); break;
+      case 'title': out = toTitleCase(txt); break;
+      case 'sentence': out = toSentenceCase(txt); break;
+      case 'toggle': out = toToggleCase(txt); break;
+      case 'snake': out = toSnake(txt); break;
+      case 'kebab': out = toKebab(txt); break;
+      case 'camel': out = toCamel(txt); break;
+      case 'pascal': out = toPascal(txt); break;
+      default: out = txt;
+    }
+    resultEl.textContent = out;
+    updateCounts(out);
+  }
+
+  // Copy to clipboard
+  async function copyResult(){
+    const t = resultEl.textContent || '';
+    if(!t) return alert('No converted text to copy.');
+    await navigator.clipboard.writeText(t);
+    copyBtn.textContent = 'Copied ✓';
+    setTimeout(()=> copyBtn.textContent = 'Copy', 1000);
+  }
+
+  // Download TXT
+  function downloadResult(){
+    const t = resultEl.textContent || '';
+    if(!t) return alert('No converted text to download.');
+    const blob = new Blob([t], {type: 'text/plain;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'converted.txt';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  // File upload handler
+  fileUpload.addEventListener('change', function(){
+    const file = this.files[0];
+    if(file){
+      const reader = new FileReader();
+      reader.onload = function(e){ input.value = e.target.result; updateCounts(input.value); }
+      reader.readAsText(file);
+    }
+  });
+
+  // Events
+  convertBtn.addEventListener('click', convertText);
+  copyBtn.addEventListener('click', copyResult);
+  downloadBtn.addEventListener('click', downloadResult);
+  input.addEventListener('input', ()=> updateCounts(input.value));
+
+  document.addEventListener('keydown', (e)=>{
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter'){ e.preventDefault(); convertText(); }
+  });
+
+  updateCounts('');
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter — Toolify</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --text: #f0f6fc;
+      --accent: #58a6ff;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    header {
+      text-align: center;
+      padding: 20px;
+      background: var(--card);
+      font-size: 1.5em;
+      font-weight: bold;
+      color: var(--accent);
+      border-bottom: 1px solid #30363d;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    h2 {
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #30363d;
+      background: #0d1117;
+      color: var(--text);
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      color: #fff;
+    }
+    button:hover {
+      background: #1f6feb;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>🔢 Unit Converter</header>
+  <div class="container">
+    <h2>Convert Any Unit</h2>
+    
+    <label for="category">Select Category:</label>
+    <select id="category" onchange="populateUnits()">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+      <option value="time">Time</option>
+      <option value="data">Data</option>
+      <option value="energy">Energy</option>
+    </select>
+
+    <label for="fromValue">Enter Value:</label>
+    <input type="number" id="fromValue" placeholder="Enter value">
+
+    <label for="fromUnit">From Unit:</label>
+    <select id="fromUnit"></select>
+
+    <label for="toUnit">To Unit:</label>
+    <select id="toUnit"></select>
+
+    <button onclick="convert()">Convert</button>
+
+    <div class="result" id="result">Result will appear here...</div>
+  </div>
+
+  <script>
+    const units = {
+      length: {
+        "Meter (m)": 1,
+        "Kilometer (km)": 1000,
+        "Mile (mi)": 1609.34,
+        "Inch (in)": 0.0254,
+        "Light Year (ly)": 9.461e15
+      },
+      weight: {
+        "Gram (g)": 1,
+        "Kilogram (kg)": 1000,
+        "Pound (lb)": 453.592,
+        "Ton (t)": 1e6,
+        "Carat (ct)": 0.2
+      },
+      temperature: {
+        "Celsius (°C)": "c",
+        "Fahrenheit (°F)": "f",
+        "Kelvin (K)": "k"
+      },
+      time: {
+        "Second (s)": 1,
+        "Minute (min)": 60,
+        "Hour (h)": 3600,
+        "Day (d)": 86400,
+        "Year (yr)": 31536000
+      },
+      data: {
+        "Byte (B)": 1,
+        "Kilobyte (KB)": 1024,
+        "Megabyte (MB)": 1048576,
+        "Gigabyte (GB)": 1073741824,
+        "Terabyte (TB)": 1099511627776
+      },
+      energy: {
+        "Joule (J)": 1,
+        "Calorie (cal)": 4.184,
+        "Kilowatt-hour (kWh)": 3.6e6,
+        "Electronvolt (eV)": 1.602e-19
+      }
+    };
+
+    function populateUnits() {
+      const category = document.getElementById("category").value;
+      const fromUnit = document.getElementById("fromUnit");
+      const toUnit = document.getElementById("toUnit");
+
+      fromUnit.innerHTML = "";
+      toUnit.innerHTML = "";
+
+      for (let u in units[category]) {
+        fromUnit.innerHTML += `<option value="${u}">${u}</option>`;
+        toUnit.innerHTML += `<option value="${u}">${u}</option>`;
+      }
+    }
+
+    function convert() {
+      const category = document.getElementById("category").value;
+      const value = parseFloat(document.getElementById("fromValue").value);
+      const fromUnit = document.getElementById("fromUnit").value;
+      const toUnit = document.getElementById("toUnit").value;
+
+      if (isNaN(value)) {
+        document.getElementById("result").innerText = "Please enter a value.";
+        return;
+      }
+
+      let result;
+
+      if (category === "temperature") {
+        result = convertTemperature(value, units[category][fromUnit], units[category][toUnit]);
+      } else {
+        const baseValue = value * units[category][fromUnit];
+        result = baseValue / units[category][toUnit];
+      }
+
+      document.getElementById("result").innerText = `${value} ${fromUnit} = ${result} ${toUnit}`;
+    }
+
+    function convertTemperature(value, from, to) {
+      let celsius;
+
+      if (from === "c") celsius = value;
+      if (from === "f") celsius = (value - 32) * 5/9;
+      if (from === "k") celsius = value - 273.15;
+
+      if (to === "c") return celsius;
+      if (to === "f") return (celsius * 9/5) + 32;
+      if (to === "k") return celsius + 273.15;
+    }
+
+    populateUnits();
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Summarizer Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #161b22;
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 800px;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.6);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #58a6ff;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      padding: 12px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      color: #f0f0f0;
+      font-size: 15px;
+      resize: none;
+      outline: none;
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      color: #c9d1d9;
+    }
+    select, button {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      margin-top: 5px;
+    }
+    select {
+      width: 100%;
+      background: #21262d;
+      color: #f0f0f0;
+    }
+    button {
+      background: #238636;
+      color: white;
+      cursor: pointer;
+      margin-top: 15px;
+      width: 100%;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #2ea043;
+    }
+    .output {
+      margin-top: 20px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      padding: 15px;
+      border-radius: 10px;
+      min-height: 100px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Text Summarizer</h1>
+    <label for="inputText">Enter your text:</label>
+    <textarea id="inputText" placeholder="Paste or type text here..."></textarea>
+
+    <label for="summaryLength">Select Summary Type:</label>
+    <select id="summaryLength">
+      <option value="short">Short (25%)</option>
+      <option value="medium">Medium (40%)</option>
+      <option value="long">Long (60%)</option>
+    </select>
+
+    <button onclick="summarizeText()">Summarize</button>
+
+    <div class="output" id="outputText">⚡ Your summary will appear here...</div>
+  </div>
+
+  <script>
+    function summarizeText() {
+      let text = document.getElementById("inputText").value;
+      let length = document.getElementById("summaryLength").value;
+      let output = document.getElementById("outputText");
+
+      if (!text.trim()) {
+        output.innerText = "❌ Please enter some text to summarize.";
+        return;
+      }
+
+      // Split text into sentences
+      let sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+
+      // Split words and count frequency
+      let words = text.toLowerCase().replace(/[^a-zA-Z ]/g, "").split(/\s+/);
+      let freq = {};
+      words.forEach(w => {
+        if (w.length > 3) { // ignore short/common words
+          freq[w] = (freq[w] || 0) + 1;
+        }
+      });
+
+      // Score sentences
+      let scored = sentences.map(s => {
+        let score = 0;
+        s.toLowerCase().split(/\s+/).forEach(w => {
+          if (freq[w]) score += freq[w];
+        });
+        return { sentence: s.trim(), score };
+      });
+
+      // Sort by score
+      scored.sort((a, b) => b.score - a.score);
+
+      // Pick percentage of sentences
+      let ratio = length === "short" ? 0.25 : length === "medium" ? 0.4 : 0.6;
+      let count = Math.max(1, Math.floor(sentences.length * ratio));
+
+      let summary = scored.slice(0, count).map(s => s.sentence).join(" ");
+
+      output.innerText = summary || "⚠️ Could not generate summary.";
+    }
+  </script>
+</body>
+</html>

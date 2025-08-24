@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Toolify — Guides for Every Tool</title>
+<meta name="description" content="Step-by-step professional guides for all Toolify utilities—OCR, PDF Maker, Image Editing, Unit Converter, QR Generator, Color Picker, Passwords, and more."/>
+<style>
+:root{
+  --bg:#0b0f14; --card:#0f1720; --muted:#9aa6b2; --accent:#58a6ff; --glass: rgba(255,255,255,0.08);
+  --max-w:1200px; --radius:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#07090b,#0e1620);color:#e6eef8;font-family:"Segoe UI",Roboto,system-ui}
+.container{width:100%;max-width:var(--max-w);padding:36px;margin:auto}
+
+/* HEADER */
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo .name{font-size:22px;color:var(--accent);font-weight:800}
+.search{flex:1;max-width:520px}
+.search input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--glass);background:#091016;color:#e6eef8}
+
+/* HERO */
+.hero{padding:56px 20px;text-align:center;border-radius:18px;background:linear-gradient(135deg,#101a27 0%,#0a1119 100%);box-shadow:0 12px 40px rgba(0,0,0,0.35);margin-bottom:36px}
+.hero h1{font-size:2.4rem;margin:0 0 10px;color:#fff}
+.hero p{font-size:1.08rem;color:#c5d6eb;max-width:720px;margin:0 auto 18px}
+.hero .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:6px}
+.btn{background:var(--accent);color:#071025;padding:12px 18px;border-radius:12px;border:none;font-weight:700;cursor:pointer;transition:.25s;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(1.05)}
+.btn.ghost{background:transparent;color:#cfe3ff;border:1px solid rgba(255,255,255,0.15)}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid var(--glass);
+  padding:18px;border-radius:var(--radius);box-shadow:0 8px 24px rgba(2,6,23,0.6);display:flex;flex-direction:column;gap:10px;min-height:210px;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(88,166,255,0.08)}
+.card h3{margin:0;color:#dff3ff;font-size:1.06rem}
+.meta{color:var(--muted);font-size:13px}
+.lead{color:#cfe9ff;font-size:14px}
+.cta{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{margin-top:40px;text-align:center;color:var(--muted);font-size:13px;padding:20px 0;border-top:1px solid rgba(255,255,255,0.06)}
+@media (max-width:760px){.container{padding:18px}.hero h1{font-size:1.9rem}}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="name">Toolify Guides</div>
+        <div style="color:var(--muted)">Professional step-by-step walkthroughs</div>
+      </div>
+      <div class="search">
+        <input id="search" placeholder="Search guides (e.g., OCR, QR, password, resize)"/>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Master Every Tool in Minutes</h1>
+      <p>Clear explanations, best practices, and step-by-step instructions for all Toolify utilities — no signup, no external APIs, and fully private in your browser.</p>
+      <div class="actions">
+        <a href="#all" class="btn">Browse All Guides</a>
+        <a href="index.html" class="btn ghost">Back to Tools</a>
+      </div>
+    </section>
+
+    <main class="grid" id="all">
+      <!-- 1 -->
+      <article class="card" data-title="ocr image to text">
+        <h3>🖼️ OCR — Image to Text</h3>
+        <div class="meta">OCR • Extract • Scan</div>
+        <p class="lead">Turn images/screenshots into editable text. Great for notes and research.</p>
+        <div class="cta">
+          <a class="btn" href="guides/ocr.html">Read More</a>
+          <a class="btn ghost" href="text-extract.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 2 -->
+      <article class="card" data-title="pdf maker create pdf">
+        <h3>📄 PDF Maker</h3>
+        <div class="meta">PDF • Combine • Export</div>
+        <p class="lead">Combine images/docs into polished PDFs with page settings.</p>
+        <div class="cta">
+          <a class="btn" href="guides/pdf-maker.html">Read More</a>
+          <a class="btn ghost" href="pdf-maker.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 3 -->
+      <article class="card" data-title="background removal transparent png">
+        <h3>🎨 Background Removal</h3>
+        <div class="meta">Image Editing • Transparent PNG</div>
+        <p class="lead">Remove backgrounds for e-commerce or portraits without Photoshop.</p>
+        <div class="cta">
+          <a class="btn" href="guides/background-removal.html">Read More</a>
+          <a class="btn ghost" href="background-removal.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 4 -->
+      <article class="card" data-title="image converter jpg png webp">
+        <h3>🖼️ Image Converter</h3>
+        <div class="meta">JPG • PNG • WebP • Compress</div>
+        <p class="lead">Batch convert and optimize images for web and social.</p>
+        <div class="cta">
+          <a class="btn" href="guides/image-converter.html">Read More</a>
+          <a class="btn ghost" href="image-converter.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 5 -->
+      <article class="card" data-title="unit converter length weight data energy">
+        <h3>🔢 Unit Converter</h3>
+        <div class="meta">Length • Weight • Data • Energy</div>
+        <p class="lead">Convert common & scientific units quickly and accurately.</p>
+        <div class="cta">
+          <a class="btn" href="guides/unit-converter.html">Read More</a>
+          <a class="btn ghost" href="unit-converter.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 6 -->
+      <article class="card" data-title="qr code generator wifi vcard">
+        <h3>📱 QR Code Generator</h3>
+        <div class="meta">URL • Wi-Fi • vCard</div>
+        <p class="lead">Create clean, scannable QR codes with custom options.</p>
+        <div class="cta">
+          <a class="btn" href="guides/qr-generator.html">Read More</a>
+          <a class="btn ghost" href="qr-generator.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 7 -->
+      <article class="card" data-title="color picker palette rgb hsl">
+        <h3>🎨 Color Picker</h3>
+        <div class="meta">Hex • RGB • HSL • Palettes</div>
+        <p class="lead">Pick colors, build palettes, and copy codes instantly.</p>
+        <div class="cta">
+          <a class="btn" href="guides/color-picker.html">Read More</a>
+          <a class="btn ghost" href="color-picker.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 8 -->
+      <article class="card" data-title="password generator secure memorable">
+        <h3>🔐 Password Generator</h3>
+        <div class="meta">Passphrases • Entropy • Strength</div>
+        <p class="lead">Generate strong or memorable passwords safely, offline.</p>
+        <div class="cta">
+          <a class="btn" href="guides/password-generator.html">Read More</a>
+          <a class="btn ghost" href="password-generator.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 9 -->
+      <article class="card" data-title="text case converter uppercase lowercase titlecase">
+        <h3>✍️ Text Case Converter</h3>
+        <div class="meta">Uppercase • Title Case • Clean</div>
+        <p class="lead">Format text casing and clean whitespace with one click.</p>
+        <div class="cta">
+          <a class="btn" href="guides/text-case.html">Read More</a>
+          <a class="btn ghost" href="text-case.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 10 -->
+      <article class="card" data-title="word counter reading time seo">
+        <h3>🧮 Word Counter</h3>
+        <div class="meta">Count • Reading Time • Density</div>
+        <p class="lead">Track word/char counts, reading time, and keyword density.</p>
+        <div class="cta">
+          <a class="btn" href="guides/word-counter.html">Read More</a>
+          <a class="btn ghost" href="word-count.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 11 -->
+      <article class="card" data-title="image resize crop web optimize">
+        <h3>🖼️ Image Resize & Crop</h3>
+        <div class="meta">Resize • Crop • Export</div>
+        <p class="lead">Resize for web, crop precisely, and export optimized files.</p>
+        <div class="cta">
+          <a class="btn" href="guides/image-resize-crop.html">Read More</a>
+          <a class="btn ghost" href="image-resize.html">Open Tool</a>
+        </div>
+      </article>
+      <!-- 12 -->
+      <article class="card" data-title="text summarizer offline study">
+        <h3>📝 Text Summarizer</h3>
+        <div class="meta">Summarize • Notes • Study</div>
+        <p class="lead">Condense long text locally — helpful for studying.</p>
+        <div class="cta">
+          <a class="btn" href="guides/text-summarizer.html">Read More</a>
+          <a class="btn ghost" href="text-summarize.html">Open Tool</a>
+        </div>
+      </article>
+    </main>
+
+    <footer>© 2025 Toolify — Professional guides for each tool.</footer>
+  </div>
+
+<script>
+  // Simple client-side filter
+  const input = document.getElementById('search');
+  const cards = [...document.querySelectorAll('.card')];
+  input.addEventListener('input', e=>{
+    const q = e.target.value.trim().toLowerCase();
+    cards.forEach(c=>{
+      const t = (c.dataset.title + ' ' + c.querySelector('h3').innerText + ' ' + c.querySelector('.lead').innerText).toLowerCase();
+      c.style.display = t.includes(q) ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>
