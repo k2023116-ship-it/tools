@@ -22,7 +22,13 @@
       radial-gradient(900px 400px at 10% -10%, rgba(59,130,246,.15), transparent 40%),
       radial-gradient(700px 300px at 110% 10%, rgba(34,211,238,.08), transparent 40%),
       var(--bg);
-    min-height:100vh; display:flex; align-items:flex-start; justify-content:center; padding:28px;
+    min-height:100vh; display:flex; flex-direction:column; align-items:center; padding:28px;
+  }
+  h1{
+    text-align:center;
+    font-size:30px;
+    margin:0 0 28px 0;
+    color:var(--primary);
   }
   .layout{width:100%; max-width:1200px; display:grid; grid-template-columns:1.25fr .9fr; gap:22px}
   @media (max-width: 1024px){ .layout{grid-template-columns:1fr} }
@@ -72,6 +78,9 @@
 </style>
 </head>
 <body>
+  <!-- ✅ SEO-friendly H1 -->
+  <h1>QR Code Generator — Create Custom QR Codes Online with Toolify</h1>
+
   <div class="layout">
     <!-- LEFT -->
     <div class="card">
