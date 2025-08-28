@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Solver Guide — Step-by-Step AI Problem Solving | Toolify</title>
+  <meta name="description" content="Master the Quiz Solver tool with our comprehensive guide. Learn how to solve math problems, analyze diagrams, and get step-by-step solutions using AI vision technology.">
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #0f1720;
+      --muted: #9aa6b2;
+      --accent: #58a6ff;
+      --glass: rgba(255,255,255,0.08);
+      --max-w: 1200px;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #07090b, #0e1620);
+      color: #e6eef8;
+      font-family: "Segoe UI", Roboto, system-ui;
+      line-height: 1.6;
+    }
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      padding: 36px;
+      margin: auto;
+    }
+    
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo .name {
+      font-size: 22px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 56px 20px;
+      text-align: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #101a27 0%, #0a1119 100%);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+      margin-bottom: 36px;
+    }
+    .hero h1 {
+      font-size: 2.4rem;
+      margin: 0 0 10px;
+      color: #fff;
+    }
+    .hero p {
+      font-size: 1.08rem;
+      color: #c5d6eb;
+      max-width: 720px;
+      margin: 0 auto 18px;
+    }
+    .hero .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .btn {
+      background: var(--accent);
+      color: #071025;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .25s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover { filter: brightness(1.05) }
+    .btn.ghost {
+      background: transparent;
+      color: #cfe3ff;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    
+    /* Content */
+    .content {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border: 1px solid var(--glass);
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(2,6,23,0.6);
+      margin-bottom: 24px;
+    }
+    .content h2 {
+      color: #fff;
+      margin: 0 0 16px 0;
+      font-size: 1.5rem;
+    }
+    .content h3 {
+      color: #dff3ff;
+      margin: 24px 0 12px 0;
+      font-size: 1.2rem;
+    }
+    .content p {
+      color: #cfe9ff;
+      margin-bottom: 16px;
+    }
+    .content ul, .content ol {
+      color: #cfe9ff;
+      margin-bottom: 16px;
+      padding-left: 24px;
+    }
+    .content li {
+      margin-bottom: 8px;
+    }
+    .highlight {
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid rgba(88, 166, 255, 0.2);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+    .highlight h4 {
+      color: var(--accent);
+      margin: 0 0 8px 0;
+    }
+    .highlight p {
+      margin: 0;
+      color: #b6c6d8;
+    }
+    .steps {
+      background: rgba(46, 160, 67, 0.1);
+      border: 1px solid rgba(46, 160, 67, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .steps h4 {
+      color: #2ea043;
+      margin: 0 0 16px 0;
+    }
+    .step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: flex-start;
+    }
+    .step:last-child { margin-bottom: 0; }
+    .step-num {
+      background: #2ea043;
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content h5 {
+      color: #fff;
+      margin: 0 0 4px 0;
+      font-size: 1rem;
+    }
+    .step-content p {
+      margin: 0;
+      color: #b6c6d8;
+      font-size: 14px;
+    }
+    
+    /* Tips */
+    .tips {
+      background: rgba(255, 193, 7, 0.1);
+      border: 1px solid rgba(255, 193, 7, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .tips h4 {
+      color: #f59e0b;
+      margin: 0 0 16px 0;
+    }
+    .tip {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+    .tip:last-child { margin-bottom: 0; }
+    .tip-icon {
+      color: #f59e0b;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .tip-content p {
+      margin: 0;
+      color: #b6c6d8;
+      font-size: 14px;
+    }
+    
+    /* Footer */
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 20px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    
+    @media (max-width: 760px) {
+      .container { padding: 18px; }
+      .hero h1 { font-size: 1.9rem; }
+      .content { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="name">Toolify Guides</div>
+        <div style="color: var(--muted)">Professional step-by-step walkthroughs</div>
+      </div>
+      <a href="guides.html" class="btn ghost">← Back to All Guides</a>
+    </header>
+
+    <section class="hero">
+      <h1>🧠 Quiz Solver — Complete Guide</h1>
+      <p>Master the AI-powered Quiz Solver tool to solve complex problems, analyze diagrams, and get step-by-step solutions for math, science, and academic questions.</p>
+      <div class="actions">
+        <a href="../quiz-solver.html" class="btn">Open Quiz Solver</a>
+        <a href="guides.html" class="btn ghost">Browse All Guides</a>
+      </div>
+    </section>
+
+    <div class="content">
+      <h2>What is the Quiz Solver Tool?</h2>
+      <p>The Quiz Solver is an advanced AI-powered tool that combines Google's Gemini Vision technology with OCR (Optical Character Recognition) to solve complex problems from images, diagrams, and text. Whether you're a student struggling with math homework, a researcher analyzing diagrams, or someone who needs help understanding complex visual problems, this tool provides detailed, step-by-step solutions.</p>
+      
+      <div class="highlight">
+        <h4>🎯 Key Features</h4>
+        <p><strong>AI Vision Analysis:</strong> Upload diagrams, graphs, and images for intelligent interpretation</p>
+        <p><strong>OCR Text Extraction:</strong> Convert handwritten or printed text from images into editable text</p>
+        <p><strong>Step-by-Step Solutions:</strong> Get detailed explanations with working, formulas, and final answers</p>
+        <p><strong>Multiple Input Modes:</strong> Support for text-only, image-only, or combined input methods</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>How to Use the Quiz Solver</h2>
+      
+      <div class="steps">
+        <h4>📋 Step-by-Step Process</h4>
+        
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h5>Choose Your Input Method</h5>
+            <p>Decide whether you want to paste text, upload an image, or use both. The tool supports multiple input combinations.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h5>Select Processing Mode</h5>
+            <p>Choose from Auto, Vision, OCR, or Text-only modes based on your input and requirements.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h5>Upload or Paste Content</h5>
+            <p>Upload your image/diagram or paste your question text into the appropriate input field.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h5>Click Solve</h5>
+            <p>Press the "Solve" button and wait for the AI to process your input and generate a comprehensive solution.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h5>Review and Copy</h5>
+            <p>Read through the detailed solution, copy it to your clipboard, or use it for your studies.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>Understanding the Different Modes</h2>
+      
+      <h3>🔍 Auto Mode (Recommended)</h3>
+      <p>This intelligent mode automatically chooses the best processing method based on your input. If you upload an image, it uses Vision mode. If you only paste text, it uses Text mode. This is perfect for most users who want a seamless experience.</p>
+      
+      <h3>👁️ Vision Mode</h3>
+      <p>Directly analyzes images and diagrams using Gemini's advanced vision capabilities. This mode is ideal for:</p>
+      <ul>
+        <li>Geometry problems with diagrams</li>
+        <li>Graphs and charts</li>
+        <li>Physics diagrams showing forces and motion</li>
+        <li>Chemistry molecular structures</li>
+        <li>Any visual problem that needs interpretation</li>
+      </ul>
+      
+      <h3>📝 OCR Mode</h3>
+      <p>First extracts text from images using OCR technology, then sends the extracted text to Gemini for analysis. Use this mode when:</p>
+      <ul>
+        <li>Images contain handwritten text</li>
+        <li>Text in images is blurry or unclear</li>
+        <li>You want to see the extracted text before solving</li>
+        <li>Working with scanned documents or photos of text</li>
+      </ul>
+      
+      <h3>✍️ Text Mode</h3>
+      <p>Processes only text input without any image analysis. Perfect for:</p>
+      <ul>
+        <li>Word problems without diagrams</li>
+        <li>Algebraic equations</li>
+        <li>Text-based questions</li>
+        <li>When you want to type or paste questions directly</li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <h2>Best Practices for Optimal Results</h2>
+      
+      <div class="tips">
+        <h4>💡 Pro Tips for Better Results</h4>
+        
+        <div class="tip">
+          <div class="tip-icon">📸</div>
+          <div class="tip-content">
+            <p><strong>Image Quality:</strong> Use clear, well-lit images with good contrast for best vision analysis results.</p>
+          </div>
+        </div>
+        
+        <div class="tip">
+          <div class="tip-icon">🎯</div>
+          <div class="tip-content">
+            <p><strong>Focus on the Problem:</strong> Crop images to focus on the specific problem area, removing unnecessary distractions.</p>
+          </div>
+        </div>
+        
+        <div class="tip">
+          <div class="tip-icon">✏️</div>
+          <div class="tip-content">
+            <p><strong>Handwriting Clarity:</strong> For handwritten problems, ensure your writing is clear and legible for better OCR accuracy.</p>
+          </div>
+        </div>
+        
+        <div class="tip">
+          <div class="tip-icon">🔍</div>
+          <div class="tip-content">
+            <p><strong>Combine Inputs:</strong> Use both image and text input when possible for more comprehensive solutions.</p>
+          </div>
+        </div>
+        
+        <div class="tip">
+          <div class="tip-icon">📱</div>
+          <div class="tip-content">
+            <p><strong>Device Compatibility:</strong> The tool works on all devices, but larger screens provide better image preview and interaction.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>Common Use Cases and Examples</h2>
+      
+      <h3>📚 Academic Applications</h3>
+      <ul>
+        <li><strong>Mathematics:</strong> Solve complex equations, geometry problems, calculus, and algebra</li>
+        <li><strong>Physics:</strong> Analyze force diagrams, motion graphs, and circuit schematics</li>
+        <li><strong>Chemistry:</strong> Interpret molecular structures, chemical equations, and lab diagrams</li>
+        <li><strong>Biology:</strong> Analyze anatomical diagrams, cell structures, and biological processes</li>
+        <li><strong>Engineering:</strong> Solve technical problems, analyze blueprints, and understand schematics</li>
+      </ul>
+      
+      <h3>💼 Professional Applications</h3>
+      <ul>
+        <li><strong>Research:</strong> Analyze complex diagrams and charts from research papers</li>
+        <li><strong>Documentation:</strong> Extract and understand text from scanned documents</li>
+        <li><strong>Training:</strong> Create educational materials with step-by-step solutions</li>
+        <li><strong>Problem Solving:</strong> Break down complex visual problems into manageable steps</li>
+      </ul>
+      
+      <h3>🎓 Student Benefits</h3>
+      <ul>
+        <li>Get immediate help with homework problems</li>
+        <li>Learn problem-solving techniques step by step</li>
+        <li>Understand complex concepts through visual analysis</li>
+        <li>Improve study efficiency with instant feedback</li>
+        <li>Access to 24/7 tutoring assistance</li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <h2>Troubleshooting Common Issues</h2>
+      
+      <h3>❌ Common Problems and Solutions</h3>
+      
+      <h4>Image Not Loading</h4>
+      <ul>
+        <li>Check file format (supports JPG, PNG, WebP, GIF)</li>
+        <li>Ensure file size is reasonable (under 10MB recommended)</li>
+        <li>Try refreshing the page and uploading again</li>
+      </ul>
+      
+      <h4>Poor OCR Results</h4>
+      <ul>
+        <li>Improve image quality and lighting</li>
+        <li>Ensure text is clearly visible and not blurry</li>
+        <li>Try using Vision mode instead for better results</li>
+        <li>Check that text has good contrast with background</li>
+      </ul>
+      
+      <h4>AI Not Understanding the Problem</h4>
+      <ul>
+        <li>Provide additional context in the text input</li>
+        <li>Try different modes (Vision vs OCR)</li>
+        <li>Ensure the image clearly shows the problem</li>
+        <li>Rephrase or clarify the question if possible</li>
+      </ul>
+      
+      <h4>Slow Processing</h4>
+      <ul>
+        <li>Check your internet connection</li>
+        <li>Reduce image file size if possible</li>
+        <li>Try using Text mode for faster processing</li>
+        <li>Wait for the current process to complete before trying again</li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <h2>Privacy and Security</h2>
+      <p>The Quiz Solver tool is designed with your privacy in mind. All processing happens through secure Google Gemini APIs, and your images and text are not stored permanently on our servers. However, for maximum privacy:</p>
+      
+      <ul>
+        <li>Avoid uploading sensitive personal information</li>
+        <li>Use the tool for educational and professional purposes</li>
+        <li>Be aware that content is processed by Google's AI systems</li>
+        <li>Consider using Text mode for highly sensitive questions</li>
+      </ul>
+      
+      <div class="highlight">
+        <h4>🔒 Privacy Features</h4>
+        <p><strong>No Permanent Storage:</strong> Your uploads are processed and then discarded</p>
+        <p><strong>Secure API:</strong> All communication uses encrypted HTTPS connections</p>
+        <p><strong>Local Processing:</strong> OCR processing happens in your browser</p>
+        <p><strong>API Key Protection:</strong> Your API key is not exposed in the user interface</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <h2>Advanced Features and Customization</h2>
+      
+      <h3>⚙️ Tool Configuration</h3>
+      <ul>
+        <li><strong>Temperature Control:</strong> AI responses are optimized for accuracy (low temperature setting)</li>
+        <li><strong>Token Limits:</strong> Responses are limited to ensure concise, focused solutions</li>
+        <li><strong>Model Selection:</strong> Automatically uses the best Gemini model for your input type</li>
+      </ul>
+      
+      <h3>🎨 Output Formatting</h3>
+      <ul>
+        <li><strong>LaTeX Support:</strong> Mathematical expressions are rendered beautifully</li>
+        <li><strong>Step-by-Step Format:</strong> Solutions are structured for easy understanding</li>
+        <li><strong>Copy Functionality:</strong> Easy one-click copying of complete solutions</li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <h2>Getting the Most Out of Quiz Solver</h2>
+      
+      <div class="highlight">
+        <h4>🚀 Maximize Your Success</h4>
+        <p><strong>Start Simple:</strong> Begin with basic problems to understand how the tool works</p>
+        <p><strong>Experiment with Modes:</strong> Try different modes to see which works best for your use case</p>
+        <p><strong>Combine Inputs:</strong> Use both image and text for comprehensive solutions</p>
+        <p><strong>Learn from Solutions:</strong> Study the step-by-step process to improve your own problem-solving skills</p>
+        <p><strong>Practice Regularly:</strong> Regular use helps you understand the tool's capabilities and limitations</p>
+      </div>
+      
+      <p>Remember, the Quiz Solver is a powerful learning tool, but it's most effective when used as part of a comprehensive study strategy. Use it to understand concepts, verify your work, and learn new problem-solving approaches.</p>
+    </div>
+
+    <div class="content" style="text-align: center; background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(46,160,67,0.1)); border: 1px solid rgba(0,212,255,0.2);">
+      <h2 style="color: var(--accent); margin-bottom: 16px;">Ready to Solve Any Problem?</h2>
+      <p style="color: #aebcd0; margin-bottom: 20px; font-size: 1.1rem;">Start using the Quiz Solver today and experience the power of AI-assisted problem solving. Whether you're a student, researcher, or professional, this tool will transform how you approach complex problems.</p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a href="../quiz-solver.html" class="btn">Open Quiz Solver</a>
+        <a href="guides.html" class="btn ghost">Browse All Guides</a>
+      </div>
+    </div>
+
+    <footer>
+      © 2025 Toolify — Professional guides for each tool. 
+      <a href="../index.html" style="color: var(--accent);">Back to Tools</a>
+    </footer>
+  </div>
+</body>
+</html>
