@@ -15,31 +15,64 @@
 
 <style>
   :root{--bg:#0d1117;--card:#161b22;--text:#e6edf3;--muted:#9ca3af;--primary:#58a6ff;--ok:#2ea043;--warn:#f59e0b;--border:#30363d}
+  
+  /* Dark mode variables */
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --text: #e6edf3;
+    --muted: #9ca3af;
+    --primary: #58a6ff;
+    --ok: #2ea043;
+    --warn: #f59e0b;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --accent-light: rgba(88, 166, 255, 0.1);
+    --success: #2ea043;
+    --success-light: rgba(46, 160, 67, 0.1);
+    --warning: #f59e0b;
+    --warning-light: rgba(245, 158, 11, 0.1);
+    --info: #58a6ff;
+    --info-light: rgba(88, 166, 255, 0.1);
+  }
+  
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
-  header{padding:22px 16px;text-align:center;background:linear-gradient(180deg, rgba(88,166,255,.08), transparent)}
+  header{padding:22px 16px;text-align:center;background:linear-gradient(180deg, var(--accent-light), transparent)}
   h1{margin:0;color:var(--primary);font-size:28px}
   main{max-width:1100px;margin:16px auto;padding:16px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media (max-width:1000px){.grid{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)}
   .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .btn{background:#1f2937;color:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600}
-  .btn.primary{background:var(--primary);color:#0b1220;border-color:transparent}
-  .btn.ok{background:var(--ok);border-color:transparent}
-  .btn.warn{background:var(--warn);color:#111;border-color:transparent}
+  .btn{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600;transition: all 0.2s ease}
+  .btn:hover{background:var(--accent-light);border-color:var(--accent)}
+  .btn.primary{background:var(--primary);color:#fff;border-color:transparent}
+  .btn.primary:hover{background:var(--accent);transform: translateY(-1px)}
+  .btn.ok{background:var(--ok);border-color:transparent;color: #fff}
+  .btn.ok:hover{background:var(--success);transform: translateY(-1px)}
+  .btn.warn{background:var(--warn);color:#fff;border-color:transparent}
+  .btn.warn:hover{background:var(--warning);transform: translateY(-1px)}
   .hint{color:var(--muted);font-size:12px}
-  textarea{width:100%;min-height:160px;border:1px solid var(--border);border-radius:10px;background:#0d1117;color:#fff;padding:10px;resize:vertical}
-  .out{white-space:pre-wrap;line-height:1.6;border:1px solid var(--border);border-radius:10px;padding:12px;background:#0d1117;min-height:140px}
-  .badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:6px 10px;margin-right:6px;background:#0e1523;font-size:12px}
+  textarea{width:100%;min-height:160px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);padding:10px;resize:vertical;transition: border-color 0.2s ease}
+  textarea:focus{border-color:var(--accent);outline: none}
+  .out{white-space:pre-wrap;line-height:1.6;border:1px solid var(--border);border-radius:10px;padding:12px;background:var(--card);min-height:140px}
+  .badge{display:inline-block;border:1px solid var(--border);border-radius:999px;padding:6px 10px;margin-right:6px;background:var(--accent-light);color:var(--accent);font-size:12px;font-weight: 500}
   .preview{max-width:100%;border:1px dashed var(--border);border-radius:10px;margin-top:8px}
-  select,input[type="number"]{background:#0f172a;color:#fff;border:1px solid var(--border);border-radius:10px;padding:10px 12px;width:100%}
-  label{display:block;margin:8px 0 6px}
+  select,input[type="number"]{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 12px;width:100%;transition: border-color 0.2s ease}
+  select:focus,input[type="number"]:focus{border-color:var(--accent);outline: none}
+  label{display:block;margin:8px 0 6px;color:var(--text);font-weight: 500}
   .flex-2{display:flex;gap:10px}
   .flex-2 > div{flex:1}
+  
+
+  
+
 </style>
 </head>
 <body>
+
+  
   <header>
     <h1>📷➜✅ Solve Questions from Text or Diagrams (Gemini Vision)</h1>
     <p class="hint">Paste text or upload a photo/diagram. Get a step-by-step solution. No UI exposure of API key.</p>
@@ -97,17 +130,17 @@
     </div>
 
     <!-- SEO-Friendly FAQ and Information Section -->
-    <section style="margin-top: 60px; padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.08);">
+    <section style="margin-top: 60px; padding: 40px 0; border-top: 1px solid var(--border);">
       <div style="text-align: center; margin-bottom: 40px;">
-        <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 16px;">❓ Frequently Asked Questions & How to Use Quiz Solver</h2>
-        <p style="color: #aebcd0; font-size: 1.1rem; max-width: 800px; margin: 0 auto;">Everything you need to know about using the Quiz Solver tool effectively for solving math problems, analyzing diagrams, and getting step-by-step solutions.</p>
+        <h2 style="font-size: 2.2rem; color: var(--text); margin-bottom: 16px;">❓ Frequently Asked Questions & How to Use Quiz Solver</h2>
+        <p style="color: var(--muted); font-size: 1.1rem; max-width: 800px; margin: 0 auto;">Everything you need to know about using the Quiz Solver tool effectively for solving math problems, analyzing diagrams, and getting step-by-step solutions.</p>
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 50px;">
-        <div style="background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,124,255,0.1)); border: 1px solid rgba(0,212,255,0.2); padding: 24px; border-radius: 16px;">
-          <h3 style="color: #00d4ff; margin-bottom: 16px;">❓ What is Quiz Solver?</h3>
-          <p style="color: #aebcd0; margin-bottom: 16px;">Quiz Solver is an AI-powered tool that combines Google's Gemini Vision technology with OCR to solve complex problems from images, diagrams, and text. It provides detailed, step-by-step solutions for math, science, and academic questions.</p>
-          <ul style="color: #9fb6cc; margin: 0; padding-left: 20px;">
+        <div style="background: var(--info-light); border: 1px solid var(--info); padding: 24px; border-radius: 16px;">
+          <h3 style="color: var(--info); margin-bottom: 16px;">❓ What is Quiz Solver?</h3>
+          <p style="color: var(--text); margin-bottom: 16px;">Quiz Solver is an AI-powered tool that combines Google's Gemini Vision technology with OCR to solve complex problems from images, diagrams, and text. It provides detailed, step-by-step solutions for math, science, and academic questions.</p>
+          <ul style="color: var(--muted); margin: 0; padding-left: 20px;">
             <li>AI-powered problem solving</li>
             <li>Image and diagram analysis</li>
             <li>Step-by-step explanations</li>
@@ -115,10 +148,10 @@
           </ul>
         </div>
 
-        <div style="background: linear-gradient(135deg, rgba(46,160,67,0.1), rgba(0,212,255,0.1)); border: 1px solid rgba(46,160,67,0.2); padding: 24px; border-radius: 16px;">
-          <h3 style="color: #2ea043; margin-bottom: 16px;">🔒 How does privacy work?</h3>
-          <p style="color: #aebcd0; margin-bottom: 16px;">All processing happens through secure Google Gemini APIs. Your images and text are not stored permanently on our servers, ensuring complete privacy and security for your personal and professional work.</p>
-          <ul style="color: #9fb6cc; margin: 0; padding-left: 20px;">
+        <div style="background: var(--success-light); border: 1px solid var(--success); padding: 24px; border-radius: 16px;">
+          <h3 style="color: var(--success); margin-bottom: 16px;">🔒 How does privacy work?</h3>
+          <p style="color: var(--text); margin-bottom: 16px;">All processing happens through secure Google Gemini APIs. Your images and text are not stored permanently on our servers, ensuring complete privacy and security for your personal and professional work.</p>
+          <ul style="color: var(--muted); margin: 0; padding-left: 20px;">
             <li>No permanent storage</li>
             <li>Secure API communication</li>
             <li>Local OCR processing</li>
@@ -126,10 +159,10 @@
           </ul>
         </div>
 
-        <div style="background: linear-gradient(135deg, rgba(255,193,7,0.1), rgba(124,124,255,0.1)); border: 1px solid rgba(255,193,7,0.2); padding: 24px; border-radius: 16px;">
-          <h3 style="color: #f59e0b; margin-bottom: 16px;">⚡ Why is it so fast?</h3>
-          <p style="color: #aebcd0; margin-bottom: 16px;">Our tool uses optimized AI models and efficient processing. Vision mode directly analyzes images, while OCR mode quickly extracts text for faster problem-solving without waiting in queues.</p>
-          <ul style="color: #9fb6cc; margin: 0; padding-left: 20px;">
+        <div style="background: var(--warning-light); border: 1px solid var(--warning); padding: 24px; border-radius: 16px;">
+          <h3 style="color: var(--warning); margin-bottom: 16px;">⚡ Why is it so fast?</h3>
+          <p style="color: var(--text); margin-bottom: 16px;">Our tool uses optimized AI models and efficient processing. Vision mode directly analyzes images, while OCR mode quickly extracts text for faster problem-solving without waiting in queues.</p>
+          <ul style="color: var(--muted); margin: 0; padding-left: 20px;">
             <li>Optimized AI models</li>
             <li>Direct image analysis</li>
             <li>Fast OCR processing</li>
@@ -139,10 +172,10 @@
       </div>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 50px;">
-        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;">
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
           <h3 style="color: var(--primary); margin-bottom: 16px;">🎯 Perfect for Students</h3>
-          <p style="color: #aebcd0; margin-bottom: 16px;">Get immediate help with homework problems, understand complex concepts through visual analysis, and learn problem-solving techniques step by step.</p>
-          <ul style="color: #9fb6cc; margin: 16px 0 0 20px;">
+          <p style="color: var(--text); margin-bottom: 16px;">Get immediate help with homework problems, understand complex concepts through visual analysis, and learn problem-solving techniques step by step.</p>
+          <ul style="color: var(--muted); margin: 16px 0 0 20px;">
             <li>Math homework assistance</li>
             <li>Science diagram analysis</li>
             <li>Step-by-step learning</li>
@@ -150,10 +183,10 @@
           </ul>
         </div>
 
-        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;">
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
           <h3 style="color: var(--primary); margin-bottom: 16px;">💼 Business Professionals</h3>
-          <p style="color: #aebcd0; margin-bottom: 16px;">Analyze complex diagrams, extract text from documents, and solve technical problems efficiently for research, training, and problem-solving needs.</p>
-          <ul style="color: #9fb6cc; margin: 16px 0 0 20px;">
+          <p style="color: var(--text); margin-bottom: 16px;">Analyze complex diagrams, extract text from documents, and solve technical problems efficiently for research, training, and problem-solving needs.</p>
+          <ul style="color: var(--muted); margin: 16px 0 0 20px;">
             <li>Research diagram analysis</li>
             <li>Document text extraction</li>
             <li>Technical problem solving</li>
@@ -161,10 +194,10 @@
           </ul>
         </div>
 
-        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;">
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
           <h3 style="color: var(--primary); margin-bottom: 16px;">🎨 Content Creators</h3>
-          <p style="color: #aebcd0; margin-bottom: 16px;">Create educational materials, analyze visual content, and generate step-by-step solutions for blogs, tutorials, and educational platforms.</p>
-          <ul style="color: #9fb6cc; margin: 16px 0 0 20px;">
+          <p style="color: var(--text); margin-bottom: 16px;">Create educational materials, analyze visual content, and generate step-by-step solutions for blogs, tutorials, and educational platforms.</p>
+          <ul style="color: var(--muted); margin: 16px 0 0 20px;">
             <li>Educational content creation</li>
             <li>Visual problem analysis</li>
             <li>Step-by-step tutorials</li>
@@ -172,10 +205,10 @@
           </ul>
         </div>
 
-        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;">
+        <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
           <h3 style="color: var(--primary); margin-bottom: 16px;">🔬 Researchers & Developers</h3>
-          <p style="color: #aebcd0; margin-bottom: 16px;">Advanced tools for technical work, diagram analysis, and research documentation. Essential for scientists, engineers, and software developers.</p>
-          <ul style="color: #9fb6cc; margin: 16px 0 0 20px;">
+          <p style="color: var(--text); margin-bottom: 16px;">Advanced tools for technical work, diagram analysis, and research documentation. Essential for scientists, engineers, and software developers.</p>
+          <ul style="color: var(--muted); margin: 16px 0 0 20px;">
             <li>Technical diagram analysis</li>
             <li>Research documentation</li>
             <li>Problem decomposition</li>
@@ -184,35 +217,35 @@
         </div>
       </div>
 
-      <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 40px;">
+      <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 40px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
         <h3 style="color: var(--primary); margin-bottom: 20px;">❓ Frequently Asked Questions About Quiz Solver</h3>
         <div style="display: grid; gap: 20px;">
           <div style="border-left: 3px solid var(--primary); padding-left: 16px;">
-            <h4 style="color: #fff; margin: 0 0 8px 0;">Q: How accurate are the Quiz Solver solutions?</h4>
-            <p style="color: #aebcd0; margin: 0;">A: Our tool uses Google's advanced Gemini AI models which provide highly accurate solutions. The AI is trained on vast amounts of educational content and can handle complex problems across multiple subjects with step-by-step explanations.</p>
+            <h4 style="color: var(--text); margin: 0 0 8px 0;">Q: How accurate are the Quiz Solver solutions?</h4>
+            <p style="color: var(--text); margin: 0;">A: Our tool uses Google's advanced Gemini AI models which provide highly accurate solutions. The AI is trained on vast amounts of educational content and can handle complex problems across multiple subjects with step-by-step explanations.</p>
           </div>
           <div style="border-left: 3px solid var(--primary); padding-left: 16px;">
-            <h4 style="color: #fff; margin: 0 0 8px 0;">Q: What file formats are supported for image uploads?</h4>
-            <p style="color: #aebcd0; margin: 0;">A: Quiz Solver supports all major image formats including JPG, PNG, WebP, and GIF. For best results, use clear, well-lit images with good contrast. We recommend keeping file sizes under 10MB for optimal performance.</p>
+            <h4 style="color: var(--text); margin: 0 0 8px 0;">Q: What file formats are supported for image uploads?</h4>
+            <p style="color: var(--text); margin: 0;">A: Quiz Solver supports all major image formats including JPG, PNG, WebP, and GIF. For best results, use clear, well-lit images with good contrast. We recommend keeping file sizes under 10MB for optimal performance.</p>
           </div>
           <div style="border-left: 3px solid var(--primary); padding-left: 16px;">
-            <h4 style="color: #fff; margin: 0 0 8px 0;">Q: Can I use Quiz Solver offline?</h4>
-            <p style="color: #aebcd0; margin: 0;">A: Quiz Solver requires an internet connection to access Google's Gemini AI services. However, OCR processing happens locally in your browser, and once you have a solution, you can work with it offline.</p>
+            <h4 style="color: var(--text); margin: 0 0 8px 0;">Q: Can I use Quiz Solver offline?</h4>
+            <p style="color: var(--text); margin: 0;">A: Quiz Solver requires an internet connection to access Google's Gemini AI services. However, OCR processing happens locally in your browser, and once you have a solution, you can work with it offline.</p>
           </div>
           <div style="border-left: 3px solid var(--primary); padding-left: 16px;">
-            <h4 style="color: #fff; margin: 0 0 8px 0;">Q: How do I choose the right mode for my problem?</h4>
-            <p style="color: #aebcd0; margin: 0;">A: Use Auto mode for most problems - it automatically selects the best approach. Use Vision mode for diagrams and visual problems, OCR mode for handwritten text, and Text mode for typed questions. The tool will guide you to the optimal choice.</p>
+            <h4 style="color: var(--text); margin: 0 0 8px 0;">Q: How do I choose the right mode for my problem?</h4>
+            <p style="color: var(--text); margin: 0;">A: Use Auto mode for most problems - it automatically selects the best approach. Use Vision mode for diagrams and visual problems, OCR mode for handwritten text, and Text mode for typed questions. The tool will guide you to the optimal choice.</p>
           </div>
           <div style="border-left: 3px solid var(--primary); padding-left: 16px;">
-            <h4 style="color: #fff; margin: 0 0 8px 0;">Q: Can I use Quiz Solver for commercial projects?</h4>
-            <p style="color: #aebcd0; margin: 0;">A: Absolutely! Quiz Solver is free for personal, educational, and commercial use. There are no licensing restrictions or usage limitations. It's perfect for businesses, educational institutions, and professional development.</p>
+            <h4 style="color: var(--text); margin: 0 0 8px 0;">Q: Can I use Quiz Solver for commercial projects?</h4>
+            <p style="color: var(--text); margin: 0;">A: Absolutely! Quiz Solver is free for personal, educational, and commercial use. There are no licensing restrictions or usage limitations. It's perfect for businesses, educational institutions, and professional development.</p>
           </div>
         </div>
       </div>
 
-      <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center;">
+      <div style="background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
         <h3 style="color: var(--primary); margin-bottom: 16px;">🚀 Ready to Solve Any Problem?</h3>
-        <p style="color: #aebcd0; margin-bottom: 20px; font-size: 1.1rem;">Join thousands of students, professionals, and researchers who trust Quiz Solver for their daily problem-solving needs. Experience the power of AI-assisted learning and problem analysis.</p>
+        <p style="color: var(--text); margin-bottom: 20px; font-size: 1.1rem;">Join thousands of students, professionals, and researchers who trust Quiz Solver for their daily problem-solving needs. Experience the power of AI-assisted learning and problem analysis.</p>
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
           <a class="btn primary" href="#top">Start Solving Now</a>
           <a class="btn" href="guides/quiz-solver.html">Read Detailed Guide</a>
@@ -422,6 +455,8 @@ General solving approach:
       answerEl.textContent = "⚠️ Error: " + (err?.message || err);
     }
   });
+
+
 </script>
 </body>
 </html>
