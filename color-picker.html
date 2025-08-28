@@ -27,8 +27,8 @@
     color:var(--text);
     padding:28px;
     display:flex;
-    align-items:flex-start;
-    justify-content:center;
+    flex-direction:column;
+    align-items:center;
     min-height:100vh;
   }
 
@@ -42,6 +42,13 @@
     padding:18px;
     border:1px solid #d6e4ff;
   }
+  
+  .full-width-card {
+    width: 100%;
+    max-width: 1150px;
+    margin-top: 20px;
+  }
+  
   header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
   .logo{
     width:44px;height:44px;
@@ -52,6 +59,9 @@
   }
   h1,h2{margin:0}
   h1{font-size:18px}
+  h2{font-size:16px;margin-bottom:12px}
+  h3{font-size:14px;color:var(--accent);margin:16px 0 8px 0}
+  p{line-height:1.6;margin:8px 0}
   .muted{color:var(--muted);font-size:13px}
 
   /* uploader */
@@ -135,8 +145,83 @@
   }
 
   .small{font-size:12px;color:var(--muted)}
+  
+  .faq-item {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--panel);
+    border-radius: 8px;
+    border: 1px solid #d6e4ff;
+  }
+  
+  .faq-question {
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  
+  .faq-answer {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  
+  .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  
+  .step-number {
+    background: var(--accent);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  
+  .step-content {
+    flex: 1;
+  }
+  
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .feature-item {
+    padding: 16px;
+    background: var(--panel);
+    border-radius: 8px;
+    border: 1px solid #d6e4ff;
+  }
+  
+  .feature-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .feature-title {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--accent);
+  }
+  
+  .feature-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
 
-  footer{margin-top:16px;text-align:center;color:#666;font-size:13px}
+  footer{margin-top: 40px;text-align:center;color:#666;font-size:13px;padding:20px 0}
 </style>
 </head>
 <body>
@@ -188,7 +273,233 @@
   </div>
 </div>
 
-<footer>Made with ❤️ by Toolify (Offline)</footer>
+<!-- How to Use Section -->
+<div class="card full-width-card">
+  <h2>How to Use the Color Picker Tool</h2>
+  <p>Extract beautiful colors from any image and create stunning color palettes and gradients with our easy-to-use tool.</p>
+  
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-content">
+      <h3>Upload Your Image</h3>
+      <p>Click the "Upload Image" button or simply drag and drop your image file into the designated area. We support all common image formats including JPG, PNG, GIF, and WebP.</p>
+    </div>
+  </div>
+  
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-content">
+      <h3>Pick Colors</h3>
+      <p>Once your image is loaded, click anywhere on the image to extract the color from that specific pixel. The color will appear in the swatch along with its HEX and RGB values.</p>
+    </div>
+  </div>
+  
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-content">
+      <h3>Build Your Palette</h3>
+      <p>Click the "+ Add" button to add the selected color to your palette. Repeat this process to collect multiple colors from your image and build a comprehensive color scheme.</p>
+    </div>
+  </div>
+  
+  <div class="step">
+    <div class="step-number">4</div>
+    <div class="step-content">
+      <h3>Generate Gradients</h3>
+      <p>Once you have at least 2 colors in your palette, click "Generate" to create a beautiful gradient using your selected colors. Perfect for backgrounds and design elements.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="card full-width-card">
+  <h2>Key Features</h2>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="feature-icon">🎯</div>
+      <div class="feature-title">Precise Color Extraction</div>
+      <div class="feature-desc">Click any pixel to get exact HEX and RGB color values from your uploaded images.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">🎨</div>
+      <div class="feature-title">Custom Palette Builder</div>
+      <div class="feature-desc">Create and manage your own color palettes by collecting colors from multiple images.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">📐</div>
+      <div class="feature-title">Gradient Generator</div>
+      <div class="feature-desc">Automatically generate smooth gradients using your selected colors for design projects.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">💾</div>
+      <div class="feature-title">Multiple Format Support</div>
+      <div class="feature-desc">Works with JPG, PNG, GIF, WebP and other popular image formats.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Instant Results</div>
+      <div class="feature-desc">Get color values immediately with real-time color picking and instant palette updates.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">🔒</div>
+      <div class="feature-title">Privacy Focused</div>
+      <div class="feature-desc">All processing happens locally in your browser. Your images never leave your device.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Use Cases Section -->
+<div class="card full-width-card">
+  <h2>Perfect For</h2>
+  <div class="feature-grid">
+    <div class="feature-item">
+      <div class="feature-icon">🎨</div>
+      <div class="feature-title">Graphic Designers</div>
+      <div class="feature-desc">Extract color schemes from inspiration images to create cohesive design projects and brand identities.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">💻</div>
+      <div class="feature-title">Web Developers</div>
+      <div class="feature-desc">Get exact color codes for website themes, CSS styling, and user interface design elements.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">🏠</div>
+      <div class="feature-title">Interior Designers</div>
+      <div class="feature-desc">Match paint colors and decor elements by extracting colors from room photos and design references.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">📱</div>
+      <div class="feature-title">App Designers</div>
+      <div class="feature-desc">Create consistent mobile app color schemes and extract colors from UI mockups and screenshots.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">🎭</div>
+      <div class="feature-title">Artists & Creatives</div>
+      <div class="feature-desc">Analyze color composition in artwork and photography to improve your creative projects.</div>
+    </div>
+    
+    <div class="feature-item">
+      <div class="feature-icon">🛍️</div>
+      <div class="feature-title">Brand Managers</div>
+      <div class="feature-desc">Ensure brand color consistency across different media and extract competitor color schemes.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Tips Section -->
+<div class="card full-width-card">
+  <h2>Pro Tips for Better Results</h2>
+  
+  <div class="faq-item">
+    <div class="faq-question">💡 Choose High-Quality Images</div>
+    <div class="faq-answer">Upload high-resolution images for more accurate color extraction. Blurry or low-quality images may give inconsistent color results.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">💡 Click on Solid Color Areas</div>
+    <div class="faq-answer">For best results, click on areas with solid, uniform colors rather than gradients or textured areas.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">💡 Consider Color Context</div>
+    <div class="faq-answer">Colors can appear different depending on surrounding colors and lighting. Pick multiple similar shades to find the perfect match.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">💡 Build Balanced Palettes</div>
+    <div class="faq-answer">Create harmonious palettes by selecting colors with good contrast ratios and complementary relationships.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">💡 Test Your Gradients</div>
+    <div class="faq-answer">Experiment with different color orders in your palette to create unique gradient effects and transitions.</div>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="card full-width-card">
+  <h2>Frequently Asked Questions</h2>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: What image formats are supported?</div>
+    <div class="faq-answer">A: Our tool supports all common image formats including JPG, JPEG, PNG, GIF, WebP, and BMP files.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: Is there a file size limit for images?</div>
+    <div class="faq-answer">A: While there's no strict limit, we recommend keeping images under 10MB for optimal performance. Larger files may take longer to process.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: Can I save my color palettes?</div>
+    <div class="faq-answer">A: Currently, palettes are stored in your browser session. You can copy the HEX/RGB values to save them externally. We're working on export features for future updates.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: How accurate are the color values?</div>
+    <div class="faq-answer">A: Color values are extracted directly from image pixels and are highly accurate. However, monitor calibration and display settings can affect how colors appear visually.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: Does this work on mobile devices?</div>
+    <div class="faq-answer">A: Yes! Our color picker is fully responsive and works on smartphones and tablets. You can upload photos directly from your mobile device.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: Are my images stored on your servers?</div>
+    <div class="faq-answer">A: No, your privacy is important to us. All image processing happens locally in your browser. Images are never uploaded to our servers.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: Can I extract colors from screenshots?</div>
+    <div class="faq-answer">A: Absolutely! Screenshots work perfectly with our tool. This is great for analyzing website designs, app interfaces, and digital artwork.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: How do I copy color codes?</div>
+    <div class="faq-answer">A: Click on any color in your palette or the main swatch area, then select and copy the HEX or RGB values displayed in the color information panel.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: Can I remove colors from my palette?</div>
+    <div class="faq-answer">A: Yes! Click the "×" button next to any color in your palette to remove it. This helps you refine your color selection and keep only the colors you need.</div>
+  </div>
+  
+  <div class="faq-item">
+    <div class="faq-question">Q: What's the difference between HEX and RGB?</div>
+    <div class="faq-answer">A: HEX codes (like #FF5733) are commonly used in web design and CSS, while RGB values (like rgb(255, 87, 51)) are used in design software and represent Red, Green, and Blue color channels.</div>
+  </div>
+</div>
+
+<!-- About Section -->
+<div class="card full-width-card">
+  <h2>About Toolify Color Picker</h2>
+  <p>Our Color Picker & Generator tool is designed to make color extraction and palette creation effortless for designers, developers, and creative professionals. Whether you're working on a website, mobile app, brand identity, or any design project, our tool helps you capture the perfect colors from any image.</p>
+  
+  <p>Built with modern web technologies, our tool processes everything locally in your browser for maximum privacy and speed. No registration required, no data stored on servers – just pure, instant color picking functionality.</p>
+  
+  <p>We're constantly improving and adding new features based on user feedback. If you have suggestions or encounter any issues, feel free to reach out to our support team.</p>
+  
+  <h3>Key Benefits:</h3>
+  <p>✓ 100% Free to use with no hidden costs<br>
+  ✓ No registration or account required<br>
+  ✓ Complete privacy – images never leave your device<br>
+  ✓ Works offline after initial page load<br>
+  ✓ Mobile-friendly responsive design<br>
+  ✓ Instant color extraction and palette generation<br>
+  ✓ Professional-grade accuracy for design work</p>
+</div>
+
+<footer>Made with ❤️ by Toolify (Offline) | Your Privacy-First Color Tool</footer>
 
 <script>
 const fileInput = document.getElementById("fileInput");

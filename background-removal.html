@@ -3,10 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<!-- SEO Meta Tags -->
-<meta name="description" content="Toolify Background Remover - Free online tool to remove image backgrounds instantly. Supports JPG, PNG, WebP. Use API mode for pro results or offline demo for quick edits.">
-<meta name="keywords" content="background remover, remove image background, free background eraser, background remover online, toolify background remover, remove bg, transparent background maker, JPG PNG WebP background removal">
-<meta name="author" content="Toolify">
 <title>Background Remover — Toolify</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
 <style>
@@ -85,6 +81,146 @@
   .result-preview img{max-width:100%;border-radius:8px;border:1px solid rgba(255,255,255,0.05)}
 
   footer{grid-column:1/-1;margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+  /* Enhanced layout for FAQs/how-to section only */
+  section[aria-label="Background remover guide and FAQs"]{
+    margin-top:20px;
+    padding:22px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,0.08);
+    background:
+      radial-gradient(700px 240px at 10% -10%, rgba(124,92,255,.10), transparent 60%),
+      radial-gradient(600px 220px at 110% 20%, rgba(34,211,238,.08), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+    box-shadow: 0 14px 44px rgba(0,0,0,.36);
+  }
+  section[aria-label="Background remover guide and FAQs"] h2{
+    margin:0 0 16px 0; font-size:24px; color:var(--text);
+  }
+  section[aria-label="Background remover guide and FAQs"] h3{
+    margin:18px 0 10px 0; color:var(--accent);
+  }
+  section[aria-label="Background remover guide and FAQs"] p{
+    margin:10px 0; line-height:1.85; color:var(--text); max-width:72ch;
+  }
+  section[aria-label="Background remover guide and FAQs"] ul,
+  section[aria-label="Background remover guide and FAQs"] ol{
+    margin:12px 0 18px 0; padding-left:20px;
+  }
+  section[aria-label="Background remover guide and FAQs"] li{
+    margin:8px 0; line-height:1.75; color:var(--text);
+  }
+  section[aria-label="Background remover guide and FAQs"] h3 + p,
+  section[aria-label="Background remover guide and FAQs"] h3 + ol,
+  section[aria-label="Background remover guide and FAQs"] h3 + ul{
+    padding-top:8px;
+    border-top:1px dashed rgba(255,255,255,0.08);
+  }
+  /* Step numbers for How to use */
+  section[aria-label="Background remover guide and FAQs"] ol{ counter-reset: step; }
+  section[aria-label="Background remover guide and FAQs"] ol > li{ position:relative; list-style:none; padding-left:44px; }
+  section[aria-label="Background remover guide and FAQs"] ol > li::before{
+    counter-increment: step; content: counter(step);
+    position:absolute; left:0; top:2px; width:30px; height:30px;
+    display:grid; place-items:center; border-radius:10px; color:#031025; font-weight:800;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); box-shadow: 0 8px 22px rgba(34,211,238,.12);
+  }
+  /* Optional two-column block if wrapper exists */
+  @media (min-width: 980px){
+    section[aria-label="Background remover guide and FAQs"] .faq-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  }
+
+  /* Enhanced polish for the FAQs / How to use section */
+  section[aria-label="Background remover guide and FAQs"]{
+    margin-top:22px;
+    padding:26px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,0.09);
+    background:
+      radial-gradient(900px 260px at -10% -20%, rgba(124,92,255,.10), transparent 55%),
+      radial-gradient(800px 240px at 120% 10%, rgba(34,211,238,.08), transparent 55%),
+      linear-gradient(180deg, rgba(255,255,255,0.035), transparent);
+    box-shadow: 0 16px 46px rgba(0,0,0,.38);
+  }
+  @media (min-width: 1200px){
+    section[aria-label="Background remover guide and FAQs"]{ max-width: 1000px; }
+  }
+  section[aria-label="Background remover guide and FAQs"] h2{
+    margin:0 0 18px 0; font-size:25px; color:var(--text); letter-spacing:.2px;
+    text-shadow: 0 1px 0 rgba(0,0,0,.18);
+  }
+  section[aria-label="Background remover guide and FAQs"] h3{
+    margin:20px 0 12px 0; color:var(--accent);
+  }
+  section[aria-label="Background remover guide and FAQs"] p{
+    margin:10px 0; line-height:1.9; color:var(--text); max-width:76ch;
+  }
+  section[aria-label="Background remover guide and FAQs"] ul,
+  section[aria-label="Background remover guide and FAQs"] ol{
+    margin:12px 0 20px 0; padding-left:22px;
+  }
+  section[aria-label="Background remover guide and FAQs"] li{
+    margin:8px 0; line-height:1.8; color:var(--text);
+  }
+  section[aria-label="Background remover guide and FAQs"] h3 + p,
+  section[aria-label="Background remover guide and FAQs"] h3 + ol,
+  section[aria-label="Background remover guide and FAQs"] h3 + ul{
+    padding-top:10px;
+    border-top:1px dashed rgba(255,255,255,0.09);
+  }
+  section[aria-label="Background remover guide and FAQs"] ol{ counter-reset: step; }
+  section[aria-label="Background remover guide and FAQs"] ol > li{ position:relative; list-style:none; padding-left:48px; }
+  section[aria-label="Background remover guide and FAQs"] ol > li::before{
+    counter-increment: step; content: counter(step);
+    position:absolute; left:0; top:2px; width:32px; height:32px;
+    display:grid; place-items:center; border-radius:10px; color:#031025; font-weight:800;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2)); box-shadow: 0 10px 24px rgba(34,211,238,.14);
+  }
+  section[aria-label="Background remover guide and FAQs"] details{
+    border:1px solid rgba(255,255,255,0.10);
+    border-radius:12px; padding:14px 16px; margin:12px 0;
+    background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+    transition: border-color .2s ease, transform .2s ease, background .2s ease;
+  }
+  section[aria-label="Background remover guide and FAQs"] details:hover{
+    border-color: rgba(124,92,255,.3); transform: translateY(-1px);
+  }
+  section[aria-label="Background remover guide and FAQs"] summary{
+    cursor:pointer; font-weight:700; color:var(--text); outline:none;
+    display:flex; align-items:center; gap:10px;
+  }
+  section[aria-label="Background remover guide and FAQs"] summary::-webkit-details-marker{ display:none; }
+  section[aria-label="Background remover guide and FAQs"] summary::after{
+    content:'⌄'; margin-left:auto; color:var(--muted); font-size:14px;
+    transition: transform .2s ease, color .2s ease;
+  }
+  section[aria-label="Background remover guide and FAQs"] details[open] summary::after{
+    transform: rotate(180deg); color:var(--accent);
+  }
+  section[aria-label="Background remover guide and FAQs"] details p{ margin:10px 0 6px 0; }
+  @media (min-width: 980px){
+    section[aria-label="Background remover guide and FAQs"] .faq-grid{
+      display:grid; grid-template-columns:1fr 1fr; gap:16px;
+    }
+  }
+
+  /* Make FAQs/how-to section span the full grid width */
+  .wrap > section[aria-label="Background remover guide and FAQs"]{ grid-column: 1 / -1; }
+  /* Ensure it can expand across the layout on wide screens */
+  @media (min-width: 1100px){
+    section[aria-label="Background remover guide and FAQs"]{ max-width: none; }
+  }
+
+  /* Expand FAQs block into two columns on wide screens (no HTML changes) */
+  @media (min-width: 980px){
+    section[aria-label="Background remover guide and FAQs"] h3:nth-last-of-type(1) ~ p{
+      display:inline-block; vertical-align:top; width:calc(50% - 12px); margin-right:12px;
+    }
+    section[aria-label="Background remover guide and FAQs"] h3:nth-last-of-type(1) ~ p:nth-of-type(2n){
+      margin-right:0;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -179,6 +315,98 @@
 
       <div class="result-preview" id="resultBox" aria-live="polite"></div>
     </aside>
+
+    <section aria-label="Background remover guide and FAQs" style="margin-top:16px">
+      <h2>Remove Image Backgrounds Online — Complete Guide</h2>
+      <p>
+        This background remover lets you make the background of photos transparent directly in your
+        browser. It supports JPG, PNG, and WebP and produces a transparent PNG you can place on any
+        background or layout. It works best on plain or evenly lit backgrounds and preserves quality
+        by processing at the original resolution.
+      </p>
+
+      <h3>How to use</h3>
+      <ol>
+        <li>Choose an image with a simple, contrasting background for best results.</li>
+        <li>Drop the image into the upload area or click to browse and select a file.</li>
+        <li>Click Remove Background to process your image.</li>
+        <li>Increase Tolerance if background remains; increase Strength to soften edges.</li>
+        <li>Use Preview scale to zoom the on‑screen canvas for detailed inspection.</li>
+        <li>Download the final transparent PNG and add it to your project or design.</li>
+      </ol>
+
+      <h3>Popular use cases</h3>
+      <ul>
+        <li>Product photos for e‑commerce listings and social media ads</li>
+        <li>Profile pictures and avatars with transparent or branded backgrounds</li>
+        <li>Thumbnails, banners, flyers, and hero sections for marketing</li>
+        <li>Clean cutouts for slide decks, brochures, and presentations</li>
+      </ul>
+
+      <h3>Tips for cleaner cutouts</h3>
+      <p>
+        Shoot subjects against a plain, evenly lit backdrop and avoid strong shadows. Start with a
+        moderate Tolerance and increase it gradually in small steps if parts of the backdrop remain.
+        Raise Strength a little to feather edges and reduce halos. Use Preview scale to inspect hair,
+        edges, and fine details.
+      </p>
+
+      <h3>FAQs</h3>
+      <p><strong>Does this tool reduce image quality?</strong><br>
+        No. Processing runs at the image’s original resolution and only changes the transparency of
+        background pixels. Subject colors and details are preserved.</p>
+      <p><strong>Which formats are supported?</strong><br>
+        You can upload JPG, PNG, and WebP. The result is saved as a transparent PNG for wide
+        compatibility with editors and design tools.</p>
+      <p><strong>Why do I see a checkerboard pattern?</strong><br>
+        The checkerboard shows transparency. If you see the grid, it means those areas are fully or
+        partially transparent, not gray or colored.</p>
+      <p><strong>What settings should I start with?</strong><br>
+        Begin with a Tolerance around 40 and a Strength around 18. Increase Tolerance if background
+        pixels remain; increase Strength slightly to soften edges if they look harsh.</p>
+      <p><strong>Are my images uploaded?</strong><br>
+        Local processing happens in your browser, keeping your files private while you work. If you
+        enable API mode, the image is sent to the configured service for complex scenes.</p>
+
+      <p><strong>Can I process multiple images at once?</strong><br>
+        This demo focuses on single images for speed and simplicity. For batches, repeat the steps or
+        integrate an API workflow on your server.</p>
+
+      <p><strong>What is the maximum image size?</strong><br>
+        Very large images can slow down the browser. For best performance, keep files under ~25 MB and
+        use modern hardware.</p>
+
+      <p><strong>The download shows a checkerboard — is that saved?</strong><br>
+        The checkerboard is only a preview of transparency. The saved PNG has transparent pixels; most
+        editors replace them with their own background.</p>
+
+      <p><strong>Can I export as JPG?</strong><br>
+        JPG does not support transparency. If you need JPG, place the PNG on a solid background in your
+        editor and then export as JPG.</p>
+
+      <p><strong>Some background remains — what should I try?</strong><br>
+        Increase Tolerance in small steps (5–10). If the subject edge looks thin after that, reduce
+        Tolerance slightly and increase Strength a little.</p>
+
+      <p><strong>Edges look jagged — how do I smooth them?</strong><br>
+        Increase Strength to softly feather the transition. Also ensure your source photo is sharp and
+        evenly lit for cleaner masks.</p>
+
+      <p><strong>I see a faint color halo around the subject — how do I fix it?</strong><br>
+        Nudge Tolerance down slightly and raise Strength to blend the edge, or re‑shoot with stronger
+        contrast between subject and background.</p>
+
+      <p><strong>Does it work on mobile?</strong><br>
+        Yes, modern mobile browsers are supported. Very large images may process more slowly due to
+        memory limits.</p>
+
+      <p><strong>Will EXIF data be preserved?</strong><br>
+        The transparent PNG is newly generated and typically does not include the original EXIF metadata.</p>
+
+      <p><strong>Can I undo changes and start over?</strong><br>
+        Use the Clear button to reset the canvas and results, then upload the image again with updated
+        settings.</p>
+    </section>
 
     <footer>Built with canvas + optional API • Keep API keys on server for safety</footer>
   </div>

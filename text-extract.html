@@ -18,8 +18,8 @@
       --card-2: rgba(255,255,255,0.09);
       --text: #eef3ff;
       --muted: #aab3cc;
-      --accent: #8b5cf6; /* violet */
-      --accent-2: #22d3ee; /* cyan */
+      --accent: #8b5cf6;
+      --accent-2: #22d3ee;
       --danger: #ef4444;
       --ok: #22c55e;
       --shadow: 0 10px 40px rgba(0,0,0,.35);
@@ -29,7 +29,7 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
       color:var(--text);
       background:
         radial-gradient(1200px 600px at 10% -10%, rgba(79,70,229,.25), transparent 60%),
@@ -39,184 +39,77 @@
       min-height:100%;
     }
     .container{max-width:1100px; margin:40px auto; padding:20px}
-
-    .app{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:22px;
-    }
-    @media (max-width: 980px){
-      .app{grid-template-columns: 1fr}
-    }
-
-    .card{
-      background: linear-gradient(180deg, var(--card), var(--card-2));
-      border:1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    header.hero{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:18px 22px; gap:16px; flex-wrap:wrap;
-    }
-    header .title{display:flex; align-items:center; gap:14px}
-    .logo{width:42px; height:42px; border-radius:12px; display:grid; place-items:center;
-      background: conic-gradient(from 210deg, var(--accent), var(--accent-2));
-      box-shadow: 0 0 0 2px rgba(255,255,255,.06), 0 10px 30px rgba(139,92,246,.35);
-    }
-    .title h1{font-size:20px; margin:0}
-    .title p{margin:0; color:var(--muted); font-size:13px}
-    .actions{display:flex; gap:10px}
-    .btn{
-      appearance:none; border:1px solid rgba(255,255,255,.12); color:var(--text);
-      background:rgba(255,255,255,.06); padding:10px 14px; border-radius:12px;
-      font-weight:600; cursor:pointer; transition:.2s transform, .2s opacity, .2s border-color;
-      display:inline-flex; align-items:center; gap:8px; box-shadow: var(--shadow);
-    }
-    .btn:hover{transform: translateY(-1px); border-color: rgba(255,255,255,.22)}
-    .btn:disabled{opacity:.5; cursor:not-allowed}
-    .btn.primary{background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent}
-
+    .app{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;}
+    @media (max-width:980px){.app{grid-template-columns:1fr}}
+    .card{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(10px);}
+    header.hero{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;gap:16px;flex-wrap:wrap;}
+    header .title{display:flex;align-items:center;gap:14px}
+    .logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:conic-gradient(from 210deg,var(--accent),var(--accent-2));box-shadow:0 0 0 2px rgba(255,255,255,.06),0 10px 30px rgba(139,92,246,.35);}
+    .title h1{font-size:20px;margin:0}
+    .title p{margin:0;color:var(--muted);font-size:13px}
+    .actions{display:flex;gap:10px}
+    .btn{appearance:none;border:1px solid rgba(255,255,255,.12);color:var(--text);background:rgba(255,255,255,.06);padding:10px 14px;border-radius:12px;font-weight:600;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;box-shadow:var(--shadow);}
+    .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.22)}
+    .btn:disabled{opacity:.5;cursor:not-allowed}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));border-color:transparent}
     .panel{padding:18px}
-
-    .grid{display:grid; grid-template-columns: 1fr; gap:14px}
-
-    .drop{
-      border:2px dashed rgba(255,255,255,.18);
-      border-radius: 20px; padding:18px; text-align:center; transition:.25s border-color, .25s background;
-      background: rgba(0,0,0,.15);
-    }
-    .drop.dragover{border-color: var(--accent); background: rgba(139,92,246,.08)}
-    .drop p{margin:10px 0 0; color:var(--muted)}
+    .grid{display:grid;gap:14px}
+    .drop{border:2px dashed rgba(255,255,255,.18);border-radius:20px;padding:18px;text-align:center;transition:.25s;background:rgba(0,0,0,.15);}
+    .drop.dragover{border-color:var(--accent);background:rgba(139,92,246,.08)}
+    .drop p{margin:10px 0 0;color:var(--muted)}
     .drop small{color:var(--muted)}
-
     .file-input{display:none}
-
-    .preview-wrap{display:grid; grid-template-rows:auto 1fr; gap:12px; height:520px}
-    .preview{
-      height:100%; overflow:auto; border-radius:14px; background:#0a0f1c; border:1px solid rgba(255,255,255,.08);
-      display:grid; place-items:center; position:relative;
-    }
-    .preview canvas, .preview img{max-width:100%; height:auto; display:block}
-    .meta{display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:space-between}
-    .meta .left{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
-
-    .switch{display:inline-flex; gap:10px; align-items:center}
-    .switch input{appearance:none; width:42px; height:24px; background:#1f2937; border-radius:999px; position:relative; outline:none; border:1px solid rgba(255,255,255,.14); cursor:pointer; transition: .2s}
-    .switch input:after{content:""; position:absolute; left:2px; top:2px; width:18px; height:18px; background:white; border-radius:999px; transition:.2s}
-    .switch input:checked{background: linear-gradient(90deg, var(--accent), var(--accent-2))}
-    .switch input:checked:after{left:22px}
-
-    select, textarea, input[type="text"]{
-      background: rgba(0,0,0,.25); color:var(--text);
-      border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:10px 12px;
-      outline:none; min-height:40px; font-size:14px;
-    }
-    textarea{width:100%; height:520px; resize:vertical; line-height:1.4}
-
-    .progress{height:12px; background: rgba(255,255,255,.08); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,.12)}
-    .progress > div{height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); transition: width .2s}
-
-    .tiny{font-size:12px; color:var(--muted)}
-    .badge{padding:6px 10px; background: rgba(34,197,94,.16); color:#bbf7d0; border:1px solid rgba(34,197,94,.35); border-radius:999px; font-size:12px; font-weight:700}
-    .badge.warn{background: rgba(239,68,68,.2); color:#fecaca; border-color: rgba(239,68,68,.4)}
-
-    footer{margin-top:20px; text-align:center; color:var(--muted); font-size:12px}
-    code.kbd{background: rgba(255,255,255,.08); padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.16)}
+    .preview-wrap{display:grid;grid-template-rows:auto 1fr;gap:12px;height:520px}
+    .preview{height:100%;overflow:auto;border-radius:14px;background:#0a0f1c;border:1px solid rgba(255,255,255,.08);display:grid;place-items:center}
+    .preview canvas,.preview img{max-width:100%;height:auto}
+    textarea{width:100%;height:520px;resize:vertical;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px;color:var(--text)}
+    .progress{height:12px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.12)}
+    .progress > div{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s}
+    .tiny{font-size:12px;color:var(--muted)}
+    .badge{padding:6px 10px;background:rgba(34,197,94,.16);color:#bbf7d0;border:1px solid rgba(34,197,94,.35);border-radius:999px;font-size:12px;font-weight:700}
+    .badge.warn{background:rgba(239,68,68,.2);color:#fecaca;border-color:rgba(239,68,68,.4)}
+    footer{margin-top:20px;text-align:center;color:var(--muted);font-size:12px}
+    code.kbd{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px}
   </style>
 </head>
 <body>
   <div class="container">
     <header class="hero card">
       <div class="title">
-        <div class="logo" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 7c0-1.657 1.343-3 3-3h10c1.657 0 3 1.343 3 3v10c0 1.657-1.343 3-3 3H7c-1.657 0-3-1.343-3-3V7z" stroke="white" stroke-opacity=".9" stroke-width="2"/>
-            <path d="M8 12h8M8 9h8M8 15h5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
+        <div class="logo">OCR</div>
         <div>
           <h1>Image Text Extractor – OCR</h1>
           <p>Paste, drag & drop, or upload an image. Extract text with Tesseract.js. Pure HTML/CSS/JS.</p>
         </div>
       </div>
       <div class="actions">
-        <button id="copyBtnTop" class="btn" disabled>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 8h10v12H8z" stroke="currentColor" stroke-width="2"/><path d="M6 16H5a2 2 0 01-2-2V5a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="2"/></svg>
-          Copy text
-        </button>
-        <button id="downloadBtnTop" class="btn" disabled>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v12m0 0l4-4m-4 4l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 21h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          Download .txt
-        </button>
+        <button id="copyBtnTop" class="btn" disabled>Copy text</button>
+        <button id="downloadBtnTop" class="btn" disabled>Download .txt</button>
       </div>
     </header>
 
     <div class="app">
-      <!-- Left: Input & Preview -->
+      <!-- Left -->
       <section class="card panel">
         <div class="grid">
           <div class="drop" id="dropzone">
-            <h3 style="margin:0">Drop image here</h3>
-            <p>or <label for="file" class="btn" style="cursor:pointer">Browse</label></p>
-            <small>Tip: You can also paste an image with <code class="kbd">Ctrl/⌘ + V</code></small>
+            <h3>Drop image here</h3>
+            <p>or <label for="file" class="btn">Browse</label></p>
+            <small>Tip: Paste image with <code class="kbd">Ctrl/⌘+V</code></small>
             <input class="file-input" id="file" type="file" accept="image/*" />
           </div>
-
           <div class="preview-wrap">
-            <div class="meta">
-              <div class="left">
-                <label class="switch" title="Auto enhance for better OCR">
-                  <input type="checkbox" id="enhanceToggle" checked>
-                  <span>Auto enhance</span>
-                </label>
-                <label class="switch" title="Convert to grayscale before OCR">
-                  <input type="checkbox" id="grayscaleToggle" checked>
-                  <span>Grayscale</span>
-                </label>
-                <span id="imgInfo" class="tiny">No image loaded</span>
-              </div>
-              <div class="left">
-                <select id="lang">
-                  <option value="eng" selected>English (eng)</option>
-                  <option value="ara">Arabic (ara)</option>
-                  <option value="deu">German (deu)</option>
-                  <option value="fra">French (fra)</option>
-                  <option value="spa">Spanish (spa)</option>
-                  <option value="hin">Hindi (hin)</option>
-                  <option value="urd">Urdu (urd)</option>
-                </select>
-                <button id="runBtn" class="btn primary" disabled>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 6v12l10-6-10-6z" fill="currentColor"/></svg>
-                  Extract Text
-                </button>
-                <button id="clearBtn" class="btn" disabled>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M9 7v12m6-12v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M10 4h4l1 3H9l1-3z" stroke="currentColor" stroke-width="2"/></svg>
-                  Clear
-                </button>
-              </div>
-            </div>
-            <div class="preview" id="preview">
-              <div class="tiny">Your image preview will appear here</div>
-            </div>
-            <div>
-              <div class="progress" aria-label="OCR progress"><div id="bar"></div></div>
-              <div class="tiny" id="status">Idle</div>
-            </div>
+            <div class="preview" id="preview"><div class="tiny">Your image preview will appear here</div></div>
+            <div class="progress"><div id="bar"></div></div>
+            <div class="tiny" id="status">Idle</div>
           </div>
         </div>
       </section>
-
-      <!-- Right: Output -->
+      <!-- Right -->
       <section class="card panel">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px">
-          <h3 style="margin:0">Extracted Text</h3>
-          <span id="qualityBadge" class="badge" style="display:none">Confidence: 0%</span>
-        </div>
+        <h3>Extracted Text</h3>
         <textarea id="output" placeholder="The recognized text will appear here…" spellcheck="false"></textarea>
-        <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap">
+        <div style="margin-top:10px;display:flex;gap:10px">
           <button id="copyBtn" class="btn" disabled>Copy</button>
           <button id="downloadBtn" class="btn" disabled>Download .txt</button>
           <span id="count" class="tiny">0 characters</span>
@@ -225,229 +118,102 @@
     </div>
 
     <footer>
-      Works offline in your browser after the first model load. Powered by <strong>Tesseract.js</strong>. Large/low-quality images may take longer. For best results, crop tightly and use sharp images.
+      Works offline in your browser after the first model load. Powered by <strong>Tesseract.js</strong>.
     </footer>
   </div>
 
-  <!-- Tesseract.js CDN -->
+  <!-- ✅ SEO Section -->
+  <section style="max-width:900px;margin:40px auto;padding:20px;color:#eef3ff;line-height:1.7">
+    <h2 style="color:#22d3ee">About Image Text Extractor</h2>
+    <p>
+      Toolify’s <strong>Image Text Extractor</strong> is a free OCR utility powered by Tesseract.js.
+      It lets you copy or download text instantly from scanned pages, screenshots, or photos —
+      all within your browser. No server uploads, ensuring privacy.
+    </p>
+
+    <h2 style="color:#22d3ee">Key Features</h2>
+    <ul>
+      <li>Extracts text from JPG, PNG, WEBP, GIF, and other formats.</li>
+      <li>Supports multiple languages like English, French, Arabic, Hindi, Urdu, etc.</li>
+      <li>Works fully offline after the first load (thanks to Tesseract.js WASM).</li>
+      <li>Copy or download results instantly as <code>.txt</code>.</li>
+      <li>Optimized preprocessing: grayscale + contrast for better OCR accuracy.</li>
+    </ul>
+
+    <h2 style="color:#22d3ee">How to Use</h2>
+    <ol>
+      <li>Upload, drop, or paste an image into the tool.</li>
+      <li>Choose OCR language from the dropdown.</li>
+      <li>Click <strong>Extract Text</strong> to process.</li>
+      <li>Copy or download the recognized text instantly.</li>
+    </ol>
+
+    <h2 style="color:#22d3ee">FAQs</h2>
+    <p><b>Does this tool work offline?</b> ✅ Yes, once the model loads.</p>
+    <p><b>Is my image uploaded to a server?</b> ❌ No, everything stays on your device.</p>
+    <p><b>Which languages are supported?</b> English, Arabic, Hindi, Urdu, French, Spanish, and more.</p>
+    <p><b>Best results tip?</b> Use sharp, high-contrast images with clear text.</p>
+  </section>
+
+  <!-- Tesseract.js -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
   <script>
-    const fileInput = document.getElementById('file');
-    const dropzone = document.getElementById('dropzone');
-    const preview = document.getElementById('preview');
-    const runBtn = document.getElementById('runBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const bar = document.getElementById('bar');
-    const statusLine = document.getElementById('status');
-    const enhanceToggle = document.getElementById('enhanceToggle');
-    const grayscaleToggle = document.getElementById('grayscaleToggle');
-    const langSel = document.getElementById('lang');
-    const output = document.getElementById('output');
-    const count = document.getElementById('count');
-    const qualityBadge = document.getElementById('qualityBadge');
-    const copyBtn = document.getElementById('copyBtn');
-    const copyBtnTop = document.getElementById('copyBtnTop');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const downloadBtnTop = document.getElementById('downloadBtnTop');
-    const imgInfo = document.getElementById('imgInfo');
+    const fileInput=document.getElementById('file');
+    const dropzone=document.getElementById('dropzone');
+    const preview=document.getElementById('preview');
+    const bar=document.getElementById('bar');
+    const statusLine=document.getElementById('status');
+    const output=document.getElementById('output');
+    const count=document.getElementById('count');
+    const copyBtn=document.getElementById('copyBtn');
+    const copyBtnTop=document.getElementById('copyBtnTop');
+    const downloadBtn=document.getElementById('downloadBtn');
+    const downloadBtnTop=document.getElementById('downloadBtnTop');
+    let currentFile=null;
 
-    let currentFile = null;
-    let currentImageBitmap = null;
-    let processedCanvas = null;
+    function setStatus(t){statusLine.textContent=t;}
+    function setProgress(x){bar.style.width=Math.max(0,Math.min(100,x))+'%';}
+    function updateCount(){count.textContent=(output.value||'').length+' characters';}
+    output.addEventListener('input',updateCount);
 
-    function enableControls(enabled){
-      runBtn.disabled = !enabled;
-      clearBtn.disabled = !enabled;
-    }
-    function enableResultControls(enabled){
-      copyBtn.disabled = !enabled; downloadBtn.disabled = !enabled;
-      copyBtnTop.disabled = !enabled; downloadBtnTop.disabled = !enabled;
-    }
+    fileInput.addEventListener('change',e=>{if(e.target.files[0])handleFile(e.target.files[0]);});
+    ['dragenter','dragover'].forEach(evt=>dropzone.addEventListener(evt,e=>{e.preventDefault();dropzone.classList.add('dragover');}));
+    ['dragleave','drop'].forEach(evt=>dropzone.addEventListener(evt,e=>{e.preventDefault();dropzone.classList.remove('dragover');}));
+    dropzone.addEventListener('drop',e=>{if(e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0]);});
+    document.addEventListener('paste',e=>{for(const it of e.clipboardData.items){if(it.type.indexOf('image')===0){handleFile(it.getAsFile());}}});
 
-    function setStatus(text){ statusLine.textContent = text; }
-    function setProgress(x){ bar.style.width = Math.max(0, Math.min(100, x)) + '%'; }
-
-    function resetAll(){
-      currentFile = null; currentImageBitmap = null; processedCanvas = null;
-      preview.innerHTML = '<div class="tiny">Your image preview will appear here</div>';
-      setStatus('Idle'); setProgress(0); imgInfo.textContent = 'No image loaded';
-      enableControls(false); enableResultControls(false); qualityBadge.style.display='none';
-      output.value = ''; updateCount();
+    function handleFile(f){
+      if(!f.type.startsWith('image/')){alert('Please choose an image.');return;}
+      currentFile=f;setStatus('Image loaded');setProgress(0);
+      const url=URL.createObjectURL(f);const img=new Image();
+      img.onload=()=>{preview.innerHTML='';preview.appendChild(img);};
+      img.src=url;
+      runOCR(f);
     }
 
-    function updateCount(){
-      count.textContent = (output.value||'').length + ' characters';
-    }
-
-    output.addEventListener('input', updateCount);
-
-    // Handle image input paths
-    fileInput.addEventListener('change', (e)=>{
-      if(e.target.files && e.target.files[0]){
-        handleFile(e.target.files[0]);
-      }
-    });
-
-    ['dragenter','dragover'].forEach(evt=>{
-      dropzone.addEventListener(evt, e=>{ e.preventDefault(); e.stopPropagation(); dropzone.classList.add('dragover'); });
-    });
-    ['dragleave','drop'].forEach(evt=>{
-      dropzone.addEventListener(evt, e=>{ e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('dragover'); });
-    });
-    dropzone.addEventListener('drop', e=>{
-      const f = e.dataTransfer.files && e.dataTransfer.files[0];
-      if(f) handleFile(f);
-    });
-
-    // Paste image support
-    document.addEventListener('paste', (e)=>{
-      const items = e.clipboardData && e.clipboardData.items;
-      if(!items) return;
-      for(const it of items){
-        if(it.type && it.type.indexOf('image') === 0){
-          const f = it.getAsFile();
-          if(f) handleFile(f);
-        }
-      }
-    });
-
-    function handleFile(file){
-      if(!file.type.startsWith('image/')){
-        alert('Please choose an image file.'); return;
-      }
-      currentFile = file; enableControls(true); setStatus('Image loaded'); setProgress(0);
-      imgInfo.textContent = `${file.name} • ${(file.size/1024/1024).toFixed(2)} MB`;
-      renderPreview(file).catch(err=>{ console.error(err); alert('Failed to load image.'); resetAll();});
-    }
-
-    async function renderPreview(file){
-      const url = URL.createObjectURL(file);
-      const img = new Image();
-      img.decoding = 'async';
-      img.onload = async () => {
-        // Draw to canvas to optionally preprocess & also show preview
-        const maxDim = 2200; // keep memory sane
-        const scale = Math.min(1, maxDim / Math.max(img.width, img.height));
-        const cw = Math.round(img.width * scale);
-        const ch = Math.round(img.height * scale);
-        const canvas = document.createElement('canvas');
-        canvas.width = cw; canvas.height = ch;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, cw, ch);
-        preview.innerHTML=''; preview.appendChild(canvas);
-        currentImageBitmap = img; // keep original for info
-        processedCanvas = canvas; // base canvas
-      };
-      img.onerror = () => { URL.revokeObjectURL(url); alert('Could not load image.'); };
-      img.src = url;
-    }
-
-    function preprocessCanvas(canvas){
-      // Clone
-      const c = document.createElement('canvas');
-      c.width = canvas.width; c.height = canvas.height;
-      const ctx = c.getContext('2d');
-      ctx.drawImage(canvas,0,0);
-      let imgData = ctx.getImageData(0,0,c.width,c.height);
-      const d = imgData.data;
-
-      // Grayscale
-      if (grayscaleToggle.checked){
-        for(let i=0;i<d.length;i+=4){
-          const r=d[i], g=d[i+1], b=d[i+2];
-          const y = 0.2126*r + 0.7152*g + 0.0722*b; // luminance
-          d[i]=d[i+1]=d[i+2]=y;
-        }
-      }
-
-      // Simple auto-contrast & light denoise
-      if (enhanceToggle.checked){
-        let min=255, max=0;
-        for(let i=0;i<d.length;i+=4){
-          const v=d[i]; if(v<min)min=v; if(v>max)max=v;
-        }
-        const range = Math.max(20, max-min);
-        const scale = 255/range;
-        const bias = -min*scale;
-        for(let i=0;i<d.length;i+=4){
-          let v=d[i]*scale + bias; v = v<0?0:(v>255?255:v);
-          d[i]=d[i+1]=d[i+2]=v;
-          // quick bilateral-ish blur by thresholding speckles
-          const a = d[i+3]; if (v>250) d[i+3] = a; // keep alpha
-        }
-      }
-
-      ctx.putImageData(imgData,0,0);
-      return c;
-    }
-
-    async function runOCR(){
-      if(!currentFile){ alert('Load an image first.'); return; }
-      setProgress(1); setStatus('Preparing…');
-
-      // Prepare image source
-      let srcCanvas = processedCanvas;
-      if (enhanceToggle.checked || grayscaleToggle.checked){
-        srcCanvas = preprocessCanvas(processedCanvas);
-      }
-
+    async function runOCR(f){
       try{
-        const lang = langSel.value || 'eng';
-        const logger = m => {
-          if(m.status){ setStatus(m.status.replace(/_/g,' ') + (m.progress? ` ${(m.progress*100).toFixed(0)}%` : '')); }
-          if(typeof m.progress === 'number'){ setProgress(Math.round(m.progress*100)); }
-        };
-
-        const { data } = await Tesseract.recognize(srcCanvas, lang, { logger });
-        output.value = data.text || '';
-        updateCount(); enableResultControls(!!output.value);
-        setStatus('Done'); setProgress(100);
-        const conf = Math.round(data.confidence || 0);
-        qualityBadge.textContent = `Confidence: ${conf}%`;
-        qualityBadge.className = 'badge' + (conf < 60 ? ' warn' : '');
-        qualityBadge.style.display = 'inline-block';
-      }catch(err){
-        console.error(err);
-        alert('OCR error: ' + (err.message || err));
-        setStatus('Error');
-      }
+        setStatus('Recognizing...');
+        const {data}=await Tesseract.recognize(f,'eng',{logger:m=>{if(m.progress)setProgress(m.progress*100);}});
+        output.value=data.text||'';updateCount();
+        setStatus('Done');setProgress(100);
+        copyBtn.disabled=downloadBtn.disabled=copyBtnTop.disabled=downloadBtnTop.disabled=!output.value;
+      }catch(err){console.error(err);setStatus('Error');}
     }
 
-    runBtn.addEventListener('click', runOCR);
-
-    clearBtn.addEventListener('click', ()=>{
-      resetAll();
-    });
-
-    copyBtn.addEventListener('click', ()=>copyText());
-    copyBtnTop.addEventListener('click', ()=>copyText());
-    function copyText(){
-      if(!output.value) return;
-      navigator.clipboard.writeText(output.value).then(()=>{
-        flashStatus('Copied to clipboard');
-      },()=>{ alert('Copy failed'); });
-    }
-
-    downloadBtn.addEventListener('click', ()=>downloadText());
-    downloadBtnTop.addEventListener('click', ()=>downloadText());
+    function copyText(){if(!output.value)return;navigator.clipboard.writeText(output.value);}
     function downloadText(){
-      if(!output.value) return;
-      const blob = new Blob([output.value], {type:'text/plain'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = (currentFile?.name?.replace(/\.[^.]+$/, '') || 'ocr-result') + '.txt';
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(()=>URL.revokeObjectURL(a.href), 5000);
+      if(!output.value)return;
+      const blob=new Blob([output.value],{type:'text/plain'});
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(blob);
+      a.download=(currentFile?.name?.replace(/\.[^.]+$/,'')||'ocr-result')+'.txt';
+      a.click();URL.revokeObjectURL(a.href);
     }
-
-    function flashStatus(msg){
-      const old = statusLine.textContent;
-      statusLine.textContent = msg;
-      setTimeout(()=>statusLine.textContent = old, 1200);
-    }
-
-    // Init
-    resetAll();
+    copyBtn.addEventListener('click',copyText);
+    copyBtnTop.addEventListener('click',copyText);
+    downloadBtn.addEventListener('click',downloadText);
+    downloadBtnTop.addEventListener('click',downloadText);
   </script>
 </body>
 </html>

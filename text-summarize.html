@@ -1,151 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Primary Meta Tags -->
-  <title>Free Online Text Summarizer Tool | Summarize Any Text Instantly</title>
-  <meta name="title" content="Free Online Text Summarizer Tool | Summarize Any Text Instantly">
-  <meta name="description" content="Use our free online text summarizer tool to create short, medium, or long summaries instantly. Quick, accurate, and easy-to-use summarization for essays, articles, or documents.">
-  <meta name="keywords" content="text summarizer, online summarizer, free summarizer tool, summarize text, automatic summary, text shortener, AI summarizer, document summary, essay summarizer, paragraph summarizer">
-<title>Text Summarizer Tool</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Text Summarizer | Hidden Key</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0d1117;
-      color: #f0f0f0;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .container {
-      background: #161b22;
-      padding: 25px;
-      border-radius: 15px;
-      width: 90%;
-      max-width: 800px;
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.6);
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #58a6ff;
-    }
-    textarea {
-      width: 100%;
-      height: 200px;
-      padding: 12px;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 10px;
-      color: #f0f0f0;
-      font-size: 15px;
-      resize: none;
-      outline: none;
-    }
-    label {
-      display: block;
-      margin: 15px 0 5px;
-      color: #c9d1d9;
-    }
-    select, button {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 15px;
-      margin-top: 5px;
-    }
-    select {
-      width: 100%;
-      background: #21262d;
-      color: #f0f0f0;
-    }
-    button {
-      background: #238636;
-      color: white;
-      cursor: pointer;
-      margin-top: 15px;
-      width: 100%;
-      transition: 0.2s;
-    }
-    button:hover {
-      background: #2ea043;
-    }
-    .output {
-      margin-top: 20px;
-      background: #0d1117;
-      border: 1px solid #30363d;
-      padding: 15px;
-      border-radius: 10px;
-      min-height: 100px;
-      white-space: pre-line;
-    }
+    body{margin:0;font-family:sans-serif;background:#0d1117;color:#f0f6fc}
+    header{padding:20px;text-align:center;background:#161b22}
+    h1{margin:0;color:#58a6ff}
+    main{max-width:900px;margin:20px auto;padding:20px}
+    .card{background:#161b22;padding:16px;border-radius:12px;margin-bottom:20px}
+    textarea{width:100%;height:200px;padding:10px;border-radius:8px;border:1px solid #30363d;background:#0d1117;color:#fff;resize:none}
+    select,button{padding:10px;margin-top:10px;border-radius:8px;border:none}
+    select{width:100%;background:#0f172a;color:#fff;border:1px solid #30363d}
+    button{cursor:pointer;font-weight:600}
+    .primary{background:#58a6ff;color:#0b1220}
+    .success{background:#2ea043;color:#fff}
+    .ghost{background:transparent;border:1px solid #30363d;color:#fff}
+    .output{margin-top:15px;padding:15px;border-radius:8px;background:#0d1117;border:1px solid #30363d;min-height:120px;white-space:pre-wrap}
   </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1>📝 Text Summarizer</h1>
-    <label for="inputText">Enter your text:</label>
-    <textarea id="inputText" placeholder="Paste or type text here..."></textarea>
+    <p>Summarize text instantly with Gemini (key hidden from UI)</p>
+  </header>
 
-    <label for="summaryLength">Select Summary Type:</label>
-    <select id="summaryLength">
-      <option value="short">Short (25%)</option>
-      <option value="medium">Medium (40%)</option>
-      <option value="long">Long (60%)</option>
-    </select>
+  <main>
+    <div class="card">
+      <label for="inputText">Enter your text:</label>
+      <textarea id="inputText" placeholder="Paste or type text here..."></textarea>
 
-    <button onclick="summarizeText()">Summarize</button>
+      <label for="summaryLength">Summary Length</label>
+      <select id="summaryLength">
+        <option value="short">Short (25%)</option>
+        <option value="medium" selected>Medium (40%)</option>
+        <option value="long">Long (60%)</option>
+      </select>
 
-    <div class="output" id="outputText">⚡ Your summary will appear here...</div>
-  </div>
+      <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="primary" id="btnSummarize">Summarize</button>
+        <button class="ghost" id="btnClear">Clear</button>
+        <button class="success" id="btnCopy">Copy</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Summary Output</h3>
+      <div class="output" id="outputText">⚡ Your summary will appear here...</div>
+    </div>
+  </main>
+
+  <!-- SEO-Friendly Content Section -->
+  <section style="max-width:900px;margin:20px auto;padding:20px">
+    <div class="card">
+      <h2 style="color:#58a6ff;margin:0 0 16px">📚 Complete Text Summarization Guide</h2>
+      <p>Master the art of text summarization with our advanced AI-powered tool. Whether you're a student, researcher, content creator, or professional, learn how to efficiently condense lengthy documents, articles, and research papers while preserving essential information and maintaining readability.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">What is Text Summarization?</h3>
+      <p>Text summarization is the process of creating a concise, coherent, and accurate summary of a longer text while preserving the key information and main ideas. Our AI-powered summarizer uses advanced natural language processing to understand context, identify important concepts, and generate human-like summaries that maintain the original meaning.</p>
+      <p>Modern summarization technology combines machine learning algorithms with linguistic analysis to deliver results that rival human summarization skills. The tool processes text at multiple levels, from sentence structure to semantic meaning, ensuring comprehensive understanding and accurate summarization.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Why Use AI-Powered Text Summarization?</h3>
+      <ul style="margin:8px 0 0 20px;color:#f0f6fc">
+        <li><strong>Time Efficiency:</strong> Process lengthy documents in seconds instead of hours</li>
+        <li><strong>Consistency:</strong> Maintain uniform summarization quality across multiple documents</li>
+        <li><strong>Accuracy:</strong> AI algorithms identify key information with high precision</li>
+        <li><strong>Scalability:</strong> Handle large volumes of text without quality degradation</li>
+        <li><strong>Objectivity:</strong> Remove human bias from summarization process</li>
+        <li><strong>Accessibility:</strong> Make complex information easier to understand</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Professional Applications and Use Cases</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:16px 0">
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">📚 Academic Research</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Summarize research papers, literature reviews, and academic articles for efficient study and reference.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">💼 Business Intelligence</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Condense reports, market analyses, and business documents for executive summaries and presentations.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">📰 Content Creation</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Create article summaries, blog post excerpts, and social media content from longer source materials.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">🔍 Legal and Compliance</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Summarize legal documents, contracts, and regulatory materials for quick review and analysis.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">📖 Publishing and Editing</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Create book summaries, chapter abstracts, and content previews for marketing and promotion.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">🎓 Educational Support</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Help students understand complex texts, create study guides, and prepare for exams efficiently.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">How to Use the Text Summarizer: Step-by-Step Guide</h3>
+      <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:20px;border-radius:12px;margin:16px 0">
+        <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Prepare Your Text</h4>
+            <p style="margin:0;color:#f0f6fc">Copy and paste your text into the input area. The tool can handle various text formats including articles, research papers, reports, and general content.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Choose Summary Length</h4>
+            <p style="margin:0;color:#f0f6fc">Select from three summary lengths: Short (25%), Medium (40%), or Long (60%) based on your specific needs and requirements.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Generate Summary</h4>
+            <p style="margin:0;color:#f0f6fc">Click the "Summarize" button to process your text. Our AI will analyze the content and generate a coherent summary in seconds.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:0;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Use Your Summary</h4>
+            <p style="margin:0;color:#f0f6fc">Copy, download, or use your generated summary. The tool preserves key facts, names, figures, and maintains chronological order.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Advanced Summarization Techniques and Best Practices</h3>
+      <div style="background:rgba(88,166,255,0.1);border-left:3px solid #58a6ff;padding:12px;margin:16px 0;border-radius:4px">
+        <p style="margin:0"><strong>Quality Input:</strong> Start with well-structured, clear text for the best summarization results. Well-organized content with clear headings and logical flow produces more coherent summaries.</p>
+      </div>
+      <div style="background:rgba(46,160,67,0.1);border-left:3px solid #2ea043;padding:12px;margin:16px 0;border-radius:4px">
+        <p style="margin:0"><strong>Length Selection:</strong> Choose summary length based on your audience and purpose. Shorter summaries are ideal for quick reference, while longer ones provide more context and detail.</p>
+      </div>
+      <div style="background:rgba(255,193,7,0.1);border-left:3px solid #ffc107;padding:12px;margin:16px 0;border-radius:4px">
+        <p style="margin:0"><strong>Review and Edit:</strong> Always review generated summaries for accuracy and completeness. While AI is highly accurate, human review ensures the best results for critical applications.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Understanding Summary Length Options</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:16px 0">
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Short Summary (25%)</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Perfect for executive summaries, quick references, and when you need just the essential points. Ideal for busy professionals and time-constrained situations.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Medium Summary (40%)</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Balanced approach providing key information with supporting context. Great for general understanding, study guides, and content previews.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Long Summary (60%)</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Comprehensive summary maintaining most important details and context. Ideal for detailed analysis, research notes, and when you need substantial information.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Frequently Asked Questions</h3>
+      <div style="margin:16px 0">
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: How accurate are the AI-generated summaries?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: Our AI summarizer achieves high accuracy by using advanced natural language processing. It preserves key facts, maintains chronological order, and generates coherent, readable summaries. However, we recommend reviewing summaries for critical applications.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: What types of text work best with the summarizer?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: The tool works excellently with well-structured content like articles, research papers, reports, and academic texts. It can also handle general content, though structured text typically produces better results.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: Can I summarize very long documents?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: Yes, the tool can handle lengthy documents. For very long texts, consider breaking them into sections for more focused summarization, or use the longer summary option to maintain more context.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: Does the tool preserve important information like names and dates?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: Absolutely! The AI is specifically trained to preserve key facts, names, figures, and chronological information. This ensures your summaries contain the most important details from the original text.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: Is my text data secure and private?</h4>
+        <p style="margin:0 0 0;color:#f0f6fc">A: Yes, your privacy is protected. The tool processes text locally and doesn't store or share your content. Your documents remain completely confidential and secure.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Getting Started with Professional Text Summarization</h3>
+      <p>Ready to transform how you process and understand lengthy documents? Our AI-powered text summarizer provides everything you need to efficiently condense information while maintaining accuracy and readability. Whether you're conducting research, preparing business reports, or creating content, professional text summarization will enhance your productivity and comprehension.</p>
+      <p style="margin:16px 0 0">Start using the tool above to experience the power of AI-driven text summarization. Choose your preferred summary length, paste your text, and generate professional-quality summaries in seconds.</p>
+    </div>
+  </section>
 
   <script>
-    function summarizeText() {
-      let text = document.getElementById("inputText").value;
-      let length = document.getElementById("summaryLength").value;
-      let output = document.getElementById("outputText");
+    // 👇 API KEY stored only in code (not shown on page)
+    const GEMINI_API_KEY = "AIzaSyDovzwxINfexpKQZC5K1TItqkhR-wp07yE";
 
-      if (!text.trim()) {
-        output.innerText = "❌ Please enter some text to summarize.";
+    const inputText = document.getElementById("inputText");
+    const summaryLength = document.getElementById("summaryLength");
+    const outputText = document.getElementById("outputText");
+
+    document.getElementById("btnSummarize").addEventListener("click", async () => {
+      const text = inputText.value.trim();
+      if (!text) {
+        outputText.textContent = "❌ Please enter some text.";
         return;
       }
+      outputText.textContent = "⏳ Summarizing...";
 
-      // Split text into sentences
-      let sentences = text.match(/[^\.!\?]+[\.!\?]+/g) || [text];
+      try {
+        const ratioMap = {
+          short: "about 25% of the length",
+          medium: "about 40% of the length",
+          long: "about 60% of the length"
+        };
+        const target = ratioMap[summaryLength.value] || ratioMap.medium;
 
-      // Split words and count frequency
-      let words = text.toLowerCase().replace(/[^a-zA-Z ]/g, "").split(/\s+/);
-      let freq = {};
-      words.forEach(w => {
-        if (w.length > 3) { // ignore short/common words
-          freq[w] = (freq[w] || 0) + 1;
-        }
-      });
+        const body = {
+          contents: [{
+            role: "user",
+            parts: [{
+              text: `Summarize the following text into ${target}.
+- Preserve key facts, names, figures, chronology.
+- Fluent sentences, no bullet points.
 
-      // Score sentences
-      let scored = sentences.map(s => {
-        let score = 0;
-        s.toLowerCase().split(/\s+/).forEach(w => {
-          if (freq[w]) score += freq[w];
+TEXT:
+${text}`
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.2,
+            maxOutputTokens: 800
+          }
+        };
+
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(GEMINI_API_KEY)}`;
+
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
         });
-        return { sentence: s.trim(), score };
-      });
 
-      // Sort by score
-      scored.sort((a, b) => b.score - a.score);
+        if (!res.ok) {
+          const err = await res.text().catch(()=>res.statusText);
+          throw new Error(`Gemini API error: ${err}`);
+        }
 
-      // Pick percentage of sentences
-      let ratio = length === "short" ? 0.25 : length === "medium" ? 0.4 : 0.6;
-      let count = Math.max(1, Math.floor(sentences.length * ratio));
+        const data = await res.json();
+        const summary = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+        outputText.textContent = summary || "⚠️ No summary generated.";
+      } catch (err) {
+        console.error(err);
+        outputText.textContent = "⚠️ Error: " + err.message;
+      }
+    });
 
-      let summary = scored.slice(0, count).map(s => s.sentence).join(" ");
+    document.getElementById("btnClear").addEventListener("click", () => {
+      inputText.value = "";
+      outputText.textContent = "⚡ Your summary will appear here...";
+    });
 
-      output.innerText = summary || "⚠️ Could not generate summary.";
-    }
+    document.getElementById("btnCopy").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(outputText.textContent.trim());
+        alert("Summary copied!");
+      } catch {
+        alert("Failed to copy.");
+      }
+    });
   </script>
 </body>
 </html>

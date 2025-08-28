@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ✅ SEO Meta Tags -->
+  <!-- ✅ SEO Meta Tags -->
   <meta name="description" content="Free Image Converter Tool - Convert images to JPG, PNG, WEBP, BMP, GIF, or ICO in seconds. Fast, secure, and easy-to-use image format converter.">
   <meta name="keywords" content="image converter, jpg to png, png to jpg, webp converter, gif converter, ico converter, bmp to jpg, image format tool, free image converter">
   <meta name="robots" content="index, follow">
-  <meta name="author" content="Toolify"
+  <meta name="author" content="Toolify">
   <title>Image Converter Tool</title>
   <style>
     body {
@@ -18,14 +18,27 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
     }
 
     h1 {
-      margin-bottom: 20px;
-      font-size: 2rem;
+      margin: 20px 0;
+      font-size: 2.2rem;
       color: #ffffff;
+    }
+
+    h2 {
+      color: #4a90e2;
+      margin-top: 30px;
+    }
+
+    p {
+      max-width: 800px;
+      text-align: center;
+      margin-bottom: 15px;
     }
 
     .tool-container {
@@ -35,6 +48,7 @@
       box-shadow: 0 8px 25px rgba(0,0,0,0.6);
       width: 350px;
       text-align: center;
+      margin-bottom: 40px;
     }
 
     .file-input {
@@ -86,11 +100,22 @@
       font-size: 0.9rem;
       color: #bbb;
     }
+
+    .content-section {
+      max-width: 900px;
+      text-align: left;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Image Converter</h1>
+  <h1>Free Image Converter Tool</h1>
+  <p>Convert images instantly between popular formats like <strong>JPG, PNG, WEBP, GIF, BMP, and ICO</strong>. This online converter works directly in your browser — no downloads, no sign-ups, and completely free. Perfect for designers, developers, students, and everyday users who need quick file conversions.</p>
+
   <div class="tool-container">
     <input type="file" id="imageInput" class="file-input" accept="image/*">
     <div class="filename" id="fileName">No file selected</div>
@@ -106,6 +131,46 @@
 
     <button onclick="convertImage()">Convert</button>
     <button id="downloadBtn">Download Converted Image</button>
+  </div>
+
+  <div class="content-section">
+    <h2>Why use an image converter?</h2>
+    <p>Different platforms, applications, and websites often require specific image formats. With our tool you can:</p>
+    <ul>
+      <li><strong>Optimize for the web</strong> — Convert to <em>WEBP</em> for smaller file sizes and faster page loads.</li>
+      <li><strong>Prepare for printing</strong> — Use <em>BMP</em> or <em>high-quality PNG</em> files for detailed prints.</li>
+      <li><strong>Social media ready</strong> — Convert to <em>JPG</em> for quick uploads with balanced quality and size.</li>
+      <li><strong>App & icon design</strong> — Save images as <em>ICO</em> for favicons and desktop apps.</li>
+    </ul>
+
+    <h2>How to use the tool</h2>
+    <ol>
+      <li>Click the upload area and select your image file.</li>
+      <li>Choose the output format you need (PNG, JPG, WEBP, etc.).</li>
+      <li>Click <strong>Convert</strong> and wait a few seconds.</li>
+      <li>Hit <strong>Download</strong> to save your new image.</li>
+    </ol>
+
+    <h2>Tips for best results</h2>
+    <ul>
+      <li>Use <strong>PNG</strong> if you need transparency in your images.</li>
+      <li><strong>JPG</strong> is best for photos with rich colors but no need for transparency.</li>
+      <li>Choose <strong>WEBP</strong> for modern websites where loading speed matters.</li>
+      <li>Pick <strong>GIF</strong> for simple animations or low-color graphics.</li>
+    </ul>
+
+    <h2>Frequently Asked Questions</h2>
+    <p><strong>1. Is this image converter free?</strong><br>
+    ✅ Yes! It’s 100% free with no hidden costs.</p>
+
+    <p><strong>2. Does it work on mobile?</strong><br>
+    ✅ Absolutely. You can use it on smartphones, tablets, and desktops.</p>
+
+    <p><strong>3. Is my data safe?</strong><br>
+    ✅ Yes. The conversion happens in your browser, so your files are never uploaded to a server.</p>
+
+    <p><strong>4. What file types are supported?</strong><br>
+    ✅ You can convert to PNG, JPG, WEBP, GIF, BMP, and ICO.</p>
   </div>
 
   <script>

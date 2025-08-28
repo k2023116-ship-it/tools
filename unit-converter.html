@@ -85,6 +85,19 @@
       font-size: 1.2em;
       color: #fff;
     }
+    /* ✅ Extra info section */
+    .info {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.7;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+    }
+    .info h2 { color: #58a6ff; margin-top: 20px; }
+    .info ul { margin: 0 0 20px 20px; }
+    .info p { margin-bottom: 12px; }
   </style>
 </head>
 <body>
@@ -117,6 +130,39 @@
     <button onclick="convert()">Convert</button>
 
     <div class="result" id="result">Result will appear here...</div>
+  </div>
+
+  <!-- ✅ SEO Info Section -->
+  <div class="info">
+    <h2>About Toolify Unit Converter</h2>
+    <p>
+      Toolify’s <strong>Unit Converter</strong> is a free online tool that allows you to 
+      convert between multiple measurement units instantly. Whether you are a student, 
+      engineer, scientist, or just need quick conversions, this converter provides accurate results in real time.
+    </p>
+
+    <h2>Supported Categories</h2>
+    <ul>
+      <li><b>Length:</b> meters, kilometers, miles, inches, light years, etc.</li>
+      <li><b>Weight:</b> grams, kilograms, pounds, tons, carats.</li>
+      <li><b>Temperature:</b> Celsius, Fahrenheit, Kelvin.</li>
+      <li><b>Time:</b> seconds, minutes, hours, days, years.</li>
+      <li><b>Data:</b> bytes, KB, MB, GB, TB.</li>
+      <li><b>Energy:</b> joules, calories, kilowatt-hours, electronvolts.</li>
+    </ul>
+
+    <h2>How to Use</h2>
+    <ol>
+      <li>Select the category (length, weight, etc.).</li>
+      <li>Enter the value you want to convert.</li>
+      <li>Choose the <i>from</i> and <i>to</i> units.</li>
+      <li>Click <b>Convert</b> to see instant results.</li>
+    </ol>
+
+    <h2>FAQs</h2>
+    <p><b>Is this tool free?</b> ✅ Yes, it’s 100% free and browser-based.</p>
+    <p><b>Do I need internet?</b> 🌐 No backend is required — everything works in your browser.</p>
+    <p><b>Can I convert unusual units?</b> 🚀 Yes, it supports scientific units like light years and electronvolts too.</p>
   </div>
 
   <script>
@@ -201,7 +247,6 @@
 
     function convertTemperature(value, from, to) {
       let celsius;
-
       if (from === "c") celsius = value;
       if (from === "f") celsius = (value - 32) * 5/9;
       if (from === "k") celsius = value - 273.15;

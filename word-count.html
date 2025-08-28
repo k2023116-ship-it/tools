@@ -7,24 +7,24 @@
   <meta name="description" content="Free online Word & Character Counter. Instantly count words, characters, spaces, and empty lines. Upload text or DOCX files and download results.">
   <meta name="keywords" content="word counter, character counter, text counter, free online tool, count words, count characters, writing tools">
   <meta name="author" content="Toolify">
-  <title>Word & Character Counter</title>
+  <title>Word & Character Counter — Toolify</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #0d1117; /* black background */
-      color: #e6edf3; /* light text */
+      background-color: #0d1117;
+      color: #e6edf3;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
       margin: 0;
       padding: 20px;
     }
     h1 {
-      color: #3b82f6; /* blue heading */
+      color: #3b82f6;
       font-size: 28px;
       margin-bottom: 15px;
+      text-align: center;
     }
     textarea {
       width: 90%;
@@ -94,6 +94,22 @@
       background: #2563eb;
       box-shadow: 0 0 8px #2563eb;
     }
+    /* SEO sections */
+    .seo-section {
+      max-width: 900px;
+      margin-top: 40px;
+      line-height: 1.6em;
+    }
+    .seo-section h2 {
+      color: #3b82f6;
+      margin-bottom: 10px;
+    }
+    .seo-section ul {
+      padding-left: 20px;
+    }
+    .seo-section li {
+      margin: 6px 0;
+    }
   </style>
 </head>
 <body>
@@ -118,6 +134,55 @@
 
   <button id="downloadBtn">Download Text</button>
 
+  <!-- SEO Content -->
+  <div class="seo-section">
+    <h2>About This Tool</h2>
+    <p>Toolify’s Word & Character Counter is a free online utility that helps writers, students, bloggers, and professionals instantly count words, characters, spaces, and empty lines. Whether you're preparing an essay, social media post, or coding file, this tool ensures accuracy and saves time.</p>
+
+    <h2>How to Use</h2>
+    <ol>
+      <li>Type or paste your text in the input box.</li>
+      <li>Upload a <strong>TXT</strong>, <strong>DOCX</strong>, or other supported file.</li>
+      <li>Drag & drop files into the drop zone for quick access.</li>
+      <li>View live counts of words, characters, spaces, and empty lines.</li>
+      <li>Download the processed text as a TXT file.</li>
+    </ol>
+
+    <h2>Features</h2>
+    <ul>
+      <li>Instant word and character counting.</li>
+      <li>Counts spaces and empty lines for accurate formatting checks.</li>
+      <li>Drag & drop file upload with DOCX support.</li>
+      <li>Download results in plain text format.</li>
+      <li>Works directly in your browser, no installation needed.</li>
+    </ul>
+
+    <h2>FAQs</h2>
+    <h3>Is this tool free?</h3>
+    <p>Yes, Toolify’s Word & Character Counter is 100% free with no sign-up required.</p>
+
+    <h3>Can I upload Word (DOCX) files?</h3>
+    <p>Yes, the tool supports DOCX file uploads using Mammoth.js for text extraction.</p>
+
+    <h3>Does my text get uploaded to a server?</h3>
+    <p>No. Everything runs locally in your browser. Your data stays private.</p>
+
+    <h3>What file types are supported?</h3>
+    <p>TXT, MD, CSV, HTML, JS, CSS, and DOCX are supported.</p>
+
+    <h2>Tips for Writers</h2>
+    <ul>
+      <li>Use the counter to meet essay or assignment word limits.</li>
+      <li>Check social media posts for character restrictions.</li>
+      <li>Validate code files for empty lines or formatting consistency.</li>
+    </ul>
+
+    <footer style="margin-top:20px; text-align:center; font-size:14px; color:#9ca3af;">
+      <p><strong>Toolify Word & Character Counter</strong> — Free, fast, and private.</p>
+    </footer>
+  </div>
+
+  <!-- Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
   <script>
     const textInput = document.getElementById("textInput");
@@ -136,7 +201,7 @@
       wordCount.textContent = trimmed ? trimmed.split(/\s+/).length : 0;
       charCount.textContent = text.length;
       spaceCount.textContent = (text.match(/ /g) || []).length;
-      lineCount.textContent = (text.match(/^\s*$/gm) || []).length; // empty lines only
+      lineCount.textContent = (text.match(/^\s*$/gm) || []).length; // empty lines
     }
 
     textInput.addEventListener("input", updateCounts);
