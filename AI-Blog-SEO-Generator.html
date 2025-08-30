@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Gemini Blog Studio</title>
+  <style>
+    body{margin:0;font-family:sans-serif;background:#0d1117;color:#f0f6fc}
+    header{padding:20px;text-align:center;background:#161b22}
+    h1{margin:0;color:#58a6ff}
+    main{max-width:1000px;margin:20px auto;padding:20px}
+    .card{background:#161b22;padding:16px;border-radius:12px;margin-bottom:20px}
+    textarea,input,select{width:100%;padding:10px;margin-top:8px;border-radius:8px;border:1px solid #30363d;background:#0d1117;color:#fff}
+    button{padding:10px 16px;margin-top:10px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+    .primary{background:#58a6ff;color:#0b1220}
+    .success{background:#2ea043;color:#fff}
+    .ghost{background:transparent;border:1px solid #30363d;color:#fff}
+    .output{margin-top:15px;padding:15px;border-radius:8px;background:#0d1117;border:1px solid #30363d;min-height:150px;white-space:pre-wrap}
+    .status{margin-top:8px;color:#9fb6cc;font-size:14px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>✨ Gemini Blog Studio</h1>
+    <p>Create professional blogs with SEO details in plain text</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <label>Topic</label>
+      <input id="topic" placeholder="e.g. How to speed up a React app"/>
+
+      <label>Language</label>
+      <select id="language">
+        <option>English</option>
+        <option>Urdu</option>
+        <option>Hindi</option>
+        <option>Arabic</option>
+        <option>French</option>
+        <option>Spanish</option>
+        <option>German</option>
+        <option>Italian</option>
+        <option>Chinese</option>
+        <option>Japanese</option>
+      </select>
+
+      <label>Tone</label>
+      <select id="tone">
+        <option>Neutral</option>
+        <option>Friendly</option>
+        <option>Professional</option>
+        <option>Inspirational</option>
+        <option>Persuasive</option>
+        <option>Casual</option>
+        <option>Technical</option>
+        <option>Formal</option>
+        <option>Storytelling</option>
+        <option>Motivational</option>
+      </select>
+
+      <label>Word Count (max 1000)</label>
+      <input id="wordCount" type="number" value="800" min="100" max="1000"/>
+
+      <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="primary" id="btnGenerate">Generate</button>
+        <button class="ghost" id="btnClear">Clear</button>
+      </div>
+      <div id="status" class="status"></div>
+    </div>
+
+    <!-- Blog Output -->
+    <div class="card">
+      <h2 style="color:#58a6ff">📝 Blog Content</h2>
+      <div id="blogOutput" class="output">⚡ Blog will appear here...</div>
+      <button class="success" id="btnCopyBlog">Copy Blog</button>
+    </div>
+
+    <!-- SEO Output -->
+    <div class="card">
+      <h2 style="color:#58a6ff">🔍 SEO Data</h2>
+      <div id="seoOutput" class="output">⚡ SEO details will appear here...</div>
+      <button class="success" id="btnCopySEO">Copy SEO Data</button>
+    </div>
+  </main>
+
+  <!-- SEO-Friendly Content Section -->
+  <section style="max-width:1000px;margin:20px auto;padding:20px">
+    <div class="card">
+      <h2 style="color:#58a6ff;margin:0 0 16px">🚀 AI-Powered Blog & SEO Content Generator</h2>
+      <p>Transform your content creation workflow with our advanced AI-powered blog and SEO generator. Create professional, engaging blog posts with comprehensive SEO optimization in multiple languages and tones. Whether you're a content creator, marketer, or business owner, generate high-quality content that ranks well and engages your audience.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">What is AI Blog & SEO Generator?</h3>
+      <p>Our AI Blog & SEO Generator is a powerful tool that combines advanced natural language processing with SEO best practices to create comprehensive, engaging content. The tool generates both the main blog content and detailed SEO metadata, including titles, meta descriptions, keywords, and content outlines. This dual approach ensures your content is both reader-friendly and search engine optimized.</p>
+      <p>Using Google's Gemini AI technology, the generator creates human-like content that maintains natural flow, proper grammar, and engaging storytelling while incorporating SEO elements that help improve search rankings and visibility.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Key Features and Capabilities</h3>
+      <ul style="margin:8px 0 0 20px;color:#f0f6fc">
+        <li><strong>Multi-Language Support:</strong> Generate content in 10+ languages including English, Urdu, Hindi, Arabic, and more</li>
+        <li><strong>Flexible Tone Options:</strong> Choose from professional, friendly, technical, inspirational, and other writing styles</li>
+        <li><strong>Customizable Length:</strong> Control word count from 100 to 1000 words based on your content needs</li>
+        <li><strong>Comprehensive SEO Data:</strong> Get complete SEO metadata including titles, descriptions, keywords, and outlines</li>
+        <li><strong>AI-Powered Quality:</strong> Advanced language models ensure high-quality, coherent content generation</li>
+        <li><strong>Instant Results:</strong> Generate complete blog posts with SEO data in seconds</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Professional Applications and Use Cases</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:16px 0">
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">📝 Content Marketing</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Create engaging blog posts, articles, and content pieces for marketing campaigns with built-in SEO optimization.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">🌐 Multilingual Content</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Generate content in multiple languages to reach global audiences and improve international SEO performance.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">🔍 SEO Optimization</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Get complete SEO metadata including optimized titles, descriptions, and keyword suggestions for better rankings.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">💼 Business Communication</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Generate professional business content, reports, and communications with appropriate tone and style.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">📚 Educational Content</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Create educational materials, tutorials, and learning resources with clear, structured content.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">🎯 Social Media</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Generate engaging social media content with appropriate length and tone for different platforms.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">How to Use the AI Blog & SEO Generator: Step-by-Step Guide</h3>
+      <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:20px;border-radius:12px;margin:16px 0">
+        <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Define Your Topic</h4>
+            <p style="margin:0;color:#f0f6fc">Enter a clear, specific topic for your blog post. Be descriptive to help the AI understand your content requirements and generate more relevant material.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Choose Language & Tone</h4>
+            <p style="margin:0;color:#f0f6fc">Select your target language from 10+ options and choose the appropriate tone that matches your brand voice and audience preferences.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:20px;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Set Content Length</h4>
+            <p style="margin:0;color:#f0f6fc">Specify your desired word count between 100-1000 words. Consider your platform requirements and audience reading preferences.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;margin-bottom:0;align-items:flex-start">
+          <div style="background:#58a6ff;color:white;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+          <div style="flex:1">
+            <h4 style="color:#58a6ff;margin:0 0 8px">Generate & Optimize</h4>
+            <p style="margin:0;color:#f0f6fc">Click generate to create your content and SEO data. Review, edit, and customize the generated content to match your specific needs and brand guidelines.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Understanding Language and Tone Options</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:16px 0">
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Language Support</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Generate content in English, Urdu, Hindi, Arabic, French, Spanish, German, Italian, Chinese, and Japanese for global reach.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Tone Variations</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Choose from neutral, friendly, professional, inspirational, persuasive, casual, technical, formal, storytelling, or motivational tones.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Content Length Control</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Fine-tune content length from concise 100-word summaries to comprehensive 1000-word articles based on your platform and audience needs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">SEO Benefits and Optimization Features</h3>
+      <div style="background:rgba(88,166,255,0.1);border-left:3px solid #58a6ff;padding:12px;margin:16px 0;border-radius:4px">
+        <p style="margin:0"><strong>Complete SEO Package:</strong> Get optimized titles, meta descriptions, keyword suggestions, content outlines, and FAQ sections in one generation.</p>
+      </div>
+      <div style="background:rgba(46,160,67,0.1);border-left:3px solid #2ea043;padding:12px;margin:16px 0;border-radius:4px">
+        <p style="margin:0"><strong>Keyword Optimization:</strong> AI-generated content naturally incorporates relevant keywords and phrases for better search engine visibility.</p>
+      </div>
+      <div style="background:rgba(255,193,7,0.1);border-left:3px solid #ffc107;padding:12px;margin:16px 0;border-radius:4px">
+        <p style="margin:0"><strong>Content Structure:</strong> Generated content follows SEO best practices with proper headings, paragraph structure, and readability optimization.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Best Practices for AI-Generated Content</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:16px 0">
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Review and Edit</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Always review generated content for accuracy, brand voice consistency, and to add your unique perspective and expertise.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#9fb6cc;font-size:14px;margin:0">Customize for Your Brand</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Modify tone, style, and content to align with your brand guidelines and target audience preferences.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:16px;border-radius:8px">
+          <h4 style="color:#58a6ff;margin:0 0 8px">Optimize for Your Platform</h4>
+          <p style="color:#9fb6cc;font-size:14px;margin:0">Adjust content length and format based on your publishing platform requirements and audience reading habits.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Frequently Asked Questions</h3>
+      <div style="margin:16px 0">
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: How accurate and reliable is the AI-generated content?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: Our AI uses Google's advanced Gemini technology to generate high-quality, coherent content. However, we recommend reviewing and editing the generated content to ensure accuracy, brand consistency, and to add your unique perspective.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: Can I use the generated content for commercial purposes?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: Yes, you have full rights to use the generated content for personal, educational, and commercial purposes. The tool is designed to help you create original content that you can publish and monetize.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: How does the tool handle different languages and cultural contexts?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: The AI is trained on multilingual content and can generate culturally appropriate content in various languages. However, for highly specific cultural content, we recommend reviewing and localizing the generated material.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: What makes the SEO data generated by this tool effective?</h4>
+        <p style="margin:0 0 16px;color:#f0f6fc">A: The AI analyzes your topic and generates SEO elements that are naturally integrated with your content. This includes keyword-optimized titles, compelling meta descriptions, and structured content outlines that follow SEO best practices.</p>
+        
+        <h4 style="color:#58a6ff;margin:0 0 8px">Q: Can I generate content for specific industries or niches?</h4>
+        <p style="margin:0 0 0;color:#f0f6fc">A: Absolutely! The AI can generate content for any industry or niche. Simply provide a specific topic and the tool will create relevant, industry-appropriate content with appropriate terminology and context.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:#58a6ff;margin:0 0 12px">Getting Started with AI-Powered Content Creation</h3>
+      <p>Ready to revolutionize your content creation process? Our AI Blog & SEO Generator provides everything you need to create professional, engaging content with built-in SEO optimization. Whether you're a content marketer, business owner, or creative professional, this tool will streamline your workflow and improve your content quality.</p>
+      <p style="margin:16px 0 0">Start using the tool above to experience the power of AI-driven content creation. Choose your language, tone, and length preferences, then generate comprehensive blog posts with SEO optimization in seconds.</p>
+    </div>
+  </section>
+
+  <script>
+    // ⚠️ Demo only: API key is exposed here
+    const GEMINI_API_KEY = "AIzaSyDovzwxINfexpKQZC5K1TItqkhR-wp07yE";
+
+    const blogOut = document.getElementById("blogOutput");
+    const seoOut = document.getElementById("seoOutput");
+    const statusEl = document.getElementById("status");
+
+    document.getElementById("btnGenerate").addEventListener("click", async ()=>{
+      const topic = document.getElementById("topic").value.trim();
+      let wordCount = parseInt(document.getElementById("wordCount").value) || 800;
+
+      // cap word count at 1000
+      if(wordCount > 1000){
+        wordCount = 1000;
+        document.getElementById("wordCount").value = 1000;
+      }
+
+      if(!topic){ blogOut.textContent="❌ Please enter a topic."; return; }
+
+      blogOut.textContent=""; seoOut.textContent="";
+      statusEl.textContent="⏳ Blog generating...";
+
+      try{
+        const prompt = `
+Write a ${wordCount}-word blog in ${document.getElementById("language").value}, tone: ${document.getElementById("tone").value}.
+Topic: "${topic}"
+
+Return in plain text (no JSON, no HTML, no asterisks).
+Output should have 2 clear sections:
+
+BLOG:
+[Full blog text with headings and paragraphs]
+
+SEO:
+- Title
+- Meta Title
+- Meta Description
+- Keywords (comma separated)
+- Outline (plain text list)
+- FAQs (plain text Q&A)
+        `;
+
+        const res = await fetch(
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="+GEMINI_API_KEY,
+          {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({
+              contents:[{role:"user",parts:[{text:prompt}]}],
+              generationConfig:{temperature:0.7,maxOutputTokens:2000}
+            })
+          }
+        );
+        const data = await res.json();
+        statusEl.textContent="✅ Blog generated!";
+
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if(!text){ blogOut.textContent="⚠️ No output."; return; }
+
+        const [blogPart, seoPart] = text.split("SEO:");
+        blogOut.textContent = blogPart?.replace("BLOG:","").trim() || text;
+        seoOut.textContent = seoPart?.trim() || "⚠️ SEO data not found.";
+      }catch(err){
+        statusEl.textContent="";
+        blogOut.textContent = "⚠️ Error: "+err.message;
+      }
+    });
+
+    document.getElementById("btnClear").addEventListener("click",()=>{
+      document.getElementById("topic").value="";
+      blogOut.textContent="⚡ Blog will appear here...";
+      seoOut.textContent="⚡ SEO details will appear here...";
+      statusEl.textContent="";
+    });
+
+    document.getElementById("btnCopyBlog").addEventListener("click",()=>{
+      navigator.clipboard.writeText(blogOut.textContent).then(()=>alert("Blog copied!"));
+    });
+    document.getElementById("btnCopySEO").addEventListener("click",()=>{
+      navigator.clipboard.writeText(seoOut.textContent).then(()=>alert("SEO data copied!"));
+    });
+  </script>
+</body>
+</html>
