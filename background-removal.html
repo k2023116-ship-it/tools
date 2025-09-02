@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Background Remover — Toolify</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:;">
+<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+<meta name="description" content="Free Background Remover - Remove image backgrounds instantly with AI. Works with JPG, PNG, WebP files. Get transparent PNG images for e-commerce, portraits, and design projects. No uploads, works offline.">
+<link rel="canonical" href="https://toolify.services/background-removal.html">
+<title>Free Background Remover - AI-Powered Image Background Removal | Toolify</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>">
 <style>
   :root{
@@ -230,7 +234,7 @@
         <div class="logo" aria-hidden="true">🖼️</div>
         <div>
           <h1>Background Remover</h1>
-          <div class="sub">Remove background from images — API mode (best) or local demo (offline)</div>
+          <div class="sub">Remove background from images - API mode (best) or local demo (offline)</div>
         </div>
       </div>
       <div class="sub muted">Tip: For best results use API mode with a server-side proxy to keep API keys safe.</div>
@@ -289,7 +293,7 @@
 
     <!-- right/controls -->
     <aside class="card">
-      <h3>Mode & API</h3>
+      <h2>Mode & API</h2>
       <div class="api-box">
         <label style="display:flex;align-items:center;gap:10px">
           <input type="checkbox" id="useApi" />
@@ -309,7 +313,7 @@
         <button id="tryApiBtn" class="btn small">Test API (small)</button>
       </div>
 
-      <h3 style="margin-top:18px">Progress</h3>
+      <h2 style="margin-top:18px">Progress</h2>
       <div class="progress"><div id="progressBar"></div></div>
       <div id="status" class="muted-note" style="margin-top:10px">Idle</div>
 
@@ -319,10 +323,9 @@
     <section aria-label="Background remover guide and FAQs" style="margin-top:16px">
       <h2>Remove Image Backgrounds Online — Complete Guide</h2>
       <p>
-        This background remover lets you make the background of photos transparent directly in your
-        browser. It supports JPG, PNG, and WebP and produces a transparent PNG you can place on any
-        background or layout. It works best on plain or evenly lit backgrounds and preserves quality
-        by processing at the original resolution.
+        This tool makes photo backgrounds transparent in your browser. It works with JPG, PNG, and WebP files. 
+        You get a transparent PNG that you can use anywhere. It works best with plain backgrounds and keeps 
+        your image quality high. Perfect for combining with our <a href="image-converter.html" style="color:#7c5cff;text-decoration:none">Image Converter</a> and <a href="image-resize.html" style="color:#7c5cff;text-decoration:none">Image Resize Tool</a>.
       </p>
 
       <h3>How to use</h3>
@@ -406,6 +409,23 @@
       <p><strong>Can I undo changes and start over?</strong><br>
         Use the Clear button to reset the canvas and results, then upload the image again with updated
         settings.</p>
+    </section>
+
+    <!-- Other Tools Section -->
+    <section style="max-width:1000px;margin:20px auto;padding:20px;grid-column:1/-1">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:16px;text-align:center">
+        <h2 style="color:#7c5cff;margin:0 0 16px;font-size:20px">🛠️ Explore More Tools</h2>
+        <p style="color:#9fb0c8;margin:0 0 20px;font-size:14px">Discover other powerful productivity tools</p>
+        
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+          <a href="AI-Blog-SEO-Generator.html" style="background:linear-gradient(90deg,#7c5cff,#22d3ee);color:#031025;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+            ✨ AI Blog Generator
+          </a>
+          <a href="guides.html" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:#e6eef8;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+            📚 All Tools Guide
+          </a>
+        </div>
+      </div>
     </section>
 
     <footer>Built with canvas + optional API • Keep API keys on server for safety</footer>

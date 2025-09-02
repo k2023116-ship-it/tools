@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Gemini Blog Studio</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://generativelanguage.googleapis.com;">
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+  <meta name="description" content="AI Blog & SEO Generator powered by Gemini - Create professional blog posts with SEO optimization in multiple languages and tones. Generate titles, meta descriptions, keywords, and engaging content automatically.">
+  <link rel="canonical" href="https://toolify.services/AI-Blog-SEO-Generator.html">
+  <title>AI Blog & SEO Generator - Create Professional Content with Gemini | Toolify</title>
   <style>
     body{margin:0;font-family:sans-serif;background:#0d1117;color:#f0f6fc}
     header{padding:20px;text-align:center;background:#161b22}
@@ -26,6 +30,7 @@
   </header>
 
   <main>
+    
     <div class="card">
       <label>Topic</label>
       <input id="topic" placeholder="e.g. How to speed up a React app"/>
@@ -60,7 +65,7 @@
 
       <label>Word Count (max 1000)</label>
       <input id="wordCount" type="number" value="800" min="100" max="1000"/>
-
+       
       <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
         <button class="primary" id="btnGenerate">Generate</button>
         <button class="ghost" id="btnClear">Clear</button>
@@ -92,7 +97,7 @@
 
     <div class="card">
       <h3 style="color:#58a6ff;margin:0 0 12px">What is AI Blog & SEO Generator?</h3>
-      <p>Our AI Blog & SEO Generator is a powerful tool that combines advanced natural language processing with SEO best practices to create comprehensive, engaging content. The tool generates both the main blog content and detailed SEO metadata, including titles, meta descriptions, keywords, and content outlines. This dual approach ensures your content is both reader-friendly and search engine optimized.</p>
+      <p>Our AI Blog & SEO Generator is a powerful tool that combines advanced natural language processing with SEO best practices to create comprehensive, engaging content. The tool generates both the main blog content and detailed SEO metadata, including titles, meta descriptions, keywords, and content outlines. This dual approach ensures your content is both reader-friendly and search engine optimized. Perfect for combining with our <a href="word-count.html" style="color:#58a6ff;text-decoration:none">Word Counter</a> and <a href="text-case.html" style="color:#58a6ff;text-decoration:none">Text Case Converter</a>.</p>
       <p>Using Google's Gemini AI technology, the generator creates human-like content that maintains natural flow, proper grammar, and engaging storytelling while incorporating SEO elements that help improve search rankings and visibility.</p>
     </div>
 
@@ -245,6 +250,23 @@
       <h3 style="color:#58a6ff;margin:0 0 12px">Getting Started with AI-Powered Content Creation</h3>
       <p>Ready to revolutionize your content creation process? Our AI Blog & SEO Generator provides everything you need to create professional, engaging content with built-in SEO optimization. Whether you're a content marketer, business owner, or creative professional, this tool will streamline your workflow and improve your content quality.</p>
       <p style="margin:16px 0 0">Start using the tool above to experience the power of AI-driven content creation. Choose your language, tone, and length preferences, then generate comprehensive blog posts with SEO optimization in seconds.</p>
+    </div>
+  </section>
+
+  <!-- Other Tools Section -->
+  <section style="max-width:1000px;margin:20px auto;padding:20px">
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:16px;text-align:center">
+      <h2 style="color:#58a6ff;margin:0 0 16px;font-size:20px">🛠️ Explore More Tools</h2>
+      <p style="color:#9fb6cc;margin:0 0 20px;font-size:14px">Discover other powerful productivity tools</p>
+      
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="background-removal.html" style="background:linear-gradient(90deg,#58a6ff,#2ea043);color:#0b1220;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+          🖼️ Background Remover
+        </a>
+        <a href="guides.html" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:#f0f6fc;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+          📚 All Tools Guide
+        </a>
+      </div>
     </div>
   </section>
 

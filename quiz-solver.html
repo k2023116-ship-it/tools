@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://generativelanguage.googleapis.com;">
+<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+<meta name="description" content="AI-powered Quiz Solver with Gemini Vision - Upload images, diagrams, or paste text to get step-by-step solutions for math, science, and academic problems. Works with photos, handwritten text, and complex diagrams.">
+<link rel="canonical" href="https://toolify.services/quiz-solver.html">
 <title>Image/Text → Math Answer (Gemini Vision + OCR)</title>
 
 <!-- Tesseract for optional OCR -->
@@ -82,7 +86,7 @@
     <div class="grid">
       <!-- LEFT: INPUTS -->
       <section class="card">
-        <h3>Input</h3>
+        <h2>Input</h2>
         <label>Paste question (optional)</label>
         <textarea id="textInput" placeholder="Paste your math/question text here..."></textarea>
 
@@ -121,10 +125,10 @@
 
       <!-- RIGHT: OUTPUTS -->
       <section class="card">
-        <h3>Answer</h3>
+        <h2>Answer</h2>
         <div id="answer" class="out">⚡ Your solution will appear here…</div>
 
-        <h3 style="margin-top:18px">(Optional) Extracted Text (OCR)</h3>
+        <h2 style="margin-top:18px">(Optional) Extracted Text (OCR)</h2>
         <div id="ocrText" class="out" style="min-height:100px">–</div>
       </section>
     </div>
@@ -458,5 +462,23 @@ General solving approach:
 
 
 </script>
+
+<!-- Other Tools Section -->
+<section style="max-width:1000px;margin:20px auto;padding:20px">
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:16px;text-align:center">
+    <h2 style="color:#58a6ff;margin:0 0 16px;font-size:20px">🛠️ Explore More Tools</h2>
+    <p style="color:#9ca3af;margin:0 0 20px;font-size:14px">Discover other powerful productivity tools</p>
+    
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="AI-Blog-SEO-Generator.html" style="background:linear-gradient(90deg,#58a6ff,#2ea043);color:#0d1117;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        ✨ AI Blog Generator
+      </a>
+      <a href="guides.html" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:#e6edf3;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        📚 All Tools Guide
+      </a>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>

@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:;">
+<meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
  <!-- ✅ SEO Meta -->
-  <meta name="description" content="Free online Image Resize & Crop tool by Toolify. Quickly resize, crop, and download images in PNG, JPG, or WEBP format. Fast, simple, and secure.">
+  <meta name="description" content="Free Image Resize & Crop tool by Toolify. Resize, crop, and download images in PNG, JPG, or WEBP format. Fast, simple, and safe.">
   <meta name="keywords" content="image resize, image crop, resize image online, crop image online, jpg to png, png resize, webp crop, free image editor, Toolify">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Toolify">
-<title>Image Resize & Crop — Toolify</title>
+<link rel="canonical" href="https://toolify.services/image-resize.html">
+<title>Free Image Resize & Crop Tool - PNG, JPG, WebP | Toolify</title>
 <style>
   :root{
     --bg: #0d1117;
@@ -151,7 +154,7 @@
           <label id="uploadArea" class="upload-area" for="fileInput">
             <div class="upload-left">📁</div>
             <div class="upload-meta">
-              <h3>Click or drop an image here</h3>
+              <h2>Click or drop an image here</h2>
               <p>PNG, JPG, WEBP up to 20MB</p>
               <div class="upload-cta">
                 <button class="btn small" id="chooseFile">Choose file</button>
@@ -178,7 +181,7 @@
 
         <!-- RIGHT: Controls -->
         <aside class="controls">
-          <h3>Options</h3>
+          <h2>Options</h2>
           <div class="field">
             <label>Operation</label>
             <select id="operation" style="width:100%;padding:10px;border-radius:8px;background:#0d1117;color:#fff;">
@@ -218,13 +221,13 @@
 
     <!-- ✅ Extra SEO Content -->
     <section style="margin-top:40px;max-width:860px;line-height:1.7">
-      <h2 style="color:#58a6ff;">Why Use This Tool?</h2>
+      <h2 style="color:#58a6ff;">Why Use Image Resize Tool?</h2>
       <p>
         The <strong>Toolify Image Resize & Crop</strong> app helps you quickly resize and crop images without downloading heavy software. Perfect for 
-        <em>web designers, social media creators, students, and e-commerce sellers</em> who need optimized images fast.
+        <em>web designers, social media creators, students, and e-commerce sellers</em> who need optimized images fast. Great for combining with our <a href="image-converter.html" style="color:#58a6ff;text-decoration:none">Image Converter</a> and <a href="background-removal.html" style="color:#58a6ff;text-decoration:none">Background Remover</a>.
       </p>
 
-      <h2 style="color:#58a6ff;">How to Use</h2>
+      <h3 style="color:#58a6ff;">How to Resize & Crop Images</h3>
       <ol>
         <li>Upload your image (JPG, PNG, or WEBP).</li>
         <li>Select <strong>Resize</strong> to change dimensions or <strong>Crop</strong> to cut specific area.</li>
@@ -232,14 +235,14 @@
         <li>Preview instantly and download your edited image.</li>
       </ol>
 
-      <h2 style="color:#58a6ff;">Tips for Best Results</h2>
+      <h3 style="color:#58a6ff;">Image Resize Tips</h3>
       <ul>
         <li>Keep aspect ratio on if you don’t want distortion.</li>
         <li>Use cropping to remove unnecessary background areas.</li>
         <li>For website performance, convert large images to smaller pixel sizes.</li>
       </ul>
 
-      <h2 style="color:#58a6ff;">FAQ</h2>
+      <h3 style="color:#58a6ff;">FAQ</h3>
       <p><strong>Is this tool free?</strong> ✅ Yes, completely free.</p>
       <p><strong>Do my images get uploaded?</strong> ❌ No, editing happens directly in your browser.</p>
       <p><strong>Which formats are supported?</strong> JPG, PNG, WEBP.</p>
@@ -291,5 +294,23 @@
   downloadBtn.addEventListener('click',()=>{const a=document.createElement('a');a.href=previewImg.src;a.download='image-edited.png';a.click();});
   downloadOriginal.addEventListener('click',()=>{const a=document.createElement('a');a.href=originalDataURL;a.download='image-original.png';a.click();});
 </script>
+
+<!-- Other Tools Section -->
+<section style="max-width:1000px;margin:20px auto;padding:20px">
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:16px;text-align:center">
+    <h2 style="color:#58a6ff;margin:0 0 16px;font-size:20px">🛠️ Explore More Tools</h2>
+    <p style="color:#8b949e;margin:0 0 20px;font-size:14px">Discover other powerful productivity tools</p>
+    
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="AI-Blog-SEO-Generator.html" style="background:linear-gradient(90deg,#58a6ff,#2ea043);color:#0d1117;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        ✨ AI Blog Generator
+      </a>
+      <a href="guides.html" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:#e6eef8;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        📚 All Tools Guide
+      </a>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>

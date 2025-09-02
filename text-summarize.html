@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Text Summarizer | Hidden Key</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://generativelanguage.googleapis.com;">
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+  <meta name="description" content="AI Text Summarizer powered by Gemini - Summarize long articles, documents, and research papers instantly. Choose from short, medium, or long summaries. Preserves key information and maintains readability.">
+  <link rel="canonical" href="https://toolify.services/text-summarize.html">
+  <title>Free AI Text Summarizer - Summarize Articles & Documents | Toolify</title>
   <style>
     body{margin:0;font-family:sans-serif;background:#0d1117;color:#f0f6fc}
     header{padding:20px;text-align:center;background:#161b22}
@@ -46,7 +50,7 @@
     </div>
 
     <div class="card">
-      <h3>Summary Output</h3>
+      <h2>Summary Output</h2>
       <div class="output" id="outputText">⚡ Your summary will appear here...</div>
     </div>
   </main>
@@ -60,7 +64,7 @@
 
     <div class="card">
       <h3 style="color:#58a6ff;margin:0 0 12px">What is Text Summarization?</h3>
-      <p>Text summarization is the process of creating a concise, coherent, and accurate summary of a longer text while preserving the key information and main ideas. Our AI-powered summarizer uses advanced natural language processing to understand context, identify important concepts, and generate human-like summaries that maintain the original meaning.</p>
+      <p>Text summarization is the process of creating a concise, coherent, and accurate summary of a longer text while preserving the key information and main ideas. Our AI-powered summarizer uses advanced natural language processing to understand context, identify important concepts, and generate human-like summaries that maintain the original meaning. Great for combining with our <a href="word-count.html" style="color:#58a6ff;text-decoration:none">Word Counter</a> and <a href="text-case.html" style="color:#58a6ff;text-decoration:none">Text Case Converter</a>.</p>
       <p>Modern summarization technology combines machine learning algorithms with linguistic analysis to deliver results that rival human summarization skills. The tool processes text at multiple levels, from sentence structure to semantic meaning, ensuring comprehensive understanding and accurate summarization.</p>
     </div>
 
@@ -276,5 +280,23 @@ ${text}`
       }
     });
   </script>
+
+<!-- Other Tools Section -->
+<section style="max-width:1000px;margin:20px auto;padding:20px">
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:16px;text-align:center">
+    <h2 style="color:#58a6ff;margin:0 0 16px;font-size:20px">🛠️ Explore More Tools</h2>
+    <p style="color:#9fb0c8;margin:0 0 20px;font-size:14px">Discover other powerful productivity tools</p>
+    
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="AI-Blog-SEO-Generator.html" style="background:linear-gradient(90deg,#58a6ff,#2ea043);color:#0b1220;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        ✨ AI Blog Generator
+      </a>
+      <a href="guides.html" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:#f0f6fc;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        📚 All Tools Guide
+      </a>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>

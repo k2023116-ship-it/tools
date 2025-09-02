@@ -3,11 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:;">
+  <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
   <!-- ✅ SEO Meta -->
-  <meta name="description" content="Free PDF Maker: merge images (JPG, PNG, WebP) and PDFs into a single PDF. 100% client-side, private, no uploads, no watermarks. Fast and secure.">
+  <meta name="description" content="Free PDF Maker: combine images (JPG, PNG, WebP) and PDFs into one PDF. Works in your browser, private, no uploads, no watermarks. Fast and safe.">
   <meta name="keywords" content="PDF maker, merge PDFs, combine images to PDF, convert images to PDF, offline PDF tool, free PDF creator, Toolify">
   <meta name="robots" content="index, follow">
   <meta name="author" content="Toolify">
+  <link rel="canonical" href="https://toolify.services/pdf-maker.html">
   <title>PDF Maker – Images/PDF to PDF (Client-Side)</title>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
@@ -65,7 +68,7 @@
       <!-- Left Panel -->
       <section class="card panel">
         <div class="drop" id="dropzone">
-          <h3>Drop images or PDFs here</h3>
+          <h2>Drop images or PDFs here</h2>
           <p class="muted">or <label for="file" class="btn">Browse</label></p>
           <input id="file" type="file" accept="image/*,.pdf" multiple style="display:none">
         </div>
@@ -74,7 +77,7 @@
 
       <!-- Right Panel -->
       <section class="card panel">
-        <h3>Build & Export</h3>
+        <h2>Build & Export</h2>
         <div>
           <button id="exportBtn" class="btn primary" disabled>Export PDF</button>
           <button id="clearBtn" class="btn" disabled>Clear</button>
@@ -87,14 +90,14 @@
 
   <!-- ✅ SEO Text Section -->
   <div class="content-section">
-    <h2>Why Use This Free PDF Maker?</h2>
+    <h2>Why Use This PDF Maker?</h2>
     <p>
-      Toolify’s <strong>PDF Maker</strong> allows you to merge multiple images (JPG, PNG, WebP) and existing PDFs into a single PDF file. 
+      Toolify's <strong>PDF Maker</strong> allows you to merge multiple images (JPG, PNG, WebP) and existing PDFs into a single PDF file. 
       Unlike most online converters, this tool works <em>entirely offline in your browser</em>. Your files are never uploaded, 
-      ensuring <strong>privacy, security, and speed</strong>.
+      ensuring <strong>privacy, security, and speed</strong>. Perfect for combining documents with our <a href="text-extract.html" style="color:#8b5cf6;text-decoration:none">OCR Text Extractor</a> or <a href="image-converter.html" style="color:#8b5cf6;text-decoration:none">Image Converter</a>.
     </p>
 
-    <h2>Key Features</h2>
+    <h3>PDF Maker Features</h3>
     <ul>
       <li>✔ Merge <strong>JPG, PNG, WebP, and PDF</strong> files into one PDF.</li>
       <li>✔ <strong>Client-side only</strong> — files never leave your device.</li>
@@ -105,7 +108,7 @@
       <li>✔ <strong>No watermarks</strong>, no signup, always free.</li>
     </ul>
 
-    <h2>How to Use PDF Maker</h2>
+    <h3>How to Create PDFs</h3>
     <ol>
       <li>Drag and drop your images or PDF files into the upload box.</li>
       <li>Reorder pages by dragging thumbnails.</li>
@@ -113,7 +116,7 @@
       <li>Click <strong>Export PDF</strong> to download instantly.</li>
     </ol>
 
-    <h2>Tips for Best Results</h2>
+    <h3>Tips for Best Results</h3>
     <ul>
       <li>Keep images sharp and close to page resolution.</li>
       <li>Use “Contain” fit to preserve aspect ratio.</li>
@@ -121,7 +124,7 @@
       <li>Works smoothly on desktop and mobile browsers.</li>
     </ul>
 
-    <h2>Frequently Asked Questions</h2>
+    <h3>Frequently Asked Questions</h3>
     <p><strong>Is this tool free?</strong> ✅ Yes, completely free.</p>
     <p><strong>Are files uploaded?</strong> ❌ No, all work happens offline in your browser.</p>
     <p><strong>Does it add watermarks?</strong> ❌ Never. Your PDFs remain clean and professional.</p>
@@ -191,5 +194,23 @@
     clearBtnTop.addEventListener('click',()=>{items=[];list.innerHTML='';updateUI();});
     updateUI();
   </script>
+
+<!-- Other Tools Section -->
+<section style="max-width:1000px;margin:20px auto;padding:20px">
+  <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);padding:20px;border-radius:16px;text-align:center">
+    <h2 style="color:#8b5cf6;margin:0 0 16px;font-size:20px">🛠️ Explore More Tools</h2>
+    <p style="color:#aab3cc;margin:0 0 20px;font-size:14px">Discover other powerful productivity tools</p>
+    
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="AI-Blog-SEO-Generator.html" style="background:linear-gradient(90deg,#8b5cf6,#22d3ee);color:#0b1020;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        ✨ AI Blog Generator
+      </a>
+      <a href="guides.html" style="background:transparent;border:1px solid rgba(255,255,255,0.1);color:#eef3ff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:600;display:inline-block;transition:transform 0.2s">
+        📚 All Tools Guide
+      </a>
+    </div>
+  </div>
+</section>
+
 </body>
 </html>
