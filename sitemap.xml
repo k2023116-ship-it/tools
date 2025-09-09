@@ -7,12 +7,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://toolify.services/index.html</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>https://toolify.services/guides.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
@@ -28,85 +22,85 @@
     <loc>https://toolify.services/background-removal.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/color-picker.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/image-converter.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/image-resize.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/password-generator.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/pdf-maker.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/qr-generator.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/quiz-solver.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/text-case.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/text-extract.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/text-summarize.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/unit-converter.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/word-count.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/ai-blog-seo-generator.html</loc>
     <lastmod>2024-12-19</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://toolify.services/guides/background-removal.html</loc>
